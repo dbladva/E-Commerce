@@ -12,6 +12,16 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Welcome = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{marginLeft: 20, marginTop: 10,}}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <MaterialIcons
+            name={'menu'}
+            size={25}
+            color={'black'}
+          />
+            </TouchableOpacity>
+        
+        </View>
       <View style={styles.container}>
         {/* <View style={{marginLeft: 20, marginTop: 10, flexDirection: 'row',alignItems: 'center'}}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>

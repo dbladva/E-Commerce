@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,SafeAreaView } from 'react-native'
 import React from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Home = ({navigation}) => {
   return (
+    <SafeAreaView>
     <View >
      <View style={{marginLeft: 20, marginTop: 10,}}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -15,6 +16,7 @@ const Home = ({navigation}) => {
           </TouchableOpacity>
         </View>
     </View>
+    </SafeAreaView>
   )
 }
 

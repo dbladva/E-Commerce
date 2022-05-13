@@ -38,7 +38,7 @@ import {
           </View>
           <View style={styles.InputView}>
             <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
-            <TextInput style={styles.Searchinput} placeholder="Email Id" />
+            <TextInput secureTextEntry={false} style={styles.Searchinput} placeholder="Email Id" />
           </View>
           <View style={styles.InputView}>
             <MaterialIcons
@@ -108,7 +108,7 @@ import {
     ContinueText: {
       fontSize: 18,
       fontWeight: '500',
-      color: '#ffffff',
+      color: '#000000',
     },
     ContinueBtn: {
       padding: 7,
@@ -122,6 +122,7 @@ import {
       color: 'blue',
       fontWeight: '500',
       marginLeft: 5,
+      
     },
     Login:{
   flexDirection: 'row',
