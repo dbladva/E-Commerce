@@ -1,10 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import React from 'react'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
-    <View>
-      <Text>Home</Text>
+    <View >
+     <View style={{marginLeft: 20, marginTop: 10,}}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <MaterialIcons
+            name={'menu'}
+            size={25}
+            color={'black'}
+          />
+          </TouchableOpacity>
+        </View>
     </View>
   )
 }
