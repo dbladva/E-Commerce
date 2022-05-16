@@ -16,7 +16,7 @@ import Login from './src/screen/Login/Login';
 import Product from './src/screen/Prodduct/Product';
 import { Provider } from 'react-redux';
 import Counter from './src/screen/Counter';
-import store from './src/redux/store'
+import { CounterStore } from './src/redux/store';
 
 
 const Stack = createNativeStackNavigator();
@@ -69,7 +69,7 @@ const HomeScreenHandler = () => {
 
 const App = () => {
   return (
-    <Provider store={store}>
+    <Provider store={CounterStore}>
     <NavigationContainer >
       <Drawer.Navigator screenOptions={{ headerShown: false, }} initialRouteName="Home">
       <Drawer.Screen name="counter" options={{
