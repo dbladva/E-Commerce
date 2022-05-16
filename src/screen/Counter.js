@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Counter = () => {
     const dispatch = useDispatch();
-    const count = useSelector(state => state.counter)
+    const count = useSelector(state => state.count)
 
 const handleIncrement = () => {
-    dispatch(increment)
+    dispatch(increment())
 }
 
 const handleDecrement = () => {
@@ -22,7 +22,7 @@ const handleDecrement = () => {
             <Text style={{fontSize: 25,}}> + </Text>
             </TouchableOpacity>
             <Text>
-                {count.counter}
+                {count.count}
             </Text>
             <TouchableOpacity onPress={() => handleDecrement()} style={{padding: 10,backgroundColor: 'blue'}}>
             <Text style={{fontSize: 25,}}> - </Text>

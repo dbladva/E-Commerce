@@ -16,8 +16,7 @@ import Login from './src/screen/Login/Login';
 import Product from './src/screen/Prodduct/Product';
 import { Provider } from 'react-redux';
 import Counter from './src/screen/Counter';
-import { store } from './src/redux/store';
-
+import store from './src/redux/store'
 
 
 const Stack = createNativeStackNavigator();
