@@ -14,8 +14,11 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Signup from './src/screen/Login/Signup';
 import Login from './src/screen/Login/Login';
 import Product from './src/screen/Prodduct/Product';
-import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
+import Counter from './src/screen/Counter';
+import { store } from './src/redux/store';
+
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,7 +62,6 @@ const HomeScreenHandler = () => {
       <Tab.Screen name="home" component={Home} />
       <Tab.Screen name="Sign" component={Login} />
     </Tab.Navigator>
-
   )
 }
 
@@ -69,6 +71,16 @@ const App = () => {
     <Provider store={store}>
     <NavigationContainer >
       <Drawer.Navigator screenOptions={{ headerShown: false, }} initialRouteName="Home">
+      <Drawer.Screen name="counter" options={{
+           title: 'counter',
+           drawerIcon: ({focused, size}) => (
+              <MaterialIcons
+                 name="star-border"
+                 size={size}
+                 color={focused ? '#7cc' : '#ccc'}
+              />
+           ),
+        }} component={Counter} />
         <Drawer.Screen name="Home" options={{
           title: 'Home',
           drawerIcon: ({ focused, size }) => (
