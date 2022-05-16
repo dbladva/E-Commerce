@@ -55,6 +55,8 @@ const HomeScreenHandler = () => {
         headerShown: false,
         tabBarActiveBackgroundColor: '#d0c2e8',
         tabBarInactiveBackgroundColor: '#d0c2e8',
+
+
       })}
     >
       <Tab.Screen name="Welc" component={Welcome} />
