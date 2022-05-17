@@ -45,9 +45,11 @@ const Product = ({navigation}) => {
           </Text>
         </View>
 
+<View style={{backgroundColor: '#d0c2e8',marginLeft: 16,marginRight: 16,borderRadius: 10}}>
+
         <View style={styles.ProductData}>
           <View style={styles.productNameView}>
-            <Text style={styles.ProductText}>Product Name</Text>
+            <Text style={styles.ProductText}>Item Name</Text>
           </View>
           <View style={styles.ProductTextInput}>
             <TextInput
@@ -77,6 +79,8 @@ const Product = ({navigation}) => {
             <TextInput style={styles.Searchinput} placeholder="₹ Prize" />
           </View>
         </View>
+</View>
+
 
         <View style={{alignItems: 'center',marginTop: 20,}}>
           <TouchableOpacity style={styles.ContinueBtn}>
@@ -100,13 +104,13 @@ const styles = StyleSheet.create({
   },
   productNameView: {},
   ProductData: {
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
     backgroundColor: '#d0c2e8',
-    marginLeft: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 20,
+    marginLeft: 16,
+    marginTop: 8,
+    marginBottom: 8,
+    marginRight: 16,
   },
   ProductTextInput: {},
   ProductText: {

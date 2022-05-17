@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   ContinueText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#ffffff',
+    color: '#000000',
   },
   ContinueBtn: {
     padding: 7,

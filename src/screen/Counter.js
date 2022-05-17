@@ -3,10 +3,12 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { color } from 'react-native-reanimated'
 import { counterDecrement, counterIncrement } from '../redux/action/counter.action'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
-const Counter = () => {
+
+const Counter = ({navigation}) => {
     const dispatch = useDispatch();
     const count = useSelector(state => state.counter)
 
@@ -22,6 +24,20 @@ const Counter = () => {
 
     return (
         <View style={styles.container}>
+
+
+<View style={{position: 'absolute',top: 10,left: 10,marginLeft: 20, marginTop: 10,}}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <MaterialIcons
+            name={'menu'}
+            size={25}
+            color={'black'}
+          />
+            </TouchableOpacity>
+        
+        </View>
+
+
             <TouchableOpacity onPress={() => handleIncrement()} style={styles.box}>
                 <Text style={{ fontSize: 25, color: 'white' }}> + </Text>
             </TouchableOpacity>
