@@ -16,13 +16,13 @@ import Login from './src/screen/Login/Login';
 import Product from './src/screen/Prodduct/Product';
 import { Provider } from 'react-redux';
 import Counter from './src/screen/Counter';
-import { CounterStore } from './src/redux/store';
+import {store} from './src/redux/store';
 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
+ 
 const HomeScreenHandler = () => {
   return (
     <Tab.Navigator
@@ -59,7 +59,7 @@ const HomeScreenHandler = () => {
 
       })}
     >
-      <Tab.Screen name="Welc" component={Welcome} />
+      <Tab.Screen name="Welc" component={Counter} />
       <Tab.Screen name="home" component={Home} />
       <Tab.Screen name="Sign" component={Login} />
     </Tab.Navigator>
@@ -69,7 +69,7 @@ const HomeScreenHandler = () => {
 
 const App = () => {
   return (
-    <Provider store={CounterStore}>
+    <Provider store={store}>
     <NavigationContainer >
       <Drawer.Navigator screenOptions={{ headerShown: false, }} initialRouteName="Home">
       <Drawer.Screen name="counter" options={{

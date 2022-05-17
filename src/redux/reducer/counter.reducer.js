@@ -1,24 +1,24 @@
 import * as ActionType from '../ActionType' 
 
 const initailValue = {
-    count : 0,
+    count1 : 0,
 }
 
-export default counterReducer  = (state = initailValue, action) => {
-
+export const counterReducer  = (state = initailValue, action) => {
+    console.log(state, action);
     switch(action.type){
-        case ActionType.increment : 
-        return {
-            ...state,
-            state : state.count + 1 
-        }
-
-        case ActionType.decrement : 
-        return {
-            ...state,
-            state : state.count - 1 
-        }
-
-        default : state 
+        case ActionType.INCREMENT_COUNTER :
+            console.log("ok"); 
+            return {
+                ...state,
+                count1 : state.count1 + 1 
+            }
+        case ActionType.DECREMENT_COUNTER : 
+            return {
+                ...state,
+                count1 : state.count1 - 1 
+            }
+        default : 
+            return state 
     }
 }
