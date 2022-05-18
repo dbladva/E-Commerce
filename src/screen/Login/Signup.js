@@ -61,7 +61,7 @@ const Signup = ({navigation}) => {
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Email" onChangeText={(text) => setEmail(text)} />
+          <TextInput style={styles.Searchinput} placeholder="Email" keyboardType='default'  onChangeText={(text) => setEmail(text)} />
         </View>
         <View style={styles.InputView}>
           <MaterialIcons
@@ -73,7 +73,7 @@ const Signup = ({navigation}) => {
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'call-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Mobile" onChangeText={(text) => setPhone(text)}/>
+          <TextInput style={styles.Searchinput} placeholder="Mobile" keyboardType='phone-pad' maxLength={10} onChangeText={(text) => setPhone(text)}/>
         </View>
 
         <View style={styles.InputView}>
