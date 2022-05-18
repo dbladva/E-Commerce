@@ -7,12 +7,36 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useDispatch } from 'react-redux';
+import { userAction } from '../../redux/action/userAction';
+
 
 const Signup = ({navigation}) => {
+  const [name,setName] = useState('');
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [phone,setPhone] = useState('');
+  const [show,setShow] = useState(true)
+
+
+  const dispatch = useDispatch()
+  const userHandler  = () => {
+    let data = {
+      name,
+      email,
+      password,
+      phone,
+    }
+
+    dispatch(userAction(data))
+    console.log(data);
+  }
+ 
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -37,7 +61,7 @@ const Signup = ({navigation}) => {
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Email" />
+          <TextInput style={styles.Searchinput} placeholder="Email" onChangeText={(text) => setEmail(text)} />
         </View>
         <View style={styles.InputView}>
           <MaterialIcons
@@ -45,15 +69,32 @@ const Signup = ({navigation}) => {
             size={25}
             color={'black'}
           />
-          <TextInput style={styles.Searchinput} placeholder="Full Name" />
+          <TextInput style={styles.Searchinput} placeholder="Full Name" onChangeText={(text) => setName(text)}/>
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'call-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Mobile" />
+          <TextInput style={styles.Searchinput} placeholder="Mobile" onChangeText={(text) => setPhone(text)}/>
+        </View>
+
+        <View style={styles.InputView}>
+          <MaterialIcons
+            name={'lock'}
+            size={25}
+            color={'black'}
+          />
+          <TextInput style={styles.Searchinput} placeholder="Password" secureTextEntry={show ? true : false } onChangeText={(text) => setPassword(text)}/>
+          <TouchableOpacity style={{right: 30,}} onPress={() => setShow(!show)}>
+          <Ionicons
+            name={show ? 'eye-off' : 'eye'}
+            size={25}
+            color={'black'}
+          />
+          </TouchableOpacity>
+          
         </View>
 
         <View style={{alignItems: 'center', margin: 20}}>
-          <TouchableOpacity style={styles.ContinueBtn}>
+          <TouchableOpacity  style={styles.ContinueBtn} onPress={userHandler}>
             <Text style={styles.ContinueText}>Continue</Text>
           </TouchableOpacity>
         </View>

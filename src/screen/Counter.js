@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView,TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { color } from 'react-native-reanimated'
 import { counterDecrement, counterIncrement } from '../redux/action/counter.action'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-
-
-
-const Counter = ({navigation}) => {
+const Counter = ({ navigation }) => {
     const dispatch = useDispatch();
     const count = useSelector(state => state.counter)
 
@@ -23,19 +20,18 @@ const Counter = ({navigation}) => {
     console.log(count.count1);
 
     return (
+        <SafeAreaView style={{flex: 1}}>
         <View style={styles.container}>
+            <View style={{ position: 'absolute', top: 10, left: 10, marginLeft: 20, marginTop: 10, }}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <MaterialIcons
+                        name={'menu'}
+                        size={25}
+                        color={'black'}
+                    />
+                </TouchableOpacity>
 
-
-<View style={{position: 'absolute',top: 10,left: 10,marginLeft: 20, marginTop: 10,}}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <MaterialIcons
-            name={'menu'}
-            size={25}
-            color={'black'}
-          />
-            </TouchableOpacity>
-        
-        </View>
+            </View>
 
 
             <TouchableOpacity onPress={() => handleIncrement()} style={styles.box}>
@@ -48,6 +44,7 @@ const Counter = ({navigation}) => {
                 <Text style={{ fontSize: 25, color: 'white' }}> - </Text>
             </TouchableOpacity>
         </View>
+        </SafeAreaView>
     )
 }
 

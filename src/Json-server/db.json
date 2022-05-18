@@ -1,60 +1,312 @@
 {
-  "MedicineData": [
+  "users": [
     {
-      "id": 1,
-      "name": "Abacavir",
-      "quantity": 25,
-      "price": 150,
-      "expiry": 2022,
-      "content": [
-        "x",
-        "y",
-        "z"
-      ]
+      "name": "Dad",
+      "email": "Ladvadharmesh03",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Eltrombopag",
-      "quantity": 90,
-      "price": 550,
-      "expiry": 2021,
-      "content": [
-        "a",
-        "b",
-        "c"
-      ]
+      "name": "Dad",
+      "email": "Ladvadharmesh03",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "Meloxicam",
-      "quantity": 85,
-      "price": 450,
-      "expiry": 2025,
-      "content": [
-        "m",
-        "n",
-        "p"
-      ]
+      "name": "Dad",
+      "email": "Ladvadharmesh03",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 3
     },
     {
-        "id": 4,
-        "name": "Allopurinol",
-        "quantity": 50,
-        "price": 600,
-        "expiry": 2023,
-        "content": [
-            "a", "s", "d"
-        ]
+      "name": "Dad",
+      "email": "Ladvadharmesh03",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 4
     },
     {
-        "id": 5,
-        "name": "Phenytoin",
-        "quantity": 63,
-        "price": 250,
-        "expiry": 2021,
-        "content": [
-            "e", "r", "t"
-        ]
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 5
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 6
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 7
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 8
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 9
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 10
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 11
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 12
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 13
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsfdfsdf",
+      "phone": "Faded",
+      "id": 14
+    },
+    {
+      "name": "Dads",
+      "email": "Ladadd",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 15
+    },
+    {
+      "name": "Dads",
+      "email": "Ladadd",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 16
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 17
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 18
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 19
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 20
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 21
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 22
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 23
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 24
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 25
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Ffdsfs",
+      "phone": "Fears",
+      "id": 26
+    },
+    {
+      "name": "Dfdsfsd",
+      "email": "Dads",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 27
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 28
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 29
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 30
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 31
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 32
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 33
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 34
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 35
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 36
+    },
+    {
+      "name": "",
+      "email": "",
+      "password": "Fsdfdsf",
+      "phone": "Dfsfdsf",
+      "id": 37
+    },
+    {
+      "name": "Sdfsdfsd",
+      "email": "Fdsfsf",
+      "password": "Fdfsd",
+      "phone": "Safest",
+      "id": 38
+    },
+    {
+      "name": "Sdfsdfsd",
+      "email": "Fdsfsf",
+      "password": "Fdfsd",
+      "phone": "Safest",
+      "id": 39
+    },
+    {
+      "name": "Sdfsdfsd",
+      "email": "Fdsfsf",
+      "password": "Fdfsd",
+      "phone": "Safest",
+      "id": 40
+    },
+    {
+      "name": "Sdfsdfsd",
+      "email": "Fdsfsf",
+      "password": "Fdfsd",
+      "phone": "Safest",
+      "id": 41
+    },
+    {
+      "name": "Ladva",
+      "email": "Dharmeshladva",
+      "password": "Dfsfdsdfsff",
+      "phone": "5364253535",
+      "id": 42
+    },
+    {
+      "name": "Ladva",
+      "email": "Dharmeshladva",
+      "password": "Dfsfdsdfsff",
+      "phone": "5364253535",
+      "id": 43
+    },
+    {
+      "name": "Ladva",
+      "email": "Dharmeshladva",
+      "password": "Dfsfdsdfsff",
+      "phone": "5364253535",
+      "id": 44
     }
   ]
 }
