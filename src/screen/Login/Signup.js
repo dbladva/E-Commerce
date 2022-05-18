@@ -23,8 +23,9 @@ const Signup = ({navigation}) => {
   const [show,setShow] = useState(true)
 
 
-  const dispatch = useDispatch()
-  const userHandler  = () => {
+  const dispatch = useDispatch(); 
+
+  const userHandler = () => {
     let data = {
       name,
       email,

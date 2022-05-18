@@ -1,4 +1,5 @@
 export const userAction = (data) => (dispatch) => {
+
   try {
     fetch('http://localhost:3004/users', {
       method: 'POST',

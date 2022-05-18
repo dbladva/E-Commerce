@@ -2,7 +2,7 @@ import * as ActionType from '../ActionType'
 
 const initValue = {
     isLoading: false,
-    user: [],
+    users: [],
     error: '',
 }
 
