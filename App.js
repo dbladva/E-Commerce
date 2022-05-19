@@ -39,22 +39,22 @@ const HomeScreenHandler = () => {
           }
 
           if (route.name === 'Welc') {
-            return <AntDesign name={'star'} size={22} color={focused ? 'red' : 'black'} />;
+            return <AntDesign name={'star'} size={22} color={focused ? '#7cc' : 'black'} />;
           } else if (route.name === 'Home') {
-            return <Entypo name={'home'} size={20} color={focused ? 'red' : 'black'} />;
+            return <Entypo name={'home'} size={20} color={focused ? '#7cc' : 'black'} />;
           } else if (route.name === 'Sign') {
-            return <AntDesign name={'login'} size={20} color={focused ? 'red' : 'black'} />;
+            return <AntDesign name={'login'} size={20} color={focused ? '#7cc' : 'black'} />;
           }
 
           // You can return any component that you like here!
           // return <AntDesign name={'home'} size={20} color={'blue'} />;
         },
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: 'gray',
         
-        tabBarInactiveTintColor: 'red',
+        tabBarInactiveTintColor: '#7cc',
         headerShown: false,
-        tabBarActiveBackgroundColor: '#d0c2e8',
-        tabBarInactiveBackgroundColor: '#d0c2e8',
+        // tabBarActiveBackgroundColor: '#d0c2e8',
+        // tabBarInactiveBackgroundColor: '#d0c2e8',
       })}>
       <Tab.Screen name="Welc" component={Welcome} />
       <Tab.Screen name="Home" component={Home} />

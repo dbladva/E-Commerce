@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React,{useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,15 +15,15 @@ import { useDispatch } from 'react-redux';
 import { userAction } from '../../redux/action/userAction';
 
 
-const Signup = ({navigation}) => {
-  const [name,setName] = useState('');
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
-  const [phone,setPhone] = useState('');
-  const [show,setShow] = useState(true)
+const Signup = ({ navigation }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [show, setShow] = useState(true)
 
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const userHandler = () => {
     let data = {
@@ -36,18 +36,18 @@ const Signup = ({navigation}) => {
     dispatch(userAction(data))
     console.log(data);
   }
- 
+
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <View style={{marginLeft: 20, marginTop: 10,}}>
+        <View style={{ marginLeft: 20, marginTop: 10, }}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <MaterialIcons
-            name={'menu'}
-            size={25}
-            color={'black'}
-          />
+            <MaterialIcons
+              name={'menu'}
+              size={25}
+              color={'black'}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.ImageView}>
@@ -62,7 +62,7 @@ const Signup = ({navigation}) => {
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Email" keyboardType='default'  onChangeText={(text) => setEmail(text)} />
+          <TextInput style={styles.Searchinput} placeholder="Email" keyboardType='default' onChangeText={(text) => setEmail(text)} />
         </View>
         <View style={styles.InputView}>
           <MaterialIcons
@@ -70,11 +70,11 @@ const Signup = ({navigation}) => {
             size={25}
             color={'black'}
           />
-          <TextInput style={styles.Searchinput} placeholder="Full Name" onChangeText={(text) => setName(text)}/>
+          <TextInput style={styles.Searchinput} placeholder="Full Name" onChangeText={(text) => setName(text)} />
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'call-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Mobile" keyboardType='phone-pad' maxLength={10} onChangeText={(text) => setPhone(text)}/>
+          <TextInput style={styles.Searchinput} placeholder="Mobile" keyboardType='phone-pad' maxLength={10} onChangeText={(text) => setPhone(text)} />
         </View>
 
         <View style={styles.InputView}>
@@ -83,27 +83,27 @@ const Signup = ({navigation}) => {
             size={25}
             color={'black'}
           />
-          <TextInput style={styles.Searchinput} placeholder="Password" secureTextEntry={show ? true : false } onChangeText={(text) => setPassword(text)}/>
-          <TouchableOpacity style={{right: 30,}} onPress={() => setShow(!show)}>
-          <Ionicons
-            name={show ? 'eye-off' : 'eye'}
-            size={25}
-            color={'black'}
-          />
+          <TextInput style={styles.Searchinput} placeholder="Password" secureTextEntry={show ? true : false} onChangeText={(text) => setPassword(text)} />
+          <TouchableOpacity style={{ right: 30, }} onPress={() => setShow(!show)}>
+            <Ionicons
+              name={show ? 'eye-off' : 'eye'}
+              size={25}
+              color={'black'}
+            />
           </TouchableOpacity>
-          
+
         </View>
 
-        <View style={{alignItems: 'center', margin: 20}}>
-          <TouchableOpacity  style={styles.ContinueBtn} onPress={userHandler}>
+        <View style={{ alignItems: 'center', margin: 20 }}>
+          <TouchableOpacity style={styles.ContinueBtn} onPress={userHandler}>
             <Text style={styles.ContinueText}>Continue</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.Login}>
-          <Text style={{textAlign: 'center',}}>Joined Us before?</Text>
+          <Text style={{ textAlign: 'center', }}>Joined Us before?</Text>
           <TouchableOpacity>
-          <Text style={styles.Loginbtn}>Login</Text>
+            <Text style={styles.Loginbtn}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -161,16 +161,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
   },
-  Loginbtn:{
+  Loginbtn: {
     textAlign: 'center',
     color: 'blue',
     fontWeight: '500',
     marginLeft: 5,
   },
-  Login:{
-flexDirection: 'row',
-textAlign: 'center',
-justifyContent: 'center',
-margin: 10,
+  Login: {
+    flexDirection: 'row',
+    textAlign: 'center',
+    justifyContent: 'center',
+    margin: 10,
   },
 });

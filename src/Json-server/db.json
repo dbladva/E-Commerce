@@ -1,5 +1,18 @@
 {
   "users": [
-
+    {
+      "name": "Ladva Dharmesh",
+      "email": "Ladvadharmesh03@gmail.com",
+      "password": "ladva12345",
+      "phone": "5353553434",
+      "id": 11
+    },
+    {
+      "name": "",
+      "email": "12345",
+      "password": "12345",
+      "phone": "",
+      "id": 12
+    }
   ]
 }

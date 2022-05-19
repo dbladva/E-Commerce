@@ -19,3 +19,24 @@ export const userAction = (data) => (dispatch) => {
     console.log(e);
   }
 };
+
+export const login = (loginData) => (dispatch) => {
+
+  fetch('http://localhost:3004/users', {
+    method: 'GET',
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(loginData);
+      result.map((d) => {
+        return loginData.map((a) => {
+          if (d.email === a.email || d.password === a.password) {
+            console.log('Matched');
+          }
+
+        })
+        
+      })
+    })
+}
+
