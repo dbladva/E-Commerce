@@ -11,6 +11,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Product = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [, setPassword] = useState('');
+
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>

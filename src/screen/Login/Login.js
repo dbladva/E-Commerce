@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/action/userAction';
 
 const Login = ({ navigation }) => {
@@ -20,14 +20,18 @@ const Login = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
+  const user = useSelector(state => state.users);
   const loginHandler = () => {
     const loginData = {
       email,
       password
     }
-    dispatch(login(loginData))
-    
+    dispatch(login(loginData, navigation))
 
+    if(user.user === null && user.error !== '' ) {
+      alert("wrong email/password");
+      navigation.navigate("Login")
+    }
   }
 
   return (
@@ -75,7 +79,7 @@ const Login = ({ navigation }) => {
 
         <View style={styles.Login}>
           <Text style={{ textAlign: 'center', }}>Forgot Password?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.Loginbtn}>Click</Text>
           </TouchableOpacity>
         </View>

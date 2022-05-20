@@ -1,6 +1,5 @@
  import * as ActionType from '../ActionType'
 
-
 export const counterIncrement = () => (dispatch) => {
     dispatch({type: ActionType.INCREMENT_COUNTER,payload: 0})
 }

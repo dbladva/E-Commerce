@@ -1,3 +1,5 @@
+import * as ActionType from '../ActionType'
+
 export const userAction = (data) => (dispatch) => {
 
   try {
@@ -20,23 +22,28 @@ export const userAction = (data) => (dispatch) => {
   }
 };
 
-export const login = (loginData) => (dispatch) => {
-
+export const login = (loginData, navigation) => (dispatch) => {
+  let flag = 0, id=0;
   fetch('http://localhost:3004/users', {
     method: 'GET',
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(loginData);
+      console.log(result);
       result.map((d) => {
-        return loginData.map((a) => {
-          if (d.email === a.email || d.password === a.password) {
-            console.log('Matched');
-          }
-
-        })
-        
+        if (d.email == loginData.email && d.password == loginData.password) {
+          flag = 1;
+          id = d.id;
+          console.log("match");
+        }
       })
-    })
+      if (flag === 1) {
+        dispatch({type: ActionType.SIGNIN_SUCCESS, payload: id})
+        navigation.navigate("Home")
+      } else {
+        dispatch({type: ActionType.SIGNIN_ERROR, payload: "Wrong email/password"})
+      }
+    })  
+    
 }
 

@@ -73,9 +73,9 @@ const App = () => {
           initialRouteName="Home">
          
           <Drawer.Screen
-            name="Home"
+            name="Homee"
             options={{
-              title: 'Home',
+            
               drawerIcon: ({focused, size}) => (
                 <Ionicons
                   name="home"

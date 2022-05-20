@@ -102,7 +102,7 @@ const Signup = ({ navigation }) => {
 
         <View style={styles.Login}>
           <Text style={{ textAlign: 'center', }}>Joined Us before?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}> 
             <Text style={styles.Loginbtn}>Login</Text>
           </TouchableOpacity>
         </View>

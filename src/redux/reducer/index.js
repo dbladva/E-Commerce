@@ -3,8 +3,9 @@ import { counterReducer } from './counter.reducer'
 import { userReducer } from "./userReducer";
 
 const rootReducer = combineReducers({
-    counter : counterReducer, 
+    counter: counterReducer, 
     users: userReducer,
+    product: productReducer,
 })
 
 export default rootReducer
