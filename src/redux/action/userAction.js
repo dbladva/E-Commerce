@@ -3,7 +3,7 @@ import * as ActionType from '../ActionType'
 export const userAction = (data) => (dispatch) => {
 
   try {
-    fetch('http://localhost:3004/users', {
+    fetch('http://192.168.43.200:8000/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const userAction = (data) => (dispatch) => {
 
 export const login = (loginData, navigation) => (dispatch) => {
   let flag = 0, id=0;
-  fetch('http://localhost:3004/users', {
+  fetch('http://192.168.43.200:8000/users', {
     method: 'GET',
   })
     .then((response) => response.json())

@@ -6,14 +6,31 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useDispatch} from 'react-redux';
+import {Product_Action} from '../../redux/action/product.action';
 
 const Product = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [detais, setDetails] = useState('');
+  const [Price, setPrice] = useState('');
+  const [location, setLocation] = useState('');
 
+
+  const dispatch = useDispatch();
+  const SubmitHandler = () => {
+    let pData = {
+      name,
+      detais,
+      Price,
+      location
+    };
+
+    dispatch(Product_Action(pData));
+    console.log(pData);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,45 +66,70 @@ const Product = ({navigation}) => {
           </Text>
         </View>
 
-<View style={{backgroundColor: '#d0c2e8',marginLeft: 16,marginRight: 16,borderRadius: 10}}>
-
-        <View style={styles.ProductData}>
-          <View style={styles.productNameView}>
-            <Text style={styles.ProductText}>Item Name</Text>
+        <View
+          style={{
+            backgroundColor: '#d0c2e8',
+            marginLeft: 16,
+            marginRight: 16,
+            borderRadius: 10,
+          }}>
+          <View style={styles.ProductData}>
+            <View style={styles.productNameView}>
+              <Text style={styles.ProductText}>Item Name</Text>
+            </View>
+            <View style={styles.ProductTextInput}>
+              <TextInput
+                style={styles.Searchinput}
+                placeholder="Product Name..."
+                onChangeText={text => setName(text)}
+              />
+            </View>
           </View>
-          <View style={styles.ProductTextInput}>
-            <TextInput
-              style={styles.Searchinput}
-              placeholder="Product Name..."
-            />
+
+          <View style={styles.ProductData}>
+            <View style={styles.productNameView}>
+              <Text style={styles.ProductText}>Description</Text>
+            </View>
+            <View style={styles.ProductTextInput}>
+              <TextInput
+                style={styles.Searchinput}
+                placeholder="Add Your product Description..."
+                onChangeText={text => setDetails(text)}
+              />
+            </View>
+          </View>
+
+          <View style={styles.ProductData}>
+            <View style={styles.productNameView}>
+              <Text style={styles.ProductText}>Location</Text>
+            </View>
+            <View style={styles.ProductTextInput}>
+              <TextInput
+                style={styles.Searchinput}
+                placeholder="Add Your Area Location..."
+                onChangeText={text => setLocation(text)}
+              />
+            </View>
+          </View>
+
+          <View style={styles.ProductData}>
+            <View style={styles.productNameView}>
+              <Text style={styles.ProductText}>Price</Text>
+            </View>
+            <View style={styles.ProductTextInput}>
+              <TextInput
+                style={styles.Searchinput}
+                placeholder="₹ Prize"
+                onChangeText={text => setPrice(text)}
+              />
+            </View>
           </View>
         </View>
 
-        <View style={styles.ProductData}>
-          <View style={styles.productNameView}>
-            <Text style={styles.ProductText}>Description</Text>
-          </View>
-          <View style={styles.ProductTextInput}>
-            <TextInput
-              style={styles.Searchinput}
-              placeholder="Add Your product Description..."
-            />
-          </View>
-        </View>
-
-        <View style={styles.ProductData}>
-          <View style={styles.productNameView}>
-            <Text style={styles.ProductText}>Price</Text>
-          </View>
-          <View style={styles.ProductTextInput}>
-            <TextInput style={styles.Searchinput} placeholder="₹ Prize" />
-          </View>
-        </View>
-</View>
-
-
-        <View style={{alignItems: 'center',marginTop: 20,}}>
-          <TouchableOpacity style={styles.ContinueBtn}>
+        <View style={{alignItems: 'center', marginTop: 20}}>
+          <TouchableOpacity
+            style={styles.ContinueBtn}
+            onPress={() => SubmitHandler()}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.ContinueText}>Submit </Text>
               <AntDesign name={'arrowright'} size={20} color={'black'} />
@@ -118,11 +160,13 @@ const styles = StyleSheet.create({
   },
   ProductTextInput: {},
   ProductText: {
+    marginLeft: 3,
+    fontWeight: 'bold',
     fontSize: 20,
     color: 'black',
   },
   Searchinput: {
-    marginTop: 10,
+    marginTop: 5,
     paddingLeft: 5,
     paddingBottom: 10,
     fontSize: 18,

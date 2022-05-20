@@ -5,52 +5,69 @@
       "email": "Ladvadharmesh03@gmail.com",
       "password": "ladva12345",
       "phone": "5353553434",
-      "id": 11
+      "id": 1
     },
     {
       "name": "",
       "email": "12345",
       "password": "12345",
       "phone": "",
-      "id": 12
+      "id": 2
     },
     {
-      "name": "123456",
-      "email": "123456",
-      "password": "123456",
-      "phone": "123456",
-      "id": 13
-    },
-    {
-      "name": "123456",
-      "email": "123456",
-      "password": "123456",
-      "phone": "123456",
-      "id": 14
+      "name": "dsadasda",
+      "email": "sds",
+      "password": "adasd",
+      "phone": "dasdasd",
+      "id": 3
     },
     {
       "name": "",
       "email": "",
       "password": "",
       "phone": "",
-      "id": 15
+      "id": 4
     },
     {
       "name": "",
       "email": "",
       "password": "",
       "phone": "",
-      "id": 16
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "phone": "",
-      "id": 17
+      "id": 5
     }
   ],
   "products": [
-    
+    {
+      "name": "",
+      "detais": "",
+      "Price": "",
+      "id": 1
+    },
+    {
+      "name": "",
+      "detais": "",
+      "Price": "",
+      "id": 2
+    },
+    {
+      "name": "asdasdas",
+      "detais": "dadasd",
+      "Price": "dsdas",
+      "id": 3
+    },
+    {
+      "name": "asdadsa",
+      "detais": "sdasdasd",
+      "Price": "dsdsa",
+      "location": "dasdsda",
+      "id": 4
+    },
+    {
+      "name": "asdadsa",
+      "detais": "sdasdasd",
+      "Price": "dsdsa",
+      "location": "dasdsda",
+      "id": 5
+    }
   ]
 }

@@ -17,6 +17,7 @@ import { login } from '../../redux/action/userAction';
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [show, setShow] = useState(true)
 
   const dispatch = useDispatch();
 
@@ -28,10 +29,10 @@ const Login = ({ navigation }) => {
     }
     dispatch(login(loginData, navigation))
 
-    if(user.user === null && user.error !== '' ) {
-      alert("wrong email/password");
-      navigation.navigate("Login")
-    }
+    // if(user.user === null && user.error !== '' ) {
+    //   alert("wrong email/password");
+    //   navigation.navigate("Login")
+    // }
   }
 
   return (
@@ -67,7 +68,14 @@ const Login = ({ navigation }) => {
             size={25}
             color={'black'}
           />
-          <TextInput style={styles.Searchinput} secureTextEntry={true} placeholder="Password" onChangeText={(a) => setPassword(a)} />
+          <TextInput style={styles.Searchinput} secureTextEntry={show ? true : false} placeholder="Password" onChangeText={(a) => setPassword(a)} />
+          <TouchableOpacity style={{ right: 30, }} onPress={() => setShow(!show)}>
+            <Ionicons
+              name={show ? 'eye-off' : 'eye'}
+              size={25}
+              color={'black'}
+            />
+          </TouchableOpacity>
         </View>
 
 
