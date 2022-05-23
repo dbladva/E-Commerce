@@ -6,19 +6,21 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useDispatch} from 'react-redux';
-import {Product_Action} from '../../redux/action/product.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData, fetchProduct, insertProduct } from '../../redux/action/product.action';
+import { FlatList } from 'react-native-gesture-handler';
 
-const Product = ({navigation}) => {
+const Product = ({ navigation }) => {
   const [name, setName] = useState('');
   const [detais, setDetails] = useState('');
   const [Price, setPrice] = useState('');
   const [location, setLocation] = useState('');
 
 
+  const product = useSelector(state => state.product);
   const dispatch = useDispatch();
   const SubmitHandler = () => {
     let pData = {
@@ -28,9 +30,27 @@ const Product = ({navigation}) => {
       location
     };
 
-    dispatch(Product_Action(pData));
+    dispatch(insertProduct(pData));
     console.log(pData);
   };
+
+
+
+  const renderItem = ({ item }) => {
+    return (
+      <View style={{ backgroundColor: '#d0c2e8' }}>
+        <Text>{item.name} </Text>
+      </View>
+    )
+  };
+
+  useEffect(
+    () => {
+      dispatch(fetchProduct())
+    },
+    [])
+
+  console.log(product);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,7 +64,7 @@ const Product = ({navigation}) => {
             borderBottomColor: 'gray',
           }}>
           <TouchableOpacity
-            style={{marginLeft: 20, marginBottom: 10, marginTop: 10}}
+            style={{ marginLeft: 20, marginBottom: 10, marginTop: 10 }}
             onPress={() => navigation.openDrawer()}>
             <MaterialIcons name={'menu'} size={25} color={'black'} />
           </TouchableOpacity>
@@ -61,7 +81,7 @@ const Product = ({navigation}) => {
         </View>
 
         <View>
-          <Text style={{textAlign: 'center', color: 'red', padding: 10}}>
+          <Text style={{ textAlign: 'center', color: 'red', padding: 10 }}>
             Add Your Product Detail Below{' '}
           </Text>
         </View>
@@ -126,16 +146,24 @@ const Product = ({navigation}) => {
           </View>
         </View>
 
-        <View style={{alignItems: 'center', marginTop: 20}}>
+        <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10, }}>
           <TouchableOpacity
             style={styles.ContinueBtn}
             onPress={() => SubmitHandler()}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <Text style={styles.ContinueText}>Submit </Text>
               <AntDesign name={'arrowright'} size={20} color={'black'} />
             </View>
           </TouchableOpacity>
         </View>
+        <View style={{ margin: 10, padding: 10 }}>
+          <FlatList style={{ borderRadius: 10 }}
+            data={product.product}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -144,18 +172,28 @@ const Product = ({navigation}) => {
 export default Product;
 
 const styles = StyleSheet.create({
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 16,
+    // color: 'black'
+  },
   container: {
     flex: 1,
     backgroundColor: '#dbffff',
   },
   productNameView: {},
   ProductData: {
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
     backgroundColor: '#d0c2e8',
     marginLeft: 16,
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 4,
+    marginBottom: 4,
     marginRight: 16,
   },
   ProductTextInput: {},
