@@ -4,53 +4,79 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  ActivityIndicator,
   TextInput,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+
+import React, {useEffect, useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchData, fetchProduct, insertProduct } from '../../redux/action/product.action';
-import { FlatList } from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  fetchData,
+  fetchProduct,
+  insertProduct,
+} from '../../redux/action/product.action';
+import {FlatList} from 'react-native-gesture-handler';
 
-const Product = ({ navigation }) => {
+const Product = ({navigation}) => {
   const [name, setName] = useState('');
   const [detais, setDetails] = useState('');
   const [Price, setPrice] = useState('');
   const [location, setLocation] = useState('');
-
+  const [loading, isLoading] = useState(true);
 
   const product = useSelector(state => state.product);
+
   const dispatch = useDispatch();
   const SubmitHandler = () => {
     let pData = {
       name,
       detais,
       Price,
-      location
+      location,
     };
 
     dispatch(insertProduct(pData));
-    console.log(pData);
+
+    // loading = dispatch(loadingProduct(isLoading))
   };
 
-
-
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     return (
-      <View style={{ backgroundColor: '#d0c2e8' }}>
-        <Text>{item.name} </Text>
+      <View
+        style={{
+          backgroundColor: '#d0c2e8',
+          margin: 5,
+          padding: 5,
+          width: '46%',
+          borderRadius: 10,
+        }}>
+        <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+          <TouchableOpacity style={styles.OptionsIcon}>
+            <MaterialIcons name={'edit'} size={20} color={'blue'} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.OptionsIcon}>
+            <MaterialIcons name={'delete'} size={20} color={'red'} />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.ProductText}>
+          Name:<Text style={styles.DataText}> {item.name}</Text>
+        </Text>
+        <Text style={styles.ProductText}>
+          Detail: <Text style={styles.DataText}>{item.detais}</Text>
+        </Text>
+        <Text style={styles.ProductText}>
+          Price: <Text style={styles.DataText}>₹{item.Price}</Text>
+        </Text>
       </View>
-    )
+    );
   };
 
-  useEffect(
-    () => {
-      dispatch(fetchProduct())
-    },
-    [])
-
-  console.log(product);
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,7 +90,7 @@ const Product = ({ navigation }) => {
             borderBottomColor: 'gray',
           }}>
           <TouchableOpacity
-            style={{ marginLeft: 20, marginBottom: 10, marginTop: 10 }}
+            style={{marginLeft: 20, marginBottom: 10, marginTop: 10}}
             onPress={() => navigation.openDrawer()}>
             <MaterialIcons name={'menu'} size={25} color={'black'} />
           </TouchableOpacity>
@@ -81,7 +107,7 @@ const Product = ({ navigation }) => {
         </View>
 
         <View>
-          <Text style={{ textAlign: 'center', color: 'red', padding: 10 }}>
+          <Text style={{textAlign: 'center', color: 'red', padding: 10}}>
             Add Your Product Detail Below{' '}
           </Text>
         </View>
@@ -95,7 +121,7 @@ const Product = ({ navigation }) => {
           }}>
           <View style={styles.ProductData}>
             <View style={styles.productNameView}>
-              <Text style={styles.ProductText}>Item Name</Text>
+              <Text style={styles.ProductText}>Name</Text>
             </View>
             <View style={styles.ProductTextInput}>
               <TextInput
@@ -146,24 +172,32 @@ const Product = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10, }}>
+        <View style={{alignItems: 'center', marginTop: 20, marginBottom: 10}}>
           <TouchableOpacity
             style={styles.ContinueBtn}
             onPress={() => SubmitHandler()}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <Text style={styles.ContinueText}>Submit </Text>
               <AntDesign name={'arrowright'} size={20} color={'black'} />
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{ margin: 10, padding: 10 }}>
-          <FlatList style={{ borderRadius: 10 }}
-            data={product.product}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
 
+        {isLoading === true ? (
+          <ActivityIndicator size="small" color="#0000ff" />
+        ) : (
+          <View style={{margin: 10, padding: 10, flex: 1}}>
+            <FlatList
+              style={{borderRadius: 10}}
+              data={product.product}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+              columnWrapperStyle={{justifyContent: 'space-between'}}
+              numColumns="2"
+              sp
+            />
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -172,6 +206,19 @@ const Product = ({ navigation }) => {
 export default Product;
 
 const styles = StyleSheet.create({
+  OptionsIcon: {
+    backgroundColor: '#dbffff',
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    borderRadius: 50,
+    padding: 4,
+    margin: 3,
+  },
+  DataText: {
+    color: 'gray',
+    fontSize: 15,
+    fontWeight: '600',
+  },
   item: {
     backgroundColor: '#f9c2ff',
     padding: 20,
@@ -200,13 +247,13 @@ const styles = StyleSheet.create({
   ProductText: {
     marginLeft: 3,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
     color: 'black',
   },
   Searchinput: {
     marginTop: 5,
     paddingLeft: 5,
-    paddingBottom: 10,
+    paddingBottom: 5,
     fontSize: 18,
     color: 'black',
     width: '90%',

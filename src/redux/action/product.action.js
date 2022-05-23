@@ -7,7 +7,9 @@ export const insertProduct = (pData) => (dispatch) => {
       id: Math.floor(Math.random() * 1000),
       ...pData
     }
-    fetch('http://localhost:3004/products', {
+    // fetch('http://localhost:3004/products', {
+      fetch('http://192.168.43.200:8000/products', {
+        // fetch('http://56.114.182.49:8000/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +39,8 @@ export const errorProduct = (error) => (dispatch) => {
 export const fetchProduct = () => (dispatch) => {
   try {
     dispatch(loadingProduct());
-    fetch('http://localhost:3004/products', {
+    fetch('http://192.168.43.200:8000/products', {
+      // fetch('http://56.114.182.49:8000/products', {
       method: 'GET',
     })
       .then(response => response.json())
