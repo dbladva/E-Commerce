@@ -16,6 +16,7 @@ import {
   fetchData,
   fetchProduct,
   insertProduct,
+  loadingProduct,
 } from '../../redux/action/product.action';
 import {FlatList} from 'react-native-gesture-handler';
 
@@ -24,12 +25,17 @@ const Product = ({navigation}) => {
   const [detais, setDetails] = useState('');
   const [Price, setPrice] = useState('');
   const [location, setLocation] = useState('');
-  const [loading, isLoading] = useState(true);
+  const [isloading, setLoading] = useState(true);
 
-  const product = useSelector(state => state.product);
 
+  setTimeout(()=> {setLoading(false)},3000);
+  const product = useSelector(state => state.product);  
+  
   const dispatch = useDispatch();
+
+
   const SubmitHandler = () => {
+    if(!(name == '' || detais == '' || Price == '' || location =='') ){
     let pData = {
       name,
       detais,
@@ -39,7 +45,9 @@ const Product = ({navigation}) => {
 
     dispatch(insertProduct(pData));
 
-    // loading = dispatch(loadingProduct(isLoading))
+  }else{
+    alert('Fillup All Details...')
+  }
   };
 
   const renderItem = ({item}) => {
@@ -76,7 +84,12 @@ const Product = ({navigation}) => {
 
   useEffect(() => {
     dispatch(fetchProduct());
+  
   }, []);
+  // const loading = useSelector(state => state.isloading);  
+  // dispatch(loadingProduct())
+  // setLoading(loading)
+  // console.log(loading);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -183,7 +196,7 @@ const Product = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        {isLoading === true ? (
+        {isloading === true ? (
           <ActivityIndicator size="small" color="#0000ff" />
         ) : (
           <View style={{margin: 10, padding: 10, flex: 1}}>

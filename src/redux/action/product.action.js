@@ -9,7 +9,7 @@ export const insertProduct = (pData) => (dispatch) => {
     }
     // fetch('http://localhost:3004/products', {
       fetch('http://192.168.43.200:8000/products', {
-        // fetch('http://56.114.182.49:8000/products', {
+        // fetch('https://157.32.248.206:8000/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export const fetchProduct = () => (dispatch) => {
   try {
     dispatch(loadingProduct());
     fetch('http://192.168.43.200:8000/products', {
-      // fetch('http://56.114.182.49:8000/products', {
+      // fetch('https://157.32.248.206:8000/products', {
       method: 'GET',
     })
       .then(response => response.json())
