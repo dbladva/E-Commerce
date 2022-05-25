@@ -10,6 +10,7 @@ import {
 
 import React, {useEffect, useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -19,6 +20,7 @@ import {
   loadingProduct,
 } from '../../redux/action/product.action';
 import {FlatList} from 'react-native-gesture-handler';
+import {ColorSpace} from 'react-native-reanimated';
 
 const Product = ({navigation}) => {
   const [name, setName] = useState('');
@@ -27,27 +29,26 @@ const Product = ({navigation}) => {
   const [location, setLocation] = useState('');
   const [isloading, setLoading] = useState(true);
 
+  setTimeout(() => {
+    setLoading(false);
+  }, 3000);
+  const product = useSelector(state => state.product);
 
-  setTimeout(()=> {setLoading(false)},3000);
-  const product = useSelector(state => state.product);  
-  
   const dispatch = useDispatch();
 
-
   const SubmitHandler = () => {
-    if(!(name == '' || detais == '' || Price == '' || location =='') ){
-    let pData = {
-      name,
-      detais,
-      Price,
-      location,
-    };
+    if (!(name == '' || detais == '' || Price == '' || location == '')) {
+      let pData = {
+        name,
+        detais,
+        Price,
+        location,
+      };
 
-    dispatch(insertProduct(pData));
-
-  }else{
-    alert('Fillup All Details...')
-  }
+      dispatch(insertProduct(pData));
+    } else {
+      alert('Fillup All Details...');
+    }
   };
 
   const renderItem = ({item}) => {
@@ -59,6 +60,9 @@ const Product = ({navigation}) => {
           padding: 5,
           width: '46%',
           borderRadius: 10,
+          justifyContent: 'space-around',
+          elevation: 5,
+          shadowColor: '#52006A',
         }}>
         <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
           <TouchableOpacity style={styles.OptionsIcon}>
@@ -69,14 +73,18 @@ const Product = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.ProductText}>
-          Name:<Text style={styles.DataText}> {item.name}</Text>
+        <Text style={styles.locationView}>
+          <Ionicons name={'location'} size={15} color={'black'} />
+          <Text style={styles.DataText}>{item.location}</Text>
         </Text>
+
+        <Text style={styles.ProductText}>{item.name}</Text>
         <Text style={styles.ProductText}>
-          Detail: <Text style={styles.DataText}>{item.detais}</Text>
+          <Text style={styles.DataText}>{item.detais}</Text>
         </Text>
-        <Text style={styles.ProductText}>
-          Price: <Text style={styles.DataText}>₹{item.Price}</Text>
+
+        <Text style={styles.PriceView}>
+          ₹ <Text style={styles.PriceText}>{item.Price}</Text>
         </Text>
       </View>
     );
@@ -84,9 +92,8 @@ const Product = ({navigation}) => {
 
   useEffect(() => {
     dispatch(fetchProduct());
-  
   }, []);
-  // const loading = useSelector(state => state.isloading);  
+  // const loading = useSelector(state => state.isloading);
   // dispatch(loadingProduct())
   // setLoading(loading)
   // console.log(loading);
@@ -180,6 +187,7 @@ const Product = ({navigation}) => {
                 style={styles.Searchinput}
                 placeholder="₹ Prize"
                 onChangeText={text => setPrice(text)}
+                keyboardType={'number-pad'}
               />
             </View>
           </View>
@@ -189,7 +197,7 @@ const Product = ({navigation}) => {
           <TouchableOpacity
             style={styles.ContinueBtn}
             onPress={() => SubmitHandler()}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={styles.ContinueText}>Submit </Text>
               <AntDesign name={'arrowright'} size={20} color={'black'} />
             </View>
@@ -229,7 +237,7 @@ const styles = StyleSheet.create({
   },
   DataText: {
     color: 'gray',
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: '600',
   },
   item: {
@@ -248,26 +256,27 @@ const styles = StyleSheet.create({
   },
   productNameView: {},
   ProductData: {
-    padding: 5,
+    padding: 3,
     borderRadius: 10,
     backgroundColor: '#d0c2e8',
     marginLeft: 16,
     marginTop: 4,
-    marginBottom: 4,
+    marginBottom: 2,
     marginRight: 16,
   },
   ProductTextInput: {},
   ProductText: {
     marginLeft: 3,
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 15,
     color: 'black',
+    margin: 5,
   },
   Searchinput: {
-    marginTop: 5,
+    // marginTop: 5,
     paddingLeft: 5,
     paddingBottom: 5,
-    fontSize: 18,
+    fontSize: 15,
     color: 'black',
     width: '90%',
     height: 40,
@@ -276,6 +285,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   ContinueBtn: {
+    elevation: 10,
+    shadowColor: '#52006A',
     padding: 7,
     backgroundColor: '#d0c2e8',
     width: '50%',
@@ -299,4 +310,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#000000',
   },
+  PriceText: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '400',
+  },
+  PriceView: {
+    marginLeft: 3,
+    fontWeight: '500',
+    fontSize: 12,
+    color: 'red',
+    margin: 5,
+  },
+  locationView: {},
 });

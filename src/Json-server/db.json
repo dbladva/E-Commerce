@@ -34,6 +34,13 @@
       "password": "",
       "phone": "",
       "id": 5
+    },
+    {
+      "name": "Dharmesh",
+      "email": "ladvadharmesh03@gmail.com",
+      "password": "ladva123",
+      "phone": "6353382371",
+      "id": 6
     }
   ],
   "products": [
@@ -83,8 +90,22 @@
       "id": 414,
       "name": "d",
       "detais": "dasdas",
-      "Price": "sadsad",
+      "Price": "65452",
       "location": "dsdasd"
+    },
+    {
+      "id": 550,
+      "name": "sssssss",
+      "detais": "helll ogdfsdf rdfsd dfsas sdsdsff frsd dfsdsd ",
+      "Price": "25000",
+      "location": "dsss"
+    },
+    {
+      "id": 11,
+      "name": "sssssss",
+      "detais": "helll ogdfsdf rdfsd dfsas sdsdsff frsd dfsdsd ",
+      "Price": "25000",
+      "location": "dsss"
     }
   ]
 }
