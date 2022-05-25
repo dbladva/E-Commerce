@@ -2,43 +2,48 @@ import * as ActionType from '../ActionType'
 
 const initValue = {
     isLoading: false,
-    product : [],
+    product: [],
     error: ''
 }
 
 export const productReducer = (state = initValue, action) => {
     switch (action.type) {
         case ActionType.LOADING_PRODUCT:
-            return{
+            return {
                 ...state,
                 isLoading: true,
-                error: ''                
+                error: ''
             }
         case ActionType.GET_PRODUCT:
-            return{
+            return {
                 ...state,
                 product: action.payload,
                 isLoading: false,
-                error: ''                
+                error: ''
             }
         case ActionType.INSERT_PRODUCT:
-            console.log("hhhhh", state.product);
-            console.log("eeeeee", action.payload);
-            return{
+            return {
                 ...state,
                 product: state.product.concat(action.payload),
                 isLoading: false,
-                error: ''                
+                error: ''
+            }
+        case ActionType.DELETE_PRODUCT:
+            return {
+                ...state,
+                product: state.product.filter((p) => p.id !== action.payload),
+                isLoading: false,
+                error: ''
             }
         case ActionType.ERROR_PRODUCT:
-            return{
+            return {
                 ...state,
                 product: [],
                 isLoading: false,
-                error: action.payload                
+                error: action.payload
             }
         default:
             return state
-            
+
     }
 }

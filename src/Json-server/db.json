@@ -45,67 +45,11 @@
   ],
   "products": [
     {
-      "id": 933,
-      "name": "Apple Iphone 13",
-      "detais": "Newww ! Product ",
-      "Price": "90000",
-      "location": "Punagam"
-    },
-    {
-      "id": 615,
-      "name": "Apple Iphone 12",
-      "detais": "Newww !",
-      "Price": "50000",
-      "location": "Punagam"
-    },
-    {
-      "id": 128,
-      "name": "Apple Iphone SE",
-      "detais": "Old...",
-      "Price": "40000",
-      "location": "Mota Varachha"
-    },
-    {
-      "id": 387,
-      "name": "Apple Iphone SE",
-      "detais": "Old...dsfs fs sfsdfs daeoer ffkacmdar rkadksr krskskd srkfsf srskfs rsstr",
-      "Price": "40000",
-      "location": "Mota Varachha"
-    },
-    {
-      "id": 133,
-      "name": "Iwatch Searies 7",
-      "detais": "XYZ....................",
-      "Price": "351600",
-      "location": "Varachha"
-    },
-    {
-      "id": 409,
-      "name": "Iwatch Searies 7",
-      "detais": "XYZ....................",
-      "Price": "351600",
-      "location": "Varachha"
-    },
-    {
-      "id": 414,
-      "name": "d",
-      "detais": "dasdas",
-      "Price": "65452",
-      "location": "dsdasd"
-    },
-    {
-      "id": 550,
-      "name": "sssssss",
-      "detais": "helll ogdfsdf rdfsd dfsas sdsdsff frsd dfsdsd ",
+      "id": 192,
+      "name": "bla b",
+      "detais": "6u7886uk",
       "Price": "25000",
-      "location": "dsss"
-    },
-    {
-      "id": 11,
-      "name": "sssssss",
-      "detais": "helll ogdfsdf rdfsd dfsas sdsdsff frsd dfsdsd ",
-      "Price": "25000",
-      "location": "dsss"
+      "location": "Hulk"
     }
   ]
 }

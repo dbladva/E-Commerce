@@ -6,34 +6,35 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   TextInput,
+  Alert
 } from 'react-native';
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  deleteProduct,
   fetchData,
   fetchProduct,
   insertProduct,
   loadingProduct,
 } from '../../redux/action/product.action';
-import {FlatList} from 'react-native-gesture-handler';
-import {ColorSpace} from 'react-native-reanimated';
+import { FlatList } from 'react-native-gesture-handler';
+import { ColorSpace } from 'react-native-reanimated';
 
-const Product = ({navigation}) => {
+const Product = ({ navigation }) => {
   const [name, setName] = useState('');
   const [detais, setDetails] = useState('');
   const [Price, setPrice] = useState('');
   const [location, setLocation] = useState('');
-  const [isloading, setLoading] = useState(true);
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 3000);
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, []);
+
   const product = useSelector(state => state.product);
-
   const dispatch = useDispatch();
 
   const SubmitHandler = () => {
@@ -51,7 +52,7 @@ const Product = ({navigation}) => {
     }
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <View
         style={{
@@ -64,12 +65,12 @@ const Product = ({navigation}) => {
           elevation: 5,
           shadowColor: '#52006A',
         }}>
-        <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+        <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
           <TouchableOpacity style={styles.OptionsIcon}>
             <MaterialIcons name={'edit'} size={20} color={'blue'} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.OptionsIcon}>
-            <MaterialIcons name={'delete'} size={20} color={'red'} />
+          <TouchableOpacity style={styles.OptionsIcon} onPress={() => handleDelete(item.id)}>
+            <MaterialIcons name={'delete'} size={20} color={'red'} /> 
           </TouchableOpacity>
         </View>
 
@@ -88,138 +89,160 @@ const Product = ({navigation}) => {
         </Text>
       </View>
     );
+    
   };
 
-  useEffect(() => {
-    dispatch(fetchProduct());
-  }, []);
+  const handleDelete = (id) => {
+    Alert.alert(
+      "Delete",
+      "Are you sure you want to delete this Item",
+      [
+       
+        {
+          text: "Cancel",
+          // style: "cancel"
+        },
+        { text: "OK", onPress: () => dispatch(deleteProduct(id))}
+      ]
+    );
+  }
+
+
   // const loading = useSelector(state => state.isloading);
   // dispatch(loadingProduct())
   // setLoading(loading)
   // console.log(loading);
 
+  console.log("xxxxxxxxxxxxxxxx", product.error);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <View
-          style={{
-            backgroundColor: '#d0c2e8',
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderBottomWidth: 0.5,
-            borderBottomColor: 'gray',
-          }}>
-          <TouchableOpacity
-            style={{marginLeft: 20, marginBottom: 10, marginTop: 10}}
-            onPress={() => navigation.openDrawer()}>
-            <MaterialIcons name={'menu'} size={25} color={'black'} />
-          </TouchableOpacity>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 23,
-              marginLeft: 30,
-              fontWeight: '500',
-              color: 'black',
-            }}>
-            Product
-          </Text>
-        </View>
-
-        <View>
-          <Text style={{textAlign: 'center', color: 'red', padding: 10}}>
-            Add Your Product Detail Below{' '}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            backgroundColor: '#d0c2e8',
-            marginLeft: 16,
-            marginRight: 16,
-            borderRadius: 10,
-          }}>
-          <View style={styles.ProductData}>
-            <View style={styles.productNameView}>
-              <Text style={styles.ProductText}>Name</Text>
+    
+          <View style={styles.container}>
+            <View
+              style={{
+                backgroundColor: '#d0c2e8',
+                flexDirection: 'row',
+                alignItems: 'center',
+                borderBottomWidth: 0.5,
+                borderBottomColor: 'gray',
+              }}>
+              <TouchableOpacity
+                style={{ marginLeft: 20, marginBottom: 10, marginTop: 10 }}
+                onPress={() => navigation.openDrawer()}>
+                <MaterialIcons name={'menu'} size={25} color={'black'} />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 23,
+                  marginLeft: 30,
+                  fontWeight: '500',
+                  color: 'black',
+                }}>
+                Product
+              </Text>
             </View>
-            <View style={styles.ProductTextInput}>
-              <TextInput
-                style={styles.Searchinput}
-                placeholder="Product Name..."
-                onChangeText={text => setName(text)}
-              />
+
+            {/* <View>
+              <Text style={{ textAlign: 'center', color: 'red', padding: 10 }}>
+                Add Your Product Detail Below{' '}
+              </Text>
+            </View> */}
+
+            <View
+              style={{
+                backgroundColor: '#d0c2e8',
+                marginLeft: 20,
+                marginRight: 20,
+                borderRadius: 10,
+                marginTop: 10,
+              }}>
+              <View style={styles.ProductData}>
+                <View style={styles.productNameView}>
+                  <Text style={styles.ProductText}>Name</Text>
+                </View>
+                <View style={styles.ProductTextInput}>
+                  <TextInput
+                    style={styles.Searchinput}
+                    placeholder="Product Name..."
+                    onChangeText={text => setName(text)}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.ProductData}>
+                <View style={styles.productNameView}>
+                  <Text style={styles.ProductText}>Description</Text>
+                </View>
+                <View style={styles.ProductTextInput}>
+                  <TextInput
+                    style={styles.Searchinput}
+                    placeholder="Add Your product Description..."
+                    onChangeText={text => setDetails(text)}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.ProductData}>
+                <View style={styles.productNameView}>
+                  <Text style={styles.ProductText}>Location</Text>
+                </View>
+                <View style={styles.ProductTextInput}>
+                  <TextInput
+                    style={styles.Searchinput}
+                    placeholder="Add Your Area Location..."
+                    onChangeText={text => setLocation(text)}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.ProductData}>
+                <View style={styles.productNameView}>
+                  <Text style={styles.ProductText}>Price</Text>
+                </View>
+                <View style={styles.ProductTextInput}>
+                  <TextInput
+                    style={styles.Searchinput}
+                    placeholder="₹ Prize"
+                    onChangeText={text => setPrice(text)}
+                    keyboardType={'number-pad'}
+                  />
+                </View>
+              </View>
             </View>
+
+            <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
+              <TouchableOpacity
+                style={styles.ContinueBtn}
+                onPress={() => SubmitHandler()}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={styles.ContinueText}>Submit </Text>
+                  <AntDesign name={'arrowright'} size={20} color={'black'} />
+                </View>
+              </TouchableOpacity>
+            </View>
+            {
+              product.error !== '' || product.isLoading  ?
+              <View style={{flex: 1,justifyContent: 'center'}}>
+              <ActivityIndicator size="small" color="gray"/>
+                <Text>{product.error}</Text>
+                </View>
+                :
+                <View style={{ margin: 10, padding: 10, flex: 1 }}>
+                  <FlatList
+                    style={{ borderRadius: 10 }}
+                    data={product.product}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    columnWrapperStyle={{ justifyContent: 'space-between' }}
+                    numColumns="2"
+                    sp
+                  />
+                </View>
+            }
+
           </View>
 
-          <View style={styles.ProductData}>
-            <View style={styles.productNameView}>
-              <Text style={styles.ProductText}>Description</Text>
-            </View>
-            <View style={styles.ProductTextInput}>
-              <TextInput
-                style={styles.Searchinput}
-                placeholder="Add Your product Description..."
-                onChangeText={text => setDetails(text)}
-              />
-            </View>
-          </View>
-
-          <View style={styles.ProductData}>
-            <View style={styles.productNameView}>
-              <Text style={styles.ProductText}>Location</Text>
-            </View>
-            <View style={styles.ProductTextInput}>
-              <TextInput
-                style={styles.Searchinput}
-                placeholder="Add Your Area Location..."
-                onChangeText={text => setLocation(text)}
-              />
-            </View>
-          </View>
-
-          <View style={styles.ProductData}>
-            <View style={styles.productNameView}>
-              <Text style={styles.ProductText}>Price</Text>
-            </View>
-            <View style={styles.ProductTextInput}>
-              <TextInput
-                style={styles.Searchinput}
-                placeholder="₹ Prize"
-                onChangeText={text => setPrice(text)}
-                keyboardType={'number-pad'}
-              />
-            </View>
-          </View>
-        </View>
-
-        <View style={{alignItems: 'center', marginTop: 20, marginBottom: 10}}>
-          <TouchableOpacity
-            style={styles.ContinueBtn}
-            onPress={() => SubmitHandler()}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.ContinueText}>Submit </Text>
-              <AntDesign name={'arrowright'} size={20} color={'black'} />
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        {isloading === true ? (
-          <ActivityIndicator size="small" color="#0000ff" />
-        ) : (
-          <View style={{margin: 10, padding: 10, flex: 1}}>
-            <FlatList
-              style={{borderRadius: 10}}
-              data={product.product}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-              columnWrapperStyle={{justifyContent: 'space-between'}}
-              numColumns="2"
-              sp
-            />
-          </View>
-        )}
-      </View>
     </SafeAreaView>
   );
 };
