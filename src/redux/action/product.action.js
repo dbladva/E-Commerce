@@ -3,10 +3,6 @@ import * as ActionType from '../ActionType'
 export const insertProduct = (pData) => (dispatch) => {
   try {
     dispatch(loadingProduct());
-    let fData = {
-      id: Math.floor(Math.random() * 1000),
-      ...pData
-    }
     fetch('http://localhost:3004/products', {
       // fetch('http://192.168.43.200:8000/products', {
       // fetch('https://157.32.248.206:8000/products', {
@@ -14,11 +10,11 @@ export const insertProduct = (pData) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(fData),
+      body: JSON.stringify(pData),
     })
       .then(response => response.json())
       .then(data => {
-        dispatch({ type: ActionType.INSERT_PRODUCT, payload: fData })
+        dispatch({ type: ActionType.INSERT_PRODUCT, payload: pData })
       })
       .catch(error => {
         dispatch(errorProduct(error))
@@ -59,7 +55,7 @@ export const fetchProduct = () => (dispatch) => {
           .catch(error => {
             dispatch(errorProduct(error.message))
           });
-      }, 2000)
+      }, 1000)
   } catch (error) {
     dispatch(errorProduct(error))
   }
@@ -88,9 +84,36 @@ export const deleteProduct = (id) => (dispatch) => {
           .catch(error => {
             dispatch(errorProduct(error.message))
           });
-      }, 3000)
+      }, 1000)
   } catch (error) {
     dispatch(errorProduct(error))
+  }
+}
+
+export const updateProduct = (data) => (dispatch) => {
+  try {
+    dispatch(loadingProduct());
+    setTimeout(
+      () => {
+    fetch('http://localhost:3004/products/' + data.id, {
+      // fetch('http://192.168.43.200:8000/products', {
+      // fetch('https://157.32.248.206:8000/products', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(data => {
+        dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data})
+      })
+      .catch(error => {
+        dispatch(errorProduct(error))
+      });
+    }, 1000)
+  } catch (e) {
+    dispatch(errorProduct(e))
   }
 }
 

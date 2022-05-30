@@ -35,6 +35,13 @@ export const productReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: ''
             }
+            case ActionType.UPDATE_PRODUCT:
+                return {
+                    ...state,
+                    product: state.product.map((p) => p.id === action.payload.id ? action.payload : p),
+                    isLoading: false,
+                    error: ''
+                }
         case ActionType.ERROR_PRODUCT:
             return {
                 ...state,
