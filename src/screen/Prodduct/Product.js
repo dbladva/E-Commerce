@@ -48,11 +48,14 @@ const Product = ({ navigation }) => {
       };
       // console.log(pData);
       dispatch(insertProduct(pData));
+      setName(''),
+      setDetails('')
+      setPrice('')
+      setLocation('')
     } else {
       alert('Fillup All Details...');
     }
-
-    
+   
   };
 
   const handleEdit = (id) => {
@@ -74,6 +77,12 @@ const Product = ({ navigation }) => {
       location,
     }
     dispatch(updateProduct(Data))
+    setSubmit(0)
+    setName(''),
+    setDetails('')
+    setPrice('')
+    setLocation('')
+      
   }
 
   const renderItem = ({ item }) => {
