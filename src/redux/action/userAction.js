@@ -1,10 +1,10 @@
-import * as ActionType from '../ActionType'
+import {GetUserData} from '../../common/apis/user.api';
+import * as ActionType from '../ActionType';
 
-export const userAction = (data) => (dispatch) => {
-
+export const userAction = data => dispatch => {
   try {
     // fetch('http://192.168.43.200:8000/users', {
-      fetch('http://localhost:3004/users', {
+    fetch('http://localhost:3004/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,30 +23,35 @@ export const userAction = (data) => (dispatch) => {
   }
 };
 
-export const login = (loginData, navigation) => (dispatch) => {
-  let flag = 0, id=0;
-  // fetch('http://192.168.43.200:8000/users', {
-    fetch('http://localhost:3004/users', {
+export const login = (loginData, navigation) => dispatch => {
+  let flag = 0,
+    id = 0;
+    fetch('http://192.168.43.200:8000/users', {
+      // fetch('http://localhost:3004/users', {
 
-    method: 'GET',
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      result.map((d) => { 
-        if (d.email == loginData.email && d.password == loginData.password) {
-          flag = 1;
-          id = d.id;
-          console.log("match");
+      method: 'GET',
+    })
+    // GetUserData()
+      .then((response) => response.json())
+      
+      .then((result) => {
+        console.log(result);
+        result.map(d => {
+          if (d.email == loginData.email && d.password == loginData.password) {
+            flag = 1;
+            id = d.id;
+            console.log('---------------------match--------------------------');
+          }
+        });
+        if (flag === 1) {
+          dispatch({type: ActionType.SIGNIN_SUCCESS, payload: id});
+          navigation.navigate('Home');
+        } else {
+          dispatch({
+            type: ActionType.SIGNIN_ERROR,
+            payload: 'Wrong email/password',
+          });
         }
-      })
-      if (flag === 1) {
-        dispatch({type: ActionType.SIGNIN_SUCCESS, payload: id})
-        navigation.navigate("Home")
-      } else {
-        dispatch({type: ActionType.SIGNIN_ERROR, payload: "Wrong email/password"})
-      }
-    })  
-    
-}
-
+      
+      });
+};
