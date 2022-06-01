@@ -1,3 +1,4 @@
+import { getAllProductsDetails, GetProduct } from '../../common/apis/product.api';
 import * as ActionType from '../ActionType'
 
 export const insertProduct = (pData) => (dispatch) => {
@@ -35,27 +36,35 @@ export const errorProduct = (error) => (dispatch) => {
 export const fetchProduct = () => (dispatch) => {
   try {
     dispatch(loadingProduct());
-    // fetch('http://192.168.43.200:8000/products', {
-    setTimeout(
-      () => {
-        fetch('http://localhost:3004/products', {
-          // fetch('https://157.32.248.206:8000/products', {
-          method: 'GET',
-        })
-          .then(response => {
-            if (response.ok) {
-              return response.json()
-            } else {
-              throw new Error('Something went wrong');
-            }
-          })
-          .then(data => {
-            dispatch({ type: ActionType.GET_PRODUCT, payload: data })
-          })
-          .catch(error => {
-            dispatch(errorProduct(error.message))
-          });
-      }, 1000)
+    // // fetch('http://192.168.43.200:8000/products', {
+    // setTimeout(
+    //   () => {
+    //     fetch('http://localhost:3004/products', {
+    //       // fetch('https://157.32.248.206:8000/products', {
+    //       method: 'GET',
+    //     })
+    //       .then(response => {
+    //         if (response.ok) {
+    //           return response.json()
+    //         } else {
+    //           throw new Error('Something went wrong');
+    //         }
+    //       })
+    //       .then(data => {
+    //         dispatch({ type: ActionType.GET_PRODUCT, payload: data })
+    //       })
+    //       .catch(error => {
+    //         dispatch(errorProduct(error.message))
+    //       });
+    getAllProductsDetails()
+        .then(({data}) => {
+              dispatch({ type: ActionType.GET_PRODUCT, payload: data })
+            })
+            .catch(error => {
+              dispatch(errorProduct(error.message))
+            });
+          
+      // }, 1000)
   } catch (error) {
     dispatch(errorProduct(error))
   }
