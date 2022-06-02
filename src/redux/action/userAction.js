@@ -26,17 +26,16 @@ export const userAction = data => dispatch => {
 export const login = (loginData, navigation) => dispatch => {
   let flag = 0,
     id = 0;
-    fetch('http://192.168.43.200:8000/users', {
-      // fetch('http://localhost:3004/users', {
+    // fetch('http://192.168.43.200:8000/users', {
+    //   // fetch('http://localhost:3004/users', {
 
-      method: 'GET',
-    })
-    // GetUserData()
-      .then((response) => response.json())
-      
-      .then((result) => {
-        console.log(result);
-        result.map(d => {
+    //   method: 'GET',
+    // })
+    GetUserData()
+      // .then((response) => response.json())
+      .then(({data}) => {
+        console.log(data);
+        data.map(d => {
           if (d.email == loginData.email && d.password == loginData.password) {
             flag = 1;
             id = d.id;

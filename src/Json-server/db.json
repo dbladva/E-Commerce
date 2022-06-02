@@ -24,39 +24,18 @@
   ],
   "products": [
     {
-      "id": 194,
-      "name": "Demo1",
-      "detais": "Kbkjblk",
-      "Price": "5000000",
-      "location": "Surat"
+      "id": 1,
+      "name": "Fdsfs",
+      "detais": "Fdfdf",
+      "Price": "sdasdasd",
+      "location": "Fdsf"
     },
     {
-      "name": "Demo1",
-      "detais": "Kbkjblk",
-      "Price": "500",
-      "location": "Surat",
-      "id": 195
-    },
-    {
-      "name": "Fdfsdfsdff",
-      "detais": "Dfdfdsfdsf",
-      "Price": "776575",
-      "location": "Dsfdsfd",
-      "id": 196
-    },
-    {
-      "name": "Fsdf",
-      "detais": "Dfdf",
-      "Price": "f464546",
-      "location": "Fsdff",
-      "id": 197
-    },
-    {
-      "name": "v",
-      "detais": "xcvxcv",
-      "Price": "5433",
-      "location": "cxv",
-      "id": 198
+      "id": 2,
+      "name": "Dffsff",
+      "detais": "Dfdsf",
+      "Price": "000000",
+      "location": "Fdsfdsfdsf"
     }
   ]
 }
