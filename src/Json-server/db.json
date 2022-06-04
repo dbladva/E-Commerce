@@ -27,15 +27,43 @@
       "id": 1,
       "name": "Fdsfs",
       "detais": "Fdfdf",
-      "Price": "sdasdasd",
+      "Price": "97846",
       "location": "Fdsf"
     },
     {
       "id": 2,
       "name": "Dffsff",
       "detais": "Dfdsf",
-      "Price": "000000",
+      "Price": "15460",
       "location": "Fdsfdsfdsf"
+    },
+    {
+      "name": "Ipad",
+      "detais": "New product",
+      "Price": "254000",
+      "location": "Varrachha",
+      "id": 3
+    },
+    {
+      "name": "Macbook pro ",
+      "detais": "Old",
+      "Price": "120000",
+      "location": "Punagam",
+      "id": 4
+    },
+    {
+      "name": "fsdfsd",
+      "detais": "fsf",
+      "Price": "464454",
+      "location": "dsfsdfs",
+      "id": 5
+    },
+    {
+      "name": "fsd",
+      "detais": "dfdsf",
+      "Price": "998474",
+      "location": "fsdfs",
+      "id": 6
     }
   ]
 }
