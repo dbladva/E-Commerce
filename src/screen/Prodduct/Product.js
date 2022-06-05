@@ -270,7 +270,7 @@ const Product = ({ navigation }) => {
             keyExtractor={item => item.id}
             columnWrapperStyle={{ justifyContent: 'space-between' }}
             numColumns="2"
-            sp
+      
           />
         </View>
 
