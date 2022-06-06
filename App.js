@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Welcome from './src/screen/Welcome/Welcome';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -19,6 +19,7 @@ import Counter from './src/screen/Counter';
 import { configStore } from './src/redux/store';
 import CustomDrawer from './CustomDrawer';
 import { PersistGate } from 'redux-persist/integration/react';
+import SplashScreen from 'react-native-splash-screen'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,6 +66,11 @@ const HomeScreenHandler = () => {
 };
 
 const App = () => {
+
+  useEffect(() => {
+    SplashScreen.hide();
+  },[])
+    
   const { store, persistor } = configStore();
   return (
     <Provider store={store}>
