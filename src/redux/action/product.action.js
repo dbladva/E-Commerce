@@ -5,7 +5,7 @@ export const insertProduct = (pData) => (dispatch) => {
   try {
     dispatch(loadingProduct());
     // fetch('http://localhost:3004/products', {
-    //   fetch('http://192.168.43.200:8000/products', {
+      // fetch('http://192.168.43.200:8000/products', {
     //   // fetch('https://157.32.248.206:8000/products', {
     //   method: 'POST',
     //   headers: {

@@ -48,8 +48,6 @@ const HomeScreenHandler = () => {
             return <AntDesign name={'login'} size={20} color={focused ? '#7cc' : 'black'} />;
           }
 
-          // You can return any component that you like here!
-          // return <AntDesign name={'home'} size={20} color={'blue'} />;
         },
         tabBarActiveTintColor: 'gray',
 
