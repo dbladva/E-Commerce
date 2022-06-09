@@ -30,6 +30,7 @@ const Product = ({ navigation }) => {
   const [location, setLocation] = useState('');
   const [submit, setSubmit] = useState(0)
   const [id, setId] = useState(0)
+  const [image, setImage] = useState('')
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -44,6 +45,7 @@ const Product = ({ navigation }) => {
         name,
         detais,
         Price,
+        image,
         location,
       };
       // console.log(pData);
@@ -215,6 +217,19 @@ const Product = ({ navigation }) => {
                 style={styles.Searchinput}
                 placeholder="Add Your Area Location..."
                 onChangeText={text => setLocation(text)}
+              />
+            </View>
+          </View>
+          <View style={styles.ProductData}>
+            <View style={styles.productNameView}>
+              <Text style={styles.ProductText}>Image</Text>
+            </View>
+            <View style={styles.ProductTextInput}>
+              <TextInput
+                value={image}
+                style={styles.Searchinput}
+                placeholder="Add Image link address..."
+                onChangeText={text => setImage(text)}
               />
             </View>
           </View>

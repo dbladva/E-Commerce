@@ -59,7 +59,7 @@ export const fetchProduct = () => (dispatch) => {
     //       });
     getAllProductsDetails()
         .then(({data}) => {
-              dispatch({ type: ActionType.GET_PRODUCT, payload: data })
+              dispatch({ type: ActionType.GET_PRODUCT, payload: data})
             })
             .catch(error => {
               dispatch(errorProduct(error.message))
