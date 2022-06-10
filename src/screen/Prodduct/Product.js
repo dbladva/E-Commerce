@@ -14,6 +14,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
+import  { Dropdown } from 'react-native-element-dropdown';
+
+
+
+
+
 import {
   deleteProduct,
   fetchData,
@@ -30,7 +36,7 @@ const Product = ({ navigation }) => {
   const [location, setLocation] = useState('');
   const [submit, setSubmit] = useState(0)
   const [id, setId] = useState(0)
-  const [image, setImage] = useState('')
+  const [category, setCategory] = useState('')
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -40,12 +46,12 @@ const Product = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const SubmitHandler = () => {
-    if (!(name == '' || detais == '' || Price == '' || location == '')) {
+    if (!(name == '' || detais == '' || category == '' || Price == '' || location == '')) {
       let pData = {
         name,
         detais,
         Price,
-        image,
+        category,
         location,
       };
       // console.log(pData);
@@ -54,6 +60,7 @@ const Product = ({ navigation }) => {
       setDetails('')
       setPrice('')
       setLocation('')
+      setCategory('')
     } else {
       alert('Fillup All Details...');
     }
@@ -66,6 +73,7 @@ const Product = ({ navigation }) => {
     setDetails(uData[0].detais)
     setLocation(uData[0].location)
     setPrice(uData[0].Price)
+    setPrice(uData[0].category)
     setSubmit(1)
     setId(id)
   }
@@ -76,6 +84,7 @@ const Product = ({ navigation }) => {
       name,
       detais,
       Price,
+      category,
       location,
     }
     dispatch(updateProduct(Data))
@@ -84,6 +93,7 @@ const Product = ({ navigation }) => {
     setDetails('')
     setPrice('')
     setLocation('')
+    setCategory('')
       
   }
 
@@ -122,6 +132,7 @@ const Product = ({ navigation }) => {
         <Text style={styles.PriceView}>
           ₹ <Text style={styles.PriceText}>{item.Price}</Text>
         </Text>
+
       </View>
     );
 
@@ -222,14 +233,14 @@ const Product = ({ navigation }) => {
           </View>
           <View style={styles.ProductData}>
             <View style={styles.productNameView}>
-              <Text style={styles.ProductText}>Image</Text>
+              <Text style={styles.ProductText}>Category</Text>
             </View>
             <View style={styles.ProductTextInput}>
               <TextInput
-                value={image}
+                value={category}
                 style={styles.Searchinput}
-                placeholder="Add Image link address..."
-                onChangeText={text => setImage(text)}
+                placeholder="Add category..."
+                onChangeText={text => setCategory(text)}
               />
             </View>
           </View>
@@ -395,4 +406,40 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   locationView: {},
+
+
+
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
 });
