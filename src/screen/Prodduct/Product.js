@@ -7,14 +7,21 @@ import {
   ActivityIndicator,
   TextInput,
   Alert,
-  FlatList
+  FlatList,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+<<<<<<< Updated upstream
 import { useDispatch, useSelector } from 'react-redux';
 import  { Dropdown } from 'react-native-element-dropdown';
+=======
+import {useDispatch, useSelector} from 'react-redux';
+import SelectDropdown from 'react-native-select-dropdown'
+
+const countries = ['wearable', 'laptop', 'phones', 'drones'];
+>>>>>>> Stashed changes
 
 import {
   deleteProduct,
@@ -25,14 +32,14 @@ import {
   updateProduct,
 } from '../../redux/action/product.action';
 
-const Product = ({ navigation }) => {
+const Product = ({navigation}) => {
   const [name, setName] = useState('');
   const [detais, setDetails] = useState('');
   const [Price, setPrice] = useState('');
   const [location, setLocation] = useState('');
-  const [submit, setSubmit] = useState(0)
-  const [id, setId] = useState(0)
-  const [category, setCategory] = useState('')
+  const [submit, setSubmit] = useState(0);
+  const [id, setId] = useState(0);
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -42,7 +49,15 @@ const Product = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const SubmitHandler = () => {
-    if (!(name == '' || detais == '' || category == '' || Price == '' || location == '')) {
+    if (
+      !(
+        name == '' ||
+        detais == '' ||
+        category == '' ||
+        Price == '' ||
+        location == ''
+      )
+    ) {
       let pData = {
         name,
         detais,
@@ -52,27 +67,25 @@ const Product = ({ navigation }) => {
       };
       // console.log(pData);
       dispatch(insertProduct(pData));
-      setName(''),
-      setDetails('')
-      setPrice('')
-      setLocation('')
-      setCategory('')
+      setName(''), setDetails('');
+      setPrice('');
+      setLocation('');
+      setCategory('');
     } else {
       alert('Fillup All Details...');
     }
-   
   };
 
-  const handleEdit = (id) => {
-    let uData = product.product.filter((p) => p.id === id)
-    setName(uData[0].name)
-    setDetails(uData[0].detais)
-    setLocation(uData[0].location)
-    setPrice(uData[0].Price)
-    setPrice(uData[0].category)
-    setSubmit(1)
-    setId(id)
-  }
+  const handleEdit = id => {
+    let uData = product.product.filter(p => p.id === id);
+    setName(uData[0].name);
+    setDetails(uData[0].detais);
+    setLocation(uData[0].location);
+    setPrice(uData[0].Price);
+    setPrice(uData[0].category);
+    setSubmit(1);
+    setId(id);
+  };
 
   const updateHandler = () => {
     let Data = {
@@ -82,18 +95,16 @@ const Product = ({ navigation }) => {
       Price,
       category,
       location,
-    }
-    dispatch(updateProduct(Data))
-    setSubmit(0)
-    setName(''),
-    setDetails('')
-    setPrice('')
-    setLocation('')
-    setCategory('')
-      
-  }
+    };
+    dispatch(updateProduct(Data));
+    setSubmit(0);
+    setName(''), setDetails('');
+    setPrice('');
+    setLocation('');
+    setCategory('');
+  };
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     return (
       <View
         style={{
@@ -106,11 +117,15 @@ const Product = ({ navigation }) => {
           elevation: 5,
           shadowColor: '#52006A',
         }}>
-        <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-          <TouchableOpacity style={styles.OptionsIcon} onPress={() => handleEdit(item.id)}>
+        <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+          <TouchableOpacity
+            style={styles.OptionsIcon}
+            onPress={() => handleEdit(item.id)}>
             <MaterialIcons name={'edit'} size={20} color={'blue'} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.OptionsIcon} onPress={() => handleDelete(item.id)}>
+          <TouchableOpacity
+            style={styles.OptionsIcon}
+            onPress={() => handleDelete(item.id)}>
             <MaterialIcons name={'delete'} size={20} color={'red'} />
           </TouchableOpacity>
         </View>
@@ -128,30 +143,22 @@ const Product = ({ navigation }) => {
         <Text style={styles.PriceView}>
           ₹ <Text style={styles.PriceText}>{item.Price}</Text>
         </Text>
-
       </View>
     );
-
   };
 
-  const handleDelete = (id) => {
-    Alert.alert(
-      "Delete",
-      "Are you sure you want to delete this Item",
-      [
-
-        {
-          text: "Cancel",
-          // style: "cancel"
-        },
-        { text: "OK", onPress: () => dispatch(deleteProduct(id)) }
-      ]
-    );
-  }
+  const handleDelete = id => {
+    Alert.alert('Delete', 'Are you sure you want to delete this Item', [
+      {
+        text: 'Cancel',
+        // style: "cancel"
+      },
+      {text: 'OK', onPress: () => dispatch(deleteProduct(id))},
+    ]);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.container}>
         <View
           style={{
@@ -162,7 +169,7 @@ const Product = ({ navigation }) => {
             borderBottomColor: 'gray',
           }}>
           <TouchableOpacity
-            style={{ marginLeft: 20, marginBottom: 10, marginTop: 10 }}
+            style={{marginLeft: 20, marginBottom: 10, marginTop: 10}}
             onPress={() => navigation.openDrawer()}>
             <MaterialIcons name={'menu'} size={25} color={'black'} />
           </TouchableOpacity>
@@ -232,11 +239,28 @@ const Product = ({ navigation }) => {
               <Text style={styles.ProductText}>Category</Text>
             </View>
             <View style={styles.ProductTextInput}>
-              <TextInput
+              {/* <TextInput
                 value={category}
                 style={styles.Searchinput}
                 placeholder="Add category..."
                 onChangeText={text => setCategory(text)}
+              /> */}
+
+              <SelectDropdown
+              // renderDropdownIcon={(selectedItem,index) => )}
+              buttonStyle={styles.buttondropdown}
+              dropdownStyle={styles.dropdown}
+                data={countries}
+                dropdownIconPosition={'right'}
+                onSelect={(selectedItem, index) => {
+                  setCategory(selectedItem)
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
               />
             </View>
           </View>
@@ -257,48 +281,41 @@ const Product = ({ navigation }) => {
           </View>
         </View>
 
-        {
-          submit ?
-            <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
-              <TouchableOpacity
-                style={styles.ContinueBtn}
-                onPress={() => updateHandler()}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text style={styles.ContinueText}>Update</Text>
-                  <AntDesign name={'arrowright'} size={20} color={'black'} />
-                </View>
-              </TouchableOpacity>
-            </View>
-            :
-            <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
-              <TouchableOpacity
-                style={styles.ContinueBtn}
-                onPress={() => SubmitHandler()}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text style={styles.ContinueText}>Submit</Text>
-                  <AntDesign name={'arrowright'} size={20} color={'black'} />
-                </View>
-              </TouchableOpacity>
-            </View>
-        }
+        {submit ? (
+          <View style={{alignItems: 'center', marginTop: 20, marginBottom: 10}}>
+            <TouchableOpacity
+              style={styles.ContinueBtn}
+              onPress={() => updateHandler()}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.ContinueText}>Update</Text>
+                <AntDesign name={'arrowright'} size={20} color={'black'} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={{alignItems: 'center', marginTop: 20, marginBottom: 10}}>
+            <TouchableOpacity
+              style={styles.ContinueBtn}
+              onPress={() => SubmitHandler()}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.ContinueText}>Submit</Text>
+                <AntDesign name={'arrowright'} size={20} color={'black'} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
 
-
-
-        <View style={{ margin: 10, padding: 10, flex: 1 }}>
+        <View style={{margin: 10, padding: 10, flex: 1}}>
           <FlatList
-            style={{ borderRadius: 10 }}
+            style={{borderRadius: 10}}
             data={product.product}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            columnWrapperStyle={{justifyContent: 'space-between'}}
             numColumns="2"
-      
           />
         </View>
-
-
       </View>
-
     </SafeAreaView>
   );
 };
@@ -343,7 +360,9 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginRight: 16,
   },
-  ProductTextInput: {},
+  ProductTextInput: {
+    alignItems: 'center'
+  },
   ProductText: {
     marginLeft: 3,
     fontWeight: 'bold',
@@ -357,7 +376,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     fontSize: 15,
     color: 'black',
-    width: '90%',
+    width: '100%',
     height: 40,
     borderBottomWidth: 1,
     borderColor: 'black',
@@ -403,10 +422,8 @@ const styles = StyleSheet.create({
   },
   locationView: {},
 
-
-
   dropdown: {
-    height: 50,
+    height: 200,
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
@@ -438,4 +455,8 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
+  buttondropdown:{
+    borderRadius: 10,
+    backgroundColor: "#f9c2ff",
+  }
 });
