@@ -14,7 +14,7 @@ export const productReducer = (state = initValue, action) => {
                 isLoading: true,
                 error: ''
             }
-        case ActionType.GET_PRODUCT:
+        case ActionType.RETRIEVE_PRODUCT:
             return {
                 ...state,
                 product: action.payload,

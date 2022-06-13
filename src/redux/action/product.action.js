@@ -34,42 +34,50 @@ export const errorProduct = (error) => (dispatch) => {
   dispatch({ type: ActionType.ERROR_PRODUCT, payload: error })
 }
 
-export const fetchProduct = () => (dispatch) => {
-  try {
-    dispatch(loadingProduct());
-    // // fetch('http://192.168.43.200:8000/products', {
-    // setTimeout(
-    //   () => {
-    //     fetch('http://localhost:3004/products', {
-    //       // fetch('https://157.32.248.206:8000/products', {
-    //       method: 'GET',
-    //     })
-    //       .then(response => {
-    //         if (response.ok) {
-    //           return response.json()
-    //         } else {
-    //           throw new Error('Something went wrong');
-    //         }
-    //       })
-    //       .then(data => {
-    //         dispatch({ type: ActionType.GET_PRODUCT, payload: data })
-    //       })
-    //       .catch(error => {
-    //         dispatch(errorProduct(error.message))
-    //       });
-    getAllProductsDetails()
-        .then(({data}) => {
-              dispatch({ type: ActionType.GET_PRODUCT, payload: data})
-            })
-            .catch(error => {
-              dispatch(errorProduct(error.message))
-            });
+// export const fetchProduct = () => (dispatch) => {
+//   try {
+//     dispatch(loadingProduct());
+//     // // fetch('http://192.168.43.200:8000/products', {
+//     // setTimeout(
+//     //   () => {
+//     //     fetch('http://localhost:3004/products', {
+//     //       // fetch('https://157.32.248.206:8000/products', {
+//     //       method: 'GET',
+//     //     })
+//     //       .then(response => {
+//     //         if (response.ok) {
+//     //           return response.json()
+//     //         } else {
+//     //           throw new Error('Something went wrong');
+//     //         }
+//     //       })
+//     //       .then(data => {
+//     //         dispatch({ type: ActionType.GET_PRODUCT, payload: data })
+//     //       })
+//     //       .catch(error => {
+//     //         dispatch(errorProduct(error.message))
+//     //       });
+//     getAllProductsDetails()
+//         .then(({data}) => {
+//               dispatch({ type: ActionType.GET_PRODUCT, payload: data})
+//             })
+//             .catch(error => {
+//               dispatch(errorProduct(error.message))
+//             });
           
-      // }, 1000)
-  } catch (error) {
-    dispatch(errorProduct(error))
-  }
-};
+//       // }, 1000)
+//   } catch (error) {
+//     dispatch(errorProduct(error))
+//   }
+// };
+
+export const fetchProduct = () => (dispatch) => {
+  dispatch({type: ActionType.GET_PRODUCT})
+}
+
+export const getProduct = (product) => (dispatch) => {
+  dispatch({type: ActionType.RETRIEVE_PRODUCT, payload: product})
+}
 
 export const deleteProduct = (id) => (dispatch) => {
   try {

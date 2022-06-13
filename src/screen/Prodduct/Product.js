@@ -16,10 +16,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import  { Dropdown } from 'react-native-element-dropdown';
 
-
-
-
-
 import {
   deleteProduct,
   fetchData,
