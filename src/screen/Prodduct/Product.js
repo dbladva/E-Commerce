@@ -13,16 +13,10 @@ import React, {useEffect, useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-<<<<<<< Updated upstream
 import { useDispatch, useSelector } from 'react-redux';
-import  { Dropdown } from 'react-native-element-dropdown';
-=======
-import {useDispatch, useSelector} from 'react-redux';
 import SelectDropdown from 'react-native-select-dropdown'
 
 const countries = ['wearable', 'laptop', 'phones', 'drones'];
->>>>>>> Stashed changes
-
 import {
   deleteProduct,
   fetchData,
