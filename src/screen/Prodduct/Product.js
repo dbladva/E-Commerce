@@ -8,6 +8,7 @@ import {
   TextInput,
   Alert,
   FlatList,
+  RefreshControl
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -25,6 +26,7 @@ import {
   loadingProduct,
   updateProduct,
 } from '../../redux/action/product.action';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Product = ({navigation}) => {
   const [name, setName] = useState('');
@@ -38,6 +40,10 @@ const Product = ({navigation}) => {
   useEffect(() => {
     dispatch(fetchProduct());
   }, []);
+
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 
   const product = useSelector(state => state.product);
   const dispatch = useDispatch();
@@ -151,9 +157,23 @@ const Product = ({navigation}) => {
     ]);
   };
 
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
+        {/* <ScrollView refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }> */}
         <View
           style={{
             backgroundColor: '#d0c2e8',
@@ -309,6 +329,7 @@ const Product = ({navigation}) => {
             numColumns="2"
           />
         </View>
+        {/* </ScrollView> */}
       </View>
     </SafeAreaView>
   );

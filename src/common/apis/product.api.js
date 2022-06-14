@@ -14,5 +14,6 @@ export const deleteProductDetails = (id) => {
 }
 
 export const updateProductDetails = (id,data) => {
+    console.log('Aaaaaaaaaaaaaaaaaaaaaaaaaaaa',id);
     return updateProduct('/products/', id,data)
 }
