@@ -24,39 +24,92 @@
   ],
   "products": [
     {
-      "id": 2,
-      "name": "Dffsff",
-      "detais": "Dfdsf",
-      "Price": "15460",
-      "location": "Fdsfdsfdsf"
+      "name": "Ffdgdg",
+      "detais": "Fgd",
+      "Price": "fgdgd",
+      "category": "laptop",
+      "location": "Fgg",
+      "id": 7
     },
     {
-      "name": "Ipad",
-      "detais": "New product",
-      "Price": "254000",
-      "location": "Varrachha",
-      "id": 3
+      "name": "Sdad",
+      "detais": "Sdad",
+      "Price": "sdaa",
+      "category": "wearable",
+      "location": "Sdad",
+      "id": 8
     },
     {
-      "name": "Macbook pro ",
-      "detais": "Old",
-      "Price": "120000",
-      "location": "Punagam",
-      "id": 4
+      "name": "Sdad",
+      "detais": "Sda",
+      "Price": "444444",
+      "category": "laptop",
+      "location": "Sda",
+      "id": 9
     },
     {
-      "name": "fsdfsd",
-      "detais": "fsf",
-      "Price": "464454",
-      "location": "dsfsdfs",
-      "id": 5
+      "name": "Fgdf",
+      "detais": "Fgd",
+      "Price": "888888",
+      "category": "wearable",
+      "location": "Fgdg",
+      "id": 10
     },
     {
-      "name": "fsd",
-      "detais": "dfdsf",
-      "Price": "998474",
-      "location": "fsdfs",
-      "id": 6
+      "name": "F",
+      "detais": "F",
+      "Price": "5",
+      "category": "laptop",
+      "location": "F",
+      "id": 11
+    },
+    {
+      "name": "Hh",
+      "detais": "H",
+      "Price": "8",
+      "category": "wearable",
+      "location": "H",
+      "id": 12
+    },
+    {
+      "name": "Uuuu",
+      "detais": "Uuu",
+      "Price": "uuuu",
+      "category": "wearable",
+      "location": "Uuu",
+      "id": 13
+    },
+    {
+      "name": "Iii",
+      "detais": "I",
+      "Price": "i",
+      "category": "wearable",
+      "location": "I",
+      "id": 14
+    },
+    {
+      "name": "A",
+      "detais": "A",
+      "Price": "a",
+      "category": "wearable",
+      "location": "A",
+      "id": 15
+    },
+    {
+      "name": "V",
+      "detais": "V",
+      "Price": "v",
+      "category": "wearable",
+      "location": "V",
+      "id": 16
+    },
+    {
+      "name": "Q",
+      "detais": "Q",
+      "Price": "11",
+      "category": "wearable",
+      "location": "Q",
+      "id": 17
     }
   ]
 }

@@ -21,21 +21,21 @@ export const productReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: ''
             }
-        case ActionType.INSERT_PRODUCT:
+        case ActionType.INSERTED_PRODUCT:
             return {
                 ...state,
                 product: state.product.concat(action.payload),
                 isLoading: false,
                 error: ''
             }
-        case ActionType.DELETE_PRODUCT:
+        case ActionType.DELETED_PRODUCT:
             return {
                 ...state,
                 product: state.product.filter((p) => p.id !== action.payload),
                 isLoading: false,
                 error: ''
             }
-            case ActionType.UPDATE_PRODUCT:
+            case ActionType.UPDATED_PRODUCT:
                 let d = state.product.map((p) => p.id === action.payload.id ? action.payload : p);
                 console.log(d);
                 return {

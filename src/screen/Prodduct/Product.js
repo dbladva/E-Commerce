@@ -59,7 +59,7 @@ const Product = ({navigation}) => {
         category,
         location,
       };
-      // console.log(pData);
+
       dispatch(insertProduct(pData));
       setName(''), setDetails('');
       setPrice('');
@@ -76,7 +76,7 @@ const Product = ({navigation}) => {
     setDetails(uData[0].detais);
     setLocation(uData[0].location);
     setPrice(uData[0].Price);
-    setPrice(uData[0].category);
+    setCategory(uData[0].category);
     setSubmit(1);
     setId(id);
   };
