@@ -13,7 +13,6 @@ export const deleteProductDetails = (id) => {
     return deleteRequest('/products/', id)
 }
 
-export const updateProductDetails = (id,data) => {
-    console.log('Aaaaaaaaaaaaaaaaaaaaaaaaaaaa',id);
-    return updateProduct('/products/', id,data)
+export const updateProductDetails = (data) => {
+    return updateProduct('/products/', data.id,data)
 }

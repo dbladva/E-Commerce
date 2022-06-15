@@ -1,8 +1,9 @@
 import axios from "axios"
+import { LocalHost } from "../Basic";
 
 const Instance = axios.create({
-    // baseURL: 'http://localhost:3004',
-    baseURL: 'http://192.168.43.200:8000',
+    baseURL: LocalHost,
+    // baseURL: 'http://192.168.43.200:8000',
     timeout: 3000,
 });
 
@@ -34,12 +35,11 @@ export const deleteRequest = (path,id) => {
 }
 
 
-export const updateProduct = (path,ItemId,data) => {
-    const {id} = ItemId
+export const updateProduct = (path,id,data) => {
     return SendRequest({
         url: path + id,
         method: 'PUT',
-        data: JSON.stringify(ItemId),
+        data: JSON.stringify(data),
         headers: {'Content-Type' : 'application/json'}
     })
 }

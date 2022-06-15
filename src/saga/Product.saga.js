@@ -9,6 +9,7 @@ function* getProductData(action) {
       yield put(getProduct(user.data));
    } catch (e) {
       console.log(e.message);
+      alert('connect to Internet!')
    }
 }
 
@@ -25,7 +26,6 @@ function* sendProductData(action) {
 function* removeProductData(action) {
    try {
       const user = yield call(deleteProductDetails, action.payload);
-      //console.log("uuuuuu",);
       yield put(removedProduct(action.payload));
    } catch (e) {
       console.log(e.message);
