@@ -20,6 +20,7 @@ import { configStore } from './src/redux/store';
 import CustomDrawer from './CustomDrawer';
 import { PersistGate } from 'redux-persist/integration/react';
 import SplashScreen from 'react-native-splash-screen'
+import promises from './src/screen/promises';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,6 +60,7 @@ const HomeScreenHandler = () => {
       <Tab.Screen name="Welc" component={Welcome} />
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Sign" component={Login} />
+      <Tab.Screen name="promises" component={promises} />
     </Tab.Navigator>
   );
 };
