@@ -1,9 +1,9 @@
 import axios from "axios"
-import { LocalHost } from "../Basic";
+import { LocalHost,Home } from "../Basic";
 
 const Instance = axios.create({
-    baseURL: LocalHost,
-    // baseURL: 'http://192.168.43.200:8000',
+    // baseURL: LocalHost,
+    baseURL: Home,
     timeout: 3000,
 });
 
