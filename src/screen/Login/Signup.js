@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch } from 'react-redux';
 import { userAction } from '../../redux/action/userAction';
+import auth from '@react-native-firebase/auth';
 
 
 const Signup = ({ navigation }) => {
@@ -26,15 +27,33 @@ const Signup = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const userHandler = () => {
-    let data = {
-      name,
-      email,
-      password,
-      phone,
-    }
+    // let data = {
+    //   name,
+    //   email,
+    //   password,  
+    //   phone,
+    // }
 
-    dispatch(userAction(data))
-    console.log(data);
+    // dispatch(userAction(data))
+    // console.log(data);
+
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+
   }
 
 
@@ -102,7 +121,7 @@ const Signup = ({ navigation }) => {
 
         <View style={styles.Login}>
           <Text style={{ textAlign: 'center', }}>Joined Us before?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}> 
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.Loginbtn}>Login</Text>
           </TouchableOpacity>
         </View>
