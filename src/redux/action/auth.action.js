@@ -10,10 +10,11 @@ export const createUserWithEmail = (data) => async (dispatch) => {
                 .onAuthStateChanged((user) => {
                     user.sendEmailVerification()
                         .then(() => {
+                            console.log(1);
                             dispatch({ type: ActionType.USER_EMAIL, payload: "Please verify email id." })
                         })
-                     
                         .catch((error) => {
+                            console.log(2);
                             dispatch({ type: ActionType.AUTH_ERROR, payload: error.code})
                         })
                 })
@@ -33,10 +34,12 @@ export const signinUserEmail = (data,navigation) => async (dispatch) => {
     auth()
         .signInWithEmailAndPassword(data.email, data.password)
         .then((user) => {
-            if (user.emailVerified) {
+            if (user.user.emailVerified) {
                 AsyncStorage.setItem("user",user.user.uid);
-                console.log("1");
-                dispatch({type: ActionType.SIGNIN_SUCCESS, payload: user})
+                AsyncStorage.getItem('user',)
+                console.log(user.user.uid);
+                dispatch({type: ActionType.SIGNIN_SUCCESS, payload: user.user}) 
+                navigation.navigate('Home')
             } else {
                 console.log("2", user);
                 dispatch({type: ActionType.USER_EMAIL, payload: "Please verify your email id."})

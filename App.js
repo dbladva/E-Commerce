@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Welcome from './src/screen/Welcome/Welcome';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -21,12 +21,29 @@ import CustomDrawer from './CustomDrawer';
 import { PersistGate } from 'redux-persist/integration/react';
 import SplashScreen from 'react-native-splash-screen'
 import promises from './src/screen/promises';
+import AsyncStorage from '@react-native-community/async-storage';
+import ForgotEmail from './src/screen/Forgot Password/Forgot.Email';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const HomeScreenHandler = () => {
+  const [uid,setUid] = useState('')
+
+  const getData = async () => {
+  
+    try {
+      const value = await AsyncStorage.getItem('user')
+      if(value !== null) {
+      //  console.log('uiddddddddddddddddd',value);
+      setUid(value)
+      }
+    } catch(e) {
+     console.log(e);
+    }
+  }
+  getData() 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -47,28 +64,30 @@ const HomeScreenHandler = () => {
             return <Entypo name={'home'} size={20} color={focused ? '#7cc' : 'black'} />;
           } else if (route.name === 'Sign') {
             return <AntDesign name={'login'} size={20} color={focused ? '#7cc' : 'black'} />;
+          } else if (route.name === 'Forgot') {
+            return <AntDesign name={'login'} size={20} color={focused ? '#7cc' : 'black'} />;
           }
 
         },
-        tabBarActiveTintColor: 'gray',
+        tabBarActiveTintColor: 'red',
 
-        tabBarInactiveTintColor: '#7cc',
+        tabBarInactiveTintColor: 'blue',
         headerShown: false,
         // tabBarActiveBackgroundColor: '#d0c2e8',
         // tabBarInactiveBackgroundColor: '#d0c2e8',
       })}>
+       
       <Tab.Screen name="Welc" component={Welcome} />
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Sign" component={Login} />
+      <Tab.Screen name="Forgot" component={ForgotEmail} />
       <Tab.Screen name="promises" component={promises} />
     </Tab.Navigator>
   );
 };
 
 const App = () => {
-  // const auth = useSelector(state => state.auth);
 
-  // console.log(auth);
 
   useEffect(() => {
     SplashScreen.hide();
