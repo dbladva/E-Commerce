@@ -14,6 +14,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch } from 'react-redux';
 import { userAction } from '../../redux/action/userAction';
 import auth from '@react-native-firebase/auth';
+import { createUserWithEmail } from '../../redux/action/auth.action';
 
 
 const Signup = ({ navigation }) => {
@@ -27,33 +28,14 @@ const Signup = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const userHandler = () => {
-    // let data = {
-    //   name,
-    //   email,
-    //   password,  
-    //   phone,
-    // }
+    let data = {
+      name,
+      email,
+      password,  
+      phone,
+    }
 
-    // dispatch(userAction(data))
-    // console.log(data);
-
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
-
+    dispatch(createUserWithEmail(data))
   }
 
 

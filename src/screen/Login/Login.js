@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/action/userAction';
+import { signinUserEmail } from '../../redux/action/auth.action';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const Login = ({ navigation }) => {
       email,
       password
     }
-    dispatch(login(loginData, navigation))
+    dispatch(signinUserEmail(loginData,navigation))
 
     // if(user.user === null && user.error !== '' ) {
     //   alert("wrong email/password");

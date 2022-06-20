@@ -14,7 +14,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Signup from './src/screen/Login/Signup';
 import Login from './src/screen/Login/Login';
 import Product from './src/screen/Prodduct/Product';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import Counter from './src/screen/Counter';
 import { configStore } from './src/redux/store';
 import CustomDrawer from './CustomDrawer';
@@ -66,6 +66,9 @@ const HomeScreenHandler = () => {
 };
 
 const App = () => {
+  // const auth = useSelector(state => state.auth);
+
+  // console.log(auth);
 
   useEffect(() => {
     SplashScreen.hide();
