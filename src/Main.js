@@ -20,9 +20,10 @@ import { configStore } from './src/redux/store';
 import CustomDrawer from '../CustomDrawer';
 import { PersistGate } from 'redux-persist/integration/react';
 import SplashScreen from 'react-native-splash-screen'
-import promises from './screen/promises';
 import AsyncStorage from '@react-native-community/async-storage';
 import ForgotEmail from './screen/Forgot Password/Forgot.Email'
+import Logout from './screen/Login/Logout';
+// import Promises from './screen/promises';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -77,9 +78,8 @@ const HomeScreenHandler = () => {
 
             <Tab.Screen name="Welc" component={Welcome} />
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Sign" component={Login} />
-            <Tab.Screen name="Forgot" component={ForgotEmail} />
-            <Tab.Screen name="promises" component={promises} />
+            {/* <Tab.Screen name="Sign" component={Login} /> */}
+            {/* <Tab.Screen name="Forgot" component={ForgotEmail} /> */}
         </Tab.Navigator>
     );
 };
@@ -90,8 +90,7 @@ export default function Main() {
     useEffect(
         () => {
             getData();
-        },
-        [])
+        },[])
 
     const getData = async () => {
         try {
@@ -99,7 +98,6 @@ export default function Main() {
 
             //   return value;
             if (value !== null) {
-                console.log('qqqqqqqqqqqq', value);
                 setUid(value)
             }
         } catch (e) {
@@ -121,7 +119,6 @@ export default function Main() {
                     <Drawer.Screen
                         name="Homee"
                         options={{
-
                             drawerIcon: ({ focused, size }) => (
                                 <Ionicons
                                     name="home"
@@ -174,7 +171,7 @@ export default function Main() {
                         }}
                         component={Counter}
                     />
-                    <Drawer.Screen
+                    {/* <Drawer.Screen
                         name="Login"
                         options={{
                             title: 'Login',
@@ -187,12 +184,11 @@ export default function Main() {
                             ),
                         }}
                         component={Login}
-                    />
+                    /> */}
 
                     <Drawer.Screen
-                        name="Signup"
+                        name="Logout"
                         options={{
-                            title: 'Sign up',
                             drawerIcon: ({ focused, size }) => (
                                 <MaterialIcons
                                     name="logout"
@@ -201,7 +197,7 @@ export default function Main() {
                                 />
                             ),
                         }}
-                        component={Signup}
+                        component={Logout}
                     />
                 </Drawer.Navigator>
             </NavigationContainer>
@@ -209,6 +205,7 @@ export default function Main() {
             <NavigationContainer >
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Signup" component={Signup} />
                     <Stack.Screen name="ForgotEmail" component={ForgotEmail} />
                 </Stack.Navigator>
             </NavigationContainer>

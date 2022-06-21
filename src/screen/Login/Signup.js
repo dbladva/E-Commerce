@@ -42,7 +42,7 @@ const Signup = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <View style={{ marginLeft: 20, marginTop: 10, }}>
+        {/* <View style={{ marginLeft: 20, marginTop: 10, }}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <MaterialIcons
               name={'menu'}
@@ -50,7 +50,7 @@ const Signup = ({ navigation }) => {
               color={'black'}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={styles.ImageView}>
           <Image
             style={styles.LoginLogo}

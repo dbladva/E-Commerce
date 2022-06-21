@@ -31,7 +31,7 @@ export const authReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: '',
                 user: null,
-                authMsg: action.payload
+                authMsg: alert(action.payload),
             }
         case ActionType.RESET_PASSWORD:
             return {
@@ -39,7 +39,7 @@ export const authReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: '',
                 user: null,
-                authMsg: action.payload
+                authMsg:alert(action.payload),
             }
         case ActionType.AUTH_ERROR:
             return {
@@ -47,7 +47,7 @@ export const authReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: alert(action.payload),
                 user: null,
-                authMsg: ''
+                authMsg: '' 
             }
         default:
             return state

@@ -1,41 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React ,{useEffect} from 'react'
+// import { StyleSheet, Text, View } from 'react-native'
+// import React ,{useEffect} from 'react'
 
-const promises = () => {
-    const one = () => {
-        return "One value"
-    }
-    const two = () => {
-        return 
-        setTimeout(() => {
-        return "Two value"
-        }, 2000);
-    }
-    const three = () => {
-        return "Three value"
-    }
-    const all = async () => {
-        let oneval = one()
-        console.log(oneval);
+// const Promises = ({navigation}) => {
+//     const one = () => {
+//         return "One value"
+//     }
+//     const two = () => {
+//         return 
+//         setTimeout(() => {
+//         return "Two value"
+//         }, 2000);
+//     }
+//     const three = () => {
+//         return "Three value"
+//     }
+//     const all = async () => {
+//         let oneval = one()
+//         console.log(oneval);
 
-        let twoval = await two()
-        console.log(twoval);
+//         let twoval = await two()
+//         console.log(twoval);
 
-        let threeval = three()
-        console.log(threeval);
-    }
+//         let threeval = three()
+//         console.log(threeval);
+//     }
 
-    useEffect(() => {
-    all()
-    },[])
+//     useEffect(() => {
+//     all()
+//     },[])
     
-  return (
-    <View>
-      <Text>promises</Text>
-    </View>
-  )
-}
+//   return (
+//     <View>
+//       <Text>promises</Text>
+//     </View>
+//   )
+// }
 
-export default promises
+// export default Promises
 
-const styles = StyleSheet.create({})
+// const styles = StyleSheet.create({})

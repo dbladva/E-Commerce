@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <View style={{ marginLeft: 20, marginTop: 10, }}>
+        {/* <View style={{ marginLeft: 20, marginTop: 10, }}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <MaterialIcons
               name={'menu'}
@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
             />
           </TouchableOpacity>
 
-        </View>
+        </View> */}
         <View style={styles.ImageView}>
           <Image
             style={styles.LoginLogo}
@@ -86,10 +86,18 @@ const Login = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+
         <View style={styles.Login}>
           <Text style={{ textAlign: 'center', }}>Forgot Password?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('ForgotEmail')}>
             <Text style={styles.Loginbtn}>Click</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.Login}>
+          <Text style={{ textAlign: 'center', }}>You don't have an account ?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.Loginbtn}>Sign up</Text>
           </TouchableOpacity>
         </View>
       </View>
