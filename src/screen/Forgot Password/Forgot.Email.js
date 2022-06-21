@@ -13,7 +13,7 @@ import {
   import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
   import { useDispatch, useSelector } from 'react-redux';
   import { login } from '../../redux/action/userAction';
-  import { signinUserEmail } from '../../redux/action/auth.action';
+  import { resetPasswordEmail } from '../../redux/action/auth.action';
   
   const ForgotEmail = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -24,11 +24,7 @@ import {
   
     const user = useSelector(state => state.users);
     const loginHandler = () => {
-      const loginData = {
-        email,
-        password
-      }
-      dispatch(signinUserEmail(loginData,navigation))
+      dispatch(resetPasswordEmail(email))
     }
   
     return (

@@ -15,7 +15,7 @@ export const createUserWithEmail = (data) => async (dispatch) => {
                         })
                         .catch((error) => {
                             console.log(2);
-                            dispatch({ type: ActionType.AUTH_ERROR, payload: error.code})
+                            dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
                         })
                 })
         })
@@ -28,30 +28,48 @@ export const createUserWithEmail = (data) => async (dispatch) => {
                 dispatch({ type: ActionType.AUTH_ERROR, payload: "That email address is invalid!" })
             }
         });
-}   
+}
 
-export const signinUserEmail = (data,navigation) => async (dispatch) => {
+export const signinUserEmail = (data) => async (dispatch) => {
     auth()
         .signInWithEmailAndPassword(data.email, data.password)
         .then((user) => {
             if (user.user.emailVerified) {
-                AsyncStorage.setItem("user",user.user.uid);
-                AsyncStorage.getItem('user',)
-                console.log(user.user.uid);
-                dispatch({type: ActionType.SIGNIN_SUCCESS, payload: user.user}) 
-                navigation.navigate('Home')
+                AsyncStorage.setItem("user", user.user.uid);
+
+                dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: user.user })
             } else {
                 console.log("2", user);
-                dispatch({type: ActionType.USER_EMAIL, payload: "Please verify your email id."})
+                dispatch({ type: ActionType.USER_EMAIL, payload: "Please verify your email id." })
             }
-               
+
         })
         .catch((error) => {
             console.log("3");
-            dispatch({ type: ActionType.AUTH_ERROR, payload: error.code})
-        }) 
+            dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+        })
 }
 
-//signout
+export const signoutEmail = () => (dispatch) => {
+    try {
+        auth()
+            .signOut()
+            .then(() => {
+                dispatch({type: ActionType.SIGNOUT_USER, payload: "Signout successfully."})
+            });
+    } catch (e) {
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
+}
 
-//reset password
+export const resetPasswordEmail = (email) => (dispatch) => {
+    try {
+        auth()
+            .sendPasswordResetEmail(email)
+            .then(() => {
+                dispatch({type: ActionType.RESET_PASSWORD, payload: "Reset password link sent to your email address."})
+            })
+    } catch (e) {
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
+}

@@ -8,7 +8,7 @@ const initValue = {
 }
 
 export const authReducer = (state = initValue, action) => {
-    switch (action.type) { 
+    switch (action.type) {
         case ActionType.USER_EMAIL:
             return {
                 ...state,
@@ -24,6 +24,22 @@ export const authReducer = (state = initValue, action) => {
                 error: '',
                 user: action.payload,
                 authMsg: ''
+            }
+        case ActionType.SIGNOUT_USER:
+            return {
+                ...state,
+                isLoading: false,
+                error: '',
+                user: null,
+                authMsg: action.payload
+            }
+        case ActionType.RESET_PASSWORD:
+            return {
+                ...state,
+                isLoading: false,
+                error: '',
+                user: null,
+                authMsg: action.payload
             }
         case ActionType.AUTH_ERROR:
             return {
