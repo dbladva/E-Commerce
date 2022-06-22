@@ -4,11 +4,13 @@ import { DrawerContent, DrawerContentScrollView, DrawerItemList } from '@react-n
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch } from 'react-redux'
 import { signoutEmail } from './src/redux/action/auth.action'
+import AsyncStorage from '@react-native-community/async-storage';
 
 const CustomDrawer = (props) => {
   const dispatch = useDispatch()
 
   const LogoutHandler = () => {
+    AsyncStorage.clear()
     dispatch(signoutEmail())
   }
   return (
@@ -30,11 +32,12 @@ const CustomDrawer = (props) => {
       </DrawerContentScrollView>
       <View style={styles.LogoutView}>
         <TouchableOpacity style={styles.btn} onPress={() => LogoutHandler()}>
-          <MaterialIcons
-            name="logout"
-            size={25}
-            color={'#d0c2e8'}
-          />
+            <MaterialIcons
+              name="logout"
+              size={25}
+              // color={'#d0c2e8'}
+              color='red'
+            />
           <Text style={styles.LogoutText}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     // marginHorizontal: 20,
     // marginVertical: 10,
+    // backgroundColor: 'blue'
 
   },
   btn:{

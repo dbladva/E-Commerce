@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -34,6 +35,7 @@ const Welcome = ({navigation}) => {
         </View>
         
       </View>
+      {/* <StatusBar backgroundColor={'#dbffff'} /> */}
     </SafeAreaView>
   );
 };
@@ -53,5 +55,4 @@ width: 200
     flex: 1,
     justifyContent: 'center',alignItems: 'center',
   }
-  
 });

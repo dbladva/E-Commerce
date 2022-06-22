@@ -24,6 +24,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ForgotEmail from './screen/Forgot Password/Forgot.Email'
 import Logout from './screen/Login/Logout';
 import { signoutEmail } from './redux/action/auth.action';
+import SigninWithPhone from './screen/Login/SignInWithPhone';
+import Otp from './screen/Login/Otp';
 // import Promises from './screen/promises';
 
 const Stack = createNativeStackNavigator();
@@ -96,8 +98,6 @@ export default function Main() {
     const getData = async () => {
         try {
             const value = await AsyncStorage.getItem('user');
-
-            //   return value;
             if (value !== null) {
                 setUid(value)
             }
@@ -107,10 +107,10 @@ export default function Main() {
     }
 
     let auth = useSelector(state => state.auth);
-    console.log("aaaaaaaaaaaaa", auth.user + 'uidddddd',uid);
+    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',uid);
     let dispatch = useDispatch()
     return (
-        auth.user !== null || uid  ?
+         auth.user !== null || uid ?
             <NavigationContainer>
                 <Drawer.Navigator
                     drawerContent={props => <CustomDrawer {...props} />}
@@ -212,6 +212,8 @@ export default function Main() {
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Signup" component={Signup} />
                     <Stack.Screen name="ForgotEmail" component={ForgotEmail} />
+                    <Stack.Screen name="SigninWithPhone" component={SigninWithPhone} />
+                    <Stack.Screen name="Otp" component={Otp} />
                 </Stack.Navigator>
             </NavigationContainer>
     )

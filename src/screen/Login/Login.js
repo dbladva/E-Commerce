@@ -93,6 +93,12 @@ const Login = ({ navigation }) => {
             <Text style={styles.Loginbtn}>Click</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.Login}>
+          <Text style={{ textAlign: 'center', }}>Signin With Phone Number</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SigninWithPhone')}>
+            <Text style={styles.Loginbtn}>Click</Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.Login}>
           <Text style={{ textAlign: 'center', }}>You don't have an account ?</Text>
