@@ -60,8 +60,14 @@ import {
               <Text style={styles.ContinueText}>Continue</Text>
             </TouchableOpacity>
           </View>
-  
-        
+
+          <View style={styles.Login}>
+          <Text style={{ textAlign: 'center', }}>You don't have an account ?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.Loginbtn}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
+
         </View>
       </SafeAreaView>
     );

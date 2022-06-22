@@ -55,6 +55,7 @@ export const signoutEmail = () => (dispatch) => {
         auth()
             .signOut()
             .then(() => {
+                AsyncStorage.clear();
                 dispatch({type: ActionType.SIGNOUT_USER, payload: "Signout successfully."})
             });
     } catch (e) {

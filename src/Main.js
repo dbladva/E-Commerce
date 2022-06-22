@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Welcome from './screen/Welcome/Welcome';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +14,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Signup from './screen/Login/Signup';
 import Login from './screen/Login/Login';
 import Product from './screen/Prodduct/Product';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import Counter from './screen/Counter';
 import { configStore } from './src/redux/store';
 import CustomDrawer from '../CustomDrawer';
@@ -23,6 +23,7 @@ import SplashScreen from 'react-native-splash-screen'
 import AsyncStorage from '@react-native-community/async-storage';
 import ForgotEmail from './screen/Forgot Password/Forgot.Email'
 import Logout from './screen/Login/Logout';
+import { signoutEmail } from './redux/action/auth.action';
 // import Promises from './screen/promises';
 
 const Stack = createNativeStackNavigator();
@@ -106,16 +107,15 @@ export default function Main() {
     }
 
     let auth = useSelector(state => state.auth);
-    console.log("aaaaaaaaaaaaa", auth.user, uid, auth.user !== null && uid !== null);
-
+    console.log("aaaaaaaaaaaaa", auth.user + 'uidddddd',uid);
+    let dispatch = useDispatch()
     return (
-        auth.user !== null || uid !== null ?
+        auth.user !== null || uid  ?
             <NavigationContainer>
                 <Drawer.Navigator
                     drawerContent={props => <CustomDrawer {...props} />}
                     screenOptions={{ headerShown: false }}
                     initialRouteName="Home">
-
                     <Drawer.Screen
                         name="Homee"
                         options={{
@@ -166,6 +166,7 @@ export default function Main() {
                                     name="star-border"
                                     size={size}
                                     color={focused ? '#7cc' : '#d0c2e8'}
+                                    
                                 />
                             ),
                         }}
@@ -186,8 +187,9 @@ export default function Main() {
                         component={Login}
                     /> */}
 
-                    <Drawer.Screen
+                    {/* <Drawer.Screen
                         name="Logout"
+                        title='Logout'
                         options={{
                             drawerIcon: ({ focused, size }) => (
                                 <MaterialIcons
@@ -197,8 +199,11 @@ export default function Main() {
                                 />
                             ),
                         }}
-                        component={Logout}
-                    />
+                        component={() =>{
+                            <Button title='Logout' onPress={() => dispatch(signoutEmail())}/>
+                        }}
+                        
+                    /> */}
                 </Drawer.Navigator>
             </NavigationContainer>
             :
