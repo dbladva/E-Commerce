@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import React from 'react'
 import { DrawerContent, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { signoutEmail } from './src/redux/action/auth.action'
 import AsyncStorage from '@react-native-community/async-storage';
 
 const CustomDrawer = (props) => {
-  const dispatch = useDispatch()
-
+    const dispatch = useDispatch()
+    const auth = useSelector(state => state.auth) 
   const LogoutHandler = () => {
     AsyncStorage.clear()
     dispatch(signoutEmail())
@@ -38,7 +38,7 @@ const CustomDrawer = (props) => {
               // color={'#d0c2e8'}
               color='red'
             />
-          <Text style={styles.LogoutText}>Logout</Text>
+          <Text style={styles.LogoutText}>{auth.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Logout'}</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -19,37 +20,23 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch();
-
-  const user = useSelector(state => state.users);
+  const auth = useSelector(state => state.auth);
+  console.log(auth.isLoading);
   const loginHandler = () => {
     const loginData = {
       email,
       password
     }
     dispatch(signinUserEmail(loginData,navigation))
-
-    // if(user.user === null && user.error !== '' ) {
-    //   alert("wrong email/password");
-    //   navigation.navigate("Login")
-    // }
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {/* <View style={{ marginLeft: 20, marginTop: 10, }}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <MaterialIcons
-              name={'menu'}
-              size={25}
-              color={'black'}
-            />
-          </TouchableOpacity>
-
-        </View> */}
-        <View style={styles.ImageView}>
+            <View style={styles.ImageView}>
           <Image
             style={styles.LoginLogo}
             source={require('../../images/Login.png')}
@@ -82,7 +69,7 @@ const Login = ({ navigation }) => {
 
         <View style={{ alignItems: 'center', margin: 20 }}>
           <TouchableOpacity style={styles.ContinueBtn} onPress={() => loginHandler()}>
-            <Text style={styles.ContinueText}>Login</Text>
+            <Text style={styles.ContinueText}>{auth.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Login'}</Text>
           </TouchableOpacity>
         </View>
 

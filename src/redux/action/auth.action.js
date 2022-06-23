@@ -3,6 +3,7 @@ import auth from '@react-native-firebase/auth';
 import * as ActionType from '../ActionType'
 
 export const createUserWithEmail = (data) => async (dispatch) => {
+    dispatch(Loading())
     auth()
         .createUserWithEmailAndPassword(data.email, data.password)
         .then(() => {
@@ -31,6 +32,7 @@ export const createUserWithEmail = (data) => async (dispatch) => {
 }
 
 export const signinUserEmail = (data) => async (dispatch) => {
+    dispatch(Loading())
     auth()
         .signInWithEmailAndPassword(data.email, data.password)
         .then((user) => {
@@ -51,6 +53,7 @@ export const signinUserEmail = (data) => async (dispatch) => {
 }
 
 export const signoutEmail = () => (dispatch) => {
+    dispatch(Loading())
     try {
         auth()
             .signOut()
@@ -64,6 +67,7 @@ export const signoutEmail = () => (dispatch) => {
 }
 
 export const resetPasswordEmail = (email) => (dispatch) => {
+    dispatch(Loading())
     try {
         auth()
             .sendPasswordResetEmail(email)
@@ -76,6 +80,7 @@ export const resetPasswordEmail = (email) => (dispatch) => {
 }
 
 export const loginWithPhone = (PhoneNumber) => async (dispatch) => {
+    dispatch(Loading())
     console.log(PhoneNumber);
     try {
         auth()
@@ -95,11 +100,12 @@ export const loginWithPhone = (PhoneNumber) => async (dispatch) => {
 }
 
 export const verifyOtp = (otp, confirm) => async (dispatch) => {
+    dispatch(Loading())
     try {
         await confirm.confirm(otp)
             .then((user) => {
-                AsyncStorage.setItem('user')
-                console.log("ijuijmmijmiko,,k,ko", user);
+                AsyncStorage.setItem("user",user.user.uid)
+                console.log("ijuijmmijmiko,,k,ko", user.user.uid);
                 dispatch({type: ActionType.SIGNIN_SUCCESS, payload: user})
             })
             .catch((e) => {
@@ -110,3 +116,6 @@ export const verifyOtp = (otp, confirm) => async (dispatch) => {
     }
 }
 
+export const Loading = () => (dispatch) => {
+    dispatch({type: ActionType.LOADING_PRODUCT})
+}

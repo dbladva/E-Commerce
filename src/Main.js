@@ -23,7 +23,7 @@ import SplashScreen from 'react-native-splash-screen'
 import AsyncStorage from '@react-native-community/async-storage';
 import ForgotEmail from './screen/Forgot Password/Forgot.Email'
 import Logout from './screen/Login/Logout';
-import { signoutEmail } from './redux/action/auth.action';
+import { Loading, signoutEmail } from './redux/action/auth.action';
 import SigninWithPhone from './screen/Login/SignInWithPhone';
 import Otp from './screen/Login/Otp';
 // import Promises from './screen/promises';
@@ -89,7 +89,6 @@ const HomeScreenHandler = () => {
 
 export default function Main() {
     const [uid, setUid] = useState('')
-
     useEffect(
         () => {
             getData();
@@ -104,13 +103,15 @@ export default function Main() {
         } catch (e) {
             console.log(e);
         }
+
     }
 
+
     let auth = useSelector(state => state.auth);
-    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',uid);
+    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',uid); 
     let dispatch = useDispatch()
     return (
-         auth.user !== null || uid ?
+        uid || auth.user !== null  ?
             <NavigationContainer>
                 <Drawer.Navigator
                     drawerContent={props => <CustomDrawer {...props} />}
@@ -172,42 +173,11 @@ export default function Main() {
                         }}
                         component={Counter}
                     />
-                    {/* <Drawer.Screen
-                        name="Login"
-                        options={{
-                            title: 'Login',
-                            drawerIcon: ({ focused, size }) => (
-                                <MaterialIcons
-                                    name="login"
-                                    size={size}
-                                    color={focused ? '#7cc' : '#d0c2e8'}
-                                />
-                            ),
-                        }}
-                        component={Login}
-                    /> */}
-
-                    {/* <Drawer.Screen
-                        name="Logout"
-                        title='Logout'
-                        options={{
-                            drawerIcon: ({ focused, size }) => (
-                                <MaterialIcons
-                                    name="logout"
-                                    size={size}
-                                    color={focused ? '#7cc' : '#d0c2e8'}
-                                />
-                            ),
-                        }}
-                        component={() =>{
-                            <Button title='Logout' onPress={() => dispatch(signoutEmail())}/>
-                        }}
-                        
-                    /> */}
+                 
                 </Drawer.Navigator>
             </NavigationContainer>
             :
-            <NavigationContainer >
+            <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Signup" component={Signup} />

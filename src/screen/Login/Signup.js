@@ -6,12 +6,13 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { userAction } from '../../redux/action/userAction';
 import auth from '@react-native-firebase/auth';
 import { createUserWithEmail } from '../../redux/action/auth.action';
@@ -26,6 +27,8 @@ const Signup = ({ navigation }) => {
 
 
   const dispatch = useDispatch();
+const auth = useSelector(state => state.auth)
+
 
   const userHandler = () => {
     let data = {
@@ -97,7 +100,7 @@ const Signup = ({ navigation }) => {
 
         <View style={{ alignItems: 'center', margin: 20 }}>
           <TouchableOpacity style={styles.ContinueBtn} onPress={userHandler}>
-            <Text style={styles.ContinueText}>Continue</Text>
+            <Text style={styles.ContinueText}>{auth.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Continue'}</Text>
           </TouchableOpacity>
         </View>
 

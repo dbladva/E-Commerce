@@ -6,6 +6,7 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
+    ActivityIndicator
   } from 'react-native';
   import React, { useState } from 'react';
   import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -52,7 +53,7 @@ import {
   
           <View style={{ alignItems: 'center', margin: 20 }}>
             <TouchableOpacity style={styles.ContinueBtn} onPress={() => loginHandler()}>
-              <Text style={styles.ContinueText}>verify Number</Text>
+              <Text style={styles.ContinueText}>{auth.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Verify Number'}</Text>
             </TouchableOpacity>
           </View>
 
@@ -88,7 +89,7 @@ import {
   
           <View style={{ alignItems: 'center', margin: 20 }}>
             <TouchableOpacity style={styles.ContinueBtn} onPress={() => verifyOTP()}>
-              <Text style={styles.ContinueText}>Verify OTP</Text>
+              <Text style={styles.ContinueText}>{auth.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Verify OTP'}</Text>
             </TouchableOpacity>
           </View>
 

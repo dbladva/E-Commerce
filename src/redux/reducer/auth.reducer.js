@@ -63,6 +63,15 @@ export const authReducer = (state = initValue, action) => {
                 authMsg: '',
                 confirm: action.payload 
             }
+            case ActionType.LOADING_PRODUCT:
+                return {
+                    ...state,
+                    isLoading: true,
+                    error: '',
+                    user: null,
+                    authMsg: '',
+                    confirm:null 
+                }
         default:
             return state
 
