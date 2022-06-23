@@ -13,20 +13,25 @@ import {
   import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
   import { useDispatch, useSelector } from 'react-redux';
   import { login } from '../../redux/action/userAction';
-  import { loginWithPhone, signinUserEmail } from '../../redux/action/auth.action';
+  import { loginWithPhone, signinUserEmail, verifyOtp } from '../../redux/action/auth.action';
   
   const SigninWithPhone = ({ navigation }) => {
     const [email, setEmail] = useState('');
+    const [otp, setOtp] = useState(0);
   
     const dispatch = useDispatch();
-    const user = useSelector(state => state.users);
+    const auth = useSelector(state => state.auth);
 
     const loginHandler = () => {
-      dispatch(loginWithPhone(email,navigation))
+      dispatch(loginWithPhone(email))
     }
-  
-    return (
-      <SafeAreaView style={styles.container}>
+
+    const verifyOTP = () => {
+      dispatch(verifyOtp(otp, auth.confirm))
+    }
+
+    const siginWithPhoneScreen = () => {
+      return (
         <View style={styles.container}>
     
           <View style={styles.ImageView}>
@@ -58,6 +63,52 @@ import {
             </TouchableOpacity>
           </View>
         </View>
+      )
+    }
+
+    const otpScreen = () => {
+      return(
+        <View style={styles.container}>
+    
+          <View style={styles.ImageView}>
+            <Image
+              style={styles.LoginLogo}
+              source={require('../../images/Login.png')}
+            />
+          </View>
+  
+          <View>
+            <Text style={styles.LoginTitle}>Login With Phone</Text>
+          </View>
+          <View style={styles.InputView}>
+            <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
+            <TextInput secureTextEntry={false} style={styles.Searchinput} placeholder="OTP" onChangeText={(a) => setOtp(a)} />
+          </View>
+
+  
+          <View style={{ alignItems: 'center', margin: 20 }}>
+            <TouchableOpacity style={styles.ContinueBtn} onPress={() => verifyOTP()}>
+              <Text style={styles.ContinueText}>Verify OTP</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.Login}>
+            <Text style={{ textAlign: 'center', }}>You don't have an account ?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+              <Text style={styles.Loginbtn}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+    }
+  
+    return (
+      <SafeAreaView style={styles.container}>
+        {
+          auth.confirm !== null ?
+            otpScreen() :
+            siginWithPhoneScreen()
+        }
       </SafeAreaView>
     );
   };

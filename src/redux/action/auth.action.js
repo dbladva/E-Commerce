@@ -55,8 +55,8 @@ export const signoutEmail = () => (dispatch) => {
         auth()
             .signOut()
             .then(() => {
-                 AsyncStorage.clear();
-                dispatch({type: ActionType.SIGNOUT_USER, payload: "Signout successfully."})
+                AsyncStorage.clear();
+                dispatch({ type: ActionType.SIGNOUT_USER, payload: "Signout successfully." })
             });
     } catch (e) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
@@ -68,34 +68,45 @@ export const resetPasswordEmail = (email) => (dispatch) => {
         auth()
             .sendPasswordResetEmail(email)
             .then(() => {
-                dispatch({type: ActionType.RESET_PASSWORD, payload: "Reset password link sent to your email address."})
+                dispatch({ type: ActionType.RESET_PASSWORD, payload: "Reset password link sent to your email address." })
             })
     } catch (e) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
 }
 
-export const loginWithPhone = (PhoneNumber,navigation) => async (dispatch) => {
+export const loginWithPhone = (PhoneNumber) => async (dispatch) => {
     console.log(PhoneNumber);
-try {
-    auth()
+    try {
+        auth()
             .signInWithPhoneNumber(PhoneNumber)
             .then((confirmation) => {
-                console.log('confirmationnnnnnnnnn',confirmation.confirm);
-                navigation.navigate('Otp')
-                console.log('successfully send otp');
-                // dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: user.user })
+                console.log('confirmationnnnnnnnnn', confirmation.confirm);
+                console.log('ccccccccccccccccccccc', confirmation);
+                dispatch({ type: ActionType.OTP, payload: confirmation })
             })
-            .then(() => {
-                try {
-                     confirm.confirm(123456);
-                  } catch (error) {
-                    console.log('Invalid code.');
-                  };
+            .catch((e) => {
+                dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
             })
-           
-} catch (e) {
-    dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+
+    } catch (e) {
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
 }
+
+export const verifyOtp = (otp, confirm) => async (dispatch) => {
+    try {
+        await confirm.confirm(otp)
+            .then((user) => {
+                AsyncStorage.setItem('user')
+                console.log("ijuijmmijmiko,,k,ko", user);
+                dispatch({type: ActionType.SIGNIN_SUCCESS, payload: user})
+            })
+            .catch((e) => {
+                dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+            })
+    } catch (error) {
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
 }
 
