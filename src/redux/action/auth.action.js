@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import auth from '@react-native-firebase/auth';
 import * as ActionType from '../ActionType'
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export const createUserWithEmail = (data) => async (dispatch) => {
     dispatch(Loading())
@@ -118,4 +119,31 @@ export const verifyOtp = (otp, confirm) => async (dispatch) => {
 
 export const Loading = () => (dispatch) => {
     dispatch({type: ActionType.LOADING_PRODUCT})
+}
+
+
+
+export const SigninWithGoogle = () => async (dispatch) => {
+    // const { idToken } = await GoogleSignin.signIn();
+    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // return auth().signInWithCredential(googleCredential)
+
+    // dispatch({type: ActionType.SIGNIN_SUCCESS,payload: id})
+    GoogleSignin.configure({
+        webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
+      });
+
+
+try { 
+    const { idToken } = await GoogleSignin.signIn()
+    .then(() => {
+        googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    })
+    .then((user) => {
+        auth().signInWithCredential(googleCredential)
+        dispatch({type: ActionType.SIGNIN_SUCCESS,payload: user})
+    })
+} catch(e){
+console.log(e);
+}
 }

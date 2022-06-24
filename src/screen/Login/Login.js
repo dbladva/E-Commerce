@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/action/userAction';
 import { signinUserEmail } from '../../redux/action/auth.action';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -25,18 +26,29 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
   console.log(auth.isLoading);
+
   const loginHandler = () => {
     const loginData = {
       email,
       password
     }
-    dispatch(signinUserEmail(loginData,navigation))
+    dispatch(signinUserEmail(loginData, navigation))
+  }
+
+  GoogleSignin.configure({
+    webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
+  });
+
+  const GoogleHandler = async () => {
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    return auth().signInWithCredential(googleCredential);
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-            <View style={styles.ImageView}>
+        <View style={styles.ImageView}>
           <Image
             style={styles.LoginLogo}
             source={require('../../images/Login.png')}
@@ -83,6 +95,16 @@ const Login = ({ navigation }) => {
         <View style={styles.Login}>
           <Text style={{ textAlign: 'center', }}>Signin With Phone Number</Text>
           <TouchableOpacity onPress={() => navigation.navigate('SigninWithPhone')}>
+            <Text style={styles.Loginbtn}>Click</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.Login}>
+          <Text style={{ textAlign: 'center', }}>Signin With Google</Text>
+          <TouchableOpacity onPress={() =>
+            // navigation.navigate('SigninWithPhone')
+            GoogleHandler()
+          } >
             <Text style={styles.Loginbtn}>Click</Text>
           </TouchableOpacity>
         </View>

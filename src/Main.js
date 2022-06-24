@@ -111,6 +111,7 @@ export default function Main() {
     console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',uid); 
     let dispatch = useDispatch()
     return (
+        
         uid || auth.user !== null  ?
             <NavigationContainer>
                 <Drawer.Navigator
