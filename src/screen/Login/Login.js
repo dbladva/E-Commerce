@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/action/userAction';
-import { signinUserEmail } from '../../redux/action/auth.action';
+import { signinUserEmail, SigninWithGoogle } from '../../redux/action/auth.action';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Login = ({ navigation }) => {
@@ -36,13 +36,15 @@ const Login = ({ navigation }) => {
   }
 
   GoogleSignin.configure({
-    webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
-  });
+    // webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
+    webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
+});
 
   const GoogleHandler = async () => {
-    const { idToken } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    return auth().signInWithCredential(googleCredential);
+  //  dispatch(SigninWithGoogle())
+   const { idToken } = await GoogleSignin.signIn();
+   const googleCredential = auth.GoogleAuthProvider.credential(idToken); 
+   return auth().signInWithCredential(googleCredential);
   }
 
   return (

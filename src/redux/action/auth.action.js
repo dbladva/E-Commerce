@@ -105,9 +105,9 @@ export const verifyOtp = (otp, confirm) => async (dispatch) => {
     try {
         await confirm.confirm(otp)
             .then((user) => {
-                AsyncStorage.setItem("user",user.user.uid)
+                AsyncStorage.setItem("user", user.user.uid)
                 console.log("ijuijmmijmiko,,k,ko", user.user.uid);
-                dispatch({type: ActionType.SIGNIN_SUCCESS, payload: user})
+                dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: user })
             })
             .catch((e) => {
                 dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
@@ -118,32 +118,26 @@ export const verifyOtp = (otp, confirm) => async (dispatch) => {
 }
 
 export const Loading = () => (dispatch) => {
-    dispatch({type: ActionType.LOADING_PRODUCT})
+    dispatch({ type: ActionType.LOADING_PRODUCT })
 }
 
 
 
 export const SigninWithGoogle = () => async (dispatch) => {
-    // const { idToken } = await GoogleSignin.signIn();
-    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // return auth().signInWithCredential(googleCredential)
-
     // dispatch({type: ActionType.SIGNIN_SUCCESS,payload: id})
     GoogleSignin.configure({
-        webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
-      });
+        // webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
+        webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
+    });
+    try {
+        const { idToken } =  GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        // console.log(googleCredential.);
+         auth().signInWithCredential(googleCredential);
+       
+    //   dispatch({type: ActionType.SIGNIN_SUCCESS,payload: idToken})
+    } catch (error) {
+        console.log(error);
+    }
 
-
-try { 
-    const { idToken } = await GoogleSignin.signIn()
-    .then(() => {
-        googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    })
-    .then((user) => {
-        auth().signInWithCredential(googleCredential)
-        dispatch({type: ActionType.SIGNIN_SUCCESS,payload: user})
-    })
-} catch(e){
-console.log(e);
-}
 }
