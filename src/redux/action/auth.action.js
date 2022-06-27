@@ -126,7 +126,6 @@ export const Loading = () => (dispatch) => {
 export const SigninWithGoogle = () => async (dispatch) => {
     // dispatch({type: ActionType.SIGNIN_SUCCESS,payload: id})
     GoogleSignin.configure({
-        // webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
         webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
     });
     try {

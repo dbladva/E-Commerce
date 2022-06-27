@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -35,17 +35,21 @@ const Login = ({ navigation }) => {
     dispatch(signinUserEmail(loginData, navigation))
   }
 
-  GoogleSignin.configure({
-    // webClientId: '591138143160-c840t6463skfbehilvd5f96t5m7rent2.apps.googleusercontent.com',
-    webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
-});
-
-  const GoogleHandler = async () => {
-  //  dispatch(SigninWithGoogle())
-   const { idToken } = await GoogleSignin.signIn();
-   const googleCredential = auth.GoogleAuthProvider.credential(idToken); 
-   return auth().signInWithCredential(googleCredential);
-  }
+  useEffect(() => {
+      GoogleSignin.configure({
+        webClientId:
+          '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
+          offlineAccess: true
+      });
+    }, []);
+  
+    const GoogleHandler = async () => {
+      await GoogleSignin.hasPlayServices();
+      const {accessToken, idToken} = await GoogleSignin.signIn();
+      console.log(idToken);
+      const credential = auth.GoogleAuthProvider.credential(idToken, accessToken);
+      return await auth().signInWithCredential(credential);
+    };  
 
   return (
     <SafeAreaView style={styles.container}>
