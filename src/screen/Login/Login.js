@@ -15,8 +15,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/action/userAction';
 import { signinUserEmail, SigninWithGoogle } from '../../redux/action/auth.action';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+// import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -37,25 +38,8 @@ const Login = ({ navigation }) => {
   }
 
 
-  useEffect(() => {
-
-    GoogleSignin.configure({
-      webClientId:
-        '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
-    });
-    }, []);
-
-  const GoogleHandler = async () => {
-
-    const { idToken } = await GoogleSignin.signIn();
-
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    console.log("aaaaaaaaa", googleCredential);
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
+  const GoogleHandler = () => {
+    dispatch(SigninWithGoogle())
   };
 
   return (
@@ -94,7 +78,7 @@ const Login = ({ navigation }) => {
 
         <View style={{ alignItems: 'center', margin: 20 }}>
           <TouchableOpacity style={styles.ContinueBtn} onPress={() => loginHandler()}>
-            <Text style={styles.ContinueText}>{auth.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Login'}</Text>
+            <Text style={styles.ContinueText}>{auth1.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Login'}</Text>
           </TouchableOpacity>
         </View>
 

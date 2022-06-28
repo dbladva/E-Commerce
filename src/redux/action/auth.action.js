@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import auth from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
 import * as ActionType from '../ActionType'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from '@react-native-firebase/firestore';
@@ -75,6 +75,7 @@ export const signoutEmail = () => (dispatch) => {
             .signOut()
             .then(() => {
                 AsyncStorage.clear();
+
                 dispatch({ type: ActionType.SIGNOUT_USER, payload: "Signout successfully." })
             });
     } catch (e) {
@@ -137,21 +138,23 @@ export const Loading = () => (dispatch) => {
 }
 
 
+GoogleSignin.configure({
+    webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
+});
 
 export const SigninWithGoogle = () => async (dispatch) => {
-    // dispatch({type: ActionType.SIGNIN_SUCCESS,payload: id})
-    GoogleSignin.configure({
-        webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
-    });
     try {
-        const { idToken } = GoogleSignin.signIn();
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        // console.log(googleCredential.);
-        auth().signInWithCredential(googleCredential);
 
-        //   dispatch({type: ActionType.SIGNIN_SUCCESS,payload: idToken})
+        const { idToken } = await GoogleSignin.signIn();
+        const credential = auth.GoogleAuthProvider.credential(
+            idToken,
+        );
+        const result = await auth().signInWithCredential(credential)
+        AsyncStorage.setItem('user', result.user.uid)
+        dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: idToken })
+        console.log(result);
     } catch (error) {
-        console.log(error);
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
 
 }

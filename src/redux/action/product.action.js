@@ -1,5 +1,6 @@
 import { deleteProductDetails, getAllProductsDetails, GetProduct, insertProductDetails, updateProductDetails } from '../../common/apis/product.api';
 import * as ActionType from '../ActionType'
+import firestore from '@react-native-firebase/firestore';
 
 // export const insertProduct = (pData) => (dispatch) => {
 //   try {
@@ -28,6 +29,18 @@ import * as ActionType from '../ActionType'
 
 export const insertedProduct = (data) => (dispatch) => {
   dispatch({type: ActionType.INSERTED_PRODUCT,payload: data})
+  firestore()
+  .collection('Product')
+  .add({
+     name: data.name,
+     price : data.Price,
+     details: data.detais,
+     category : data.category,
+     location : data.location
+  })
+  .then(() => {
+     console.log('Product added!');
+  });
 }
 export const insertProduct = (product) => (dispatch) => {
   dispatch({type: ActionType.INSERT_PRODUCT, payload: product})

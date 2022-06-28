@@ -18,6 +18,7 @@ function* sendProductData(action) {
       const user = yield call(insertProductDetails, action.payload);
       //console.log("uuuuuu",);
       yield put(insertedProduct(action.payload));
+       
    } catch (e) {
       console.log(e.message);
    }
@@ -35,7 +36,7 @@ function* removeProductData(action) {
 function* editProduct(action) {
    try {
       const user = yield call(updateProductDetails, action.payload);
-      
+
       yield put(updatedProduct(action.payload));
    } catch (e) {
       console.log(e.message);

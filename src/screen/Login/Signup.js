@@ -31,14 +31,23 @@ const auth = useSelector(state => state.auth)
 
 
   const userHandler = () => {
+
+    if(!(email === '' && password === '' && name ===  '' && phone === '')){
+
     let data = {
       name,
       email,
       password,  
       phone,
     }
-
     dispatch(createUserWithEmail(data))
+    setName('')
+    setEmail('')
+    setPassword('')
+    setPhone('')
+  }else{
+    alert('please Enter All details...')
+  }
   }
 
 
@@ -66,7 +75,7 @@ const auth = useSelector(state => state.auth)
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Email" keyboardType='default' onChangeText={(text) => setEmail(text)} />
+          <TextInput style={styles.Searchinput} value={email} placeholder="Email" keyboardType='default' onChangeText={(text) => setEmail(text)} />
         </View>
         <View style={styles.InputView}>
           <MaterialIcons
@@ -74,11 +83,11 @@ const auth = useSelector(state => state.auth)
             size={25}
             color={'black'}
           />
-          <TextInput style={styles.Searchinput} placeholder="Full Name" onChangeText={(text) => setName(text)} />
+          <TextInput style={styles.Searchinput} value={name} placeholder="Full Name" onChangeText={(text) => setName(text)} />
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'call-outline'} size={25} color={'black'} />
-          <TextInput style={styles.Searchinput} placeholder="Mobile" keyboardType='phone-pad' maxLength={10} onChangeText={(text) => setPhone(text)} />
+          <TextInput style={styles.Searchinput} value={phone} placeholder="Mobile" keyboardType='phone-pad' maxLength={10} onChangeText={(text) => setPhone(text)} />
         </View>
 
         <View style={styles.InputView}>
@@ -87,8 +96,8 @@ const auth = useSelector(state => state.auth)
             size={25}
             color={'black'}
           />
-          <TextInput style={styles.Searchinput} placeholder="Password" secureTextEntry={show ? true : false} onChangeText={(text) => setPassword(text)} />
-          <TouchableOpacity style={{ right: 30, }} onPress={() => setShow(!show)}>
+          <TextInput style={styles.Searchinput} placeholder="Password" value={password} secureTextEntry={show ? true : false} onChangeText={(text) => setPassword(text)} />
+          <TouchableOpacity style={{ right: 30, }}  onPress={() => setShow(!show)}>
             <Ionicons
               name={show ? 'eye-off' : 'eye'}
               size={25}
