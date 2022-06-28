@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/action/userAction';
 import { signinUserEmail, SigninWithGoogle } from '../../redux/action/auth.action';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -24,8 +25,8 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth);
-  console.log(auth.isLoading);
+  const auth1 = useSelector(state => state.auth);
+  console.log(auth1.isLoading);
 
   const loginHandler = () => {
     const loginData = {
@@ -35,21 +36,27 @@ const Login = ({ navigation }) => {
     dispatch(signinUserEmail(loginData, navigation))
   }
 
+
   useEffect(() => {
-      GoogleSignin.configure({
-        webClientId:
-          '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
-          offlineAccess: true
-      });
+
+    GoogleSignin.configure({
+      webClientId:
+        '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
+    });
     }, []);
-  
-    const GoogleHandler = async () => {
-      await GoogleSignin.hasPlayServices();
-      const {accessToken, idToken} = await GoogleSignin.signIn();
-      console.log(idToken);
-      const credential = auth.GoogleAuthProvider.credential(idToken, accessToken);
-      return await auth().signInWithCredential(credential);
-    };  
+
+  const GoogleHandler = async () => {
+
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    console.log("aaaaaaaaa", googleCredential);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
