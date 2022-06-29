@@ -19,6 +19,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 
 const countries = ['wearable', 'laptop', 'phones', 'drones'];
 import {
+  CloudToGetproduct,
   deleteProduct,
   fetchData,
   fetchProduct,
@@ -39,11 +40,25 @@ const Product = ({navigation}) => {
 
   useEffect(() => {
     dispatch(fetchProduct());
+    dispatch(CloudToGetproduct());
   }, []);
 
   const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
+
+  // useEffect(() => {
+  //   getMovies()
+  // }, [])
+
+  // const getMovies = async () => {
+  //   const users = await firestore().collection('Product').orderBy('name').get();
+  //   users.docs.map((a) => {
+  //     console.log(a._data.name);
+  //     console.log(a._data.price);
+  //     console.log(a._data.price);
+  //   })
+  // }
 
   const product = useSelector(state => state.product);
   const dispatch = useDispatch();
@@ -59,6 +74,7 @@ const Product = ({navigation}) => {
       )
     ) {
       let pData = {
+        id,
         name,
         detais,
         Price,
@@ -104,7 +120,8 @@ const Product = ({navigation}) => {
     setCategory('');
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
+    console.log('iddddddddddddddddd',item._data.name);
     return (
       <View
         style={{
@@ -120,28 +137,28 @@ const Product = ({navigation}) => {
         <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
           <TouchableOpacity
             style={styles.OptionsIcon}
-            onPress={() => handleEdit(item.id)}>
+            onPress={() => handleEdit(item._data.id)}>
             <MaterialIcons name={'edit'} size={20} color={'blue'} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.OptionsIcon}
-            onPress={() => handleDelete(item.id)}>
+            onPress={() => handleDelete(item._data.id)}>
             <MaterialIcons name={'delete'} size={20} color={'red'} />
           </TouchableOpacity>
         </View>
 
         <Text style={styles.locationView}>
           <Ionicons name={'location'} size={15} color={'black'} />
-          <Text style={styles.DataText}>{item.location}</Text>
+          <Text style={styles.DataText}>{item._data.location}</Text>
         </Text>
 
-        <Text style={styles.ProductText}>{item.name}</Text>
+        <Text style={styles.ProductText}>{item._data.name}</Text>
         <Text style={styles.ProductText}>
-          <Text style={styles.DataText}>{item.detais}</Text>
+          <Text style={styles.DataText}>{item._data.details}</Text>
         </Text>
 
         <Text style={styles.PriceView}>
-          ₹ <Text style={styles.PriceText}>{item.Price}</Text>
+          ₹ <Text style={styles.PriceText}>{item._data.price}</Text>
         </Text>
       </View>
     );
@@ -322,7 +339,9 @@ const Product = ({navigation}) => {
         <View style={{margin: 10, padding: 10, flex: 1}}>
           <FlatList
             style={{borderRadius: 10}}
-            data={product.product}
+            data={product.product.map((a) => {
+return a
+            })}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             columnWrapperStyle={{justifyContent: 'space-between'}}

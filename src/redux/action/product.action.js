@@ -29,21 +29,23 @@ import firestore from '@react-native-firebase/firestore';
 
 export const insertedProduct = (data) => (dispatch) => {
   dispatch({type: ActionType.INSERTED_PRODUCT,payload: data})
+  
+}
+export const insertProduct = (product) => (dispatch) => {
   firestore()
   .collection('Product')
   .add({
-     name: data.name,
-     price : data.Price,
-     details: data.detais,
-     category : data.category,
-     location : data.location
+      id: product.id,
+     name: product.name,
+     price : product.Price,
+     details: product.detais,
+     category : product.category,
+     location : product.location
   })
   .then(() => {
      console.log('Product added!');
   });
-}
-export const insertProduct = (product) => (dispatch) => {
-  dispatch({type: ActionType.INSERT_PRODUCT, payload: product})
+  // dispatch({type: ActionType.INSERT_PRODUCT, payload: product})
 }
 
 
@@ -176,5 +178,16 @@ export const updateProduct = (data) => (dispatch) => {
 
 export const updatedProduct = (data) => (dispatch) => { 
   dispatch({ type: ActionType.UPDATED_PRODUCT, payload: data})
+}
+
+export const CloudToGetproduct = () => async (dispatch) => {
+  try {
+    const users = await firestore().collection('Product').orderBy('name').get();
+    console.log('uesrDOc',users.docs);
+    dispatch({type: ActionType.RETRIEVE_PRODUCT, payload: users.docs})
+  } catch (error) {
+    console.log(error);
+  }
+ 
 }
 
