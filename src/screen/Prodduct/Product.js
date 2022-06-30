@@ -10,7 +10,7 @@ import {
   FlatList,
   RefreshControl
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -28,15 +28,15 @@ import {
 } from '../../redux/action/product.action';
 
 
-const Product = ({navigation}) => {
+const Product = ({ navigation }) => {
   const [name, setName] = useState('');
   const [detais, setDetails] = useState('');
-  const [Price, setPrice] = useState('');
+  const [price, setPrice] = useState('');
   const [location, setLocation] = useState('');
   const [submit, setSubmit] = useState(0);
   const [id, setId] = useState(0);
   const [category, setCategory] = useState('');
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -46,8 +46,8 @@ const Product = ({navigation}) => {
 
   const product = useSelector(state => state.product);
   const dispatch = useDispatch();
-  console.log('loadingggggg',product.isLoading);
-  
+  console.log('loadingggggg', product.isLoading);
+
 
   const countries = ['wearable', 'laptop', 'phones', 'drones'];
   const SubmitHandler = () => {
@@ -56,14 +56,14 @@ const Product = ({navigation}) => {
         name == '' ||
         detais == '' ||
         category == '' ||
-        Price == '' ||
+        price == '' ||
         location == ''
       )
     ) {
       let pData = {
         name,
         details: detais,
-        Price,
+        price,
         category,
         location,
       };
@@ -82,7 +82,7 @@ const Product = ({navigation}) => {
     setName(uData[0].name);
     setDetails(uData[0].detais);
     setLocation(uData[0].location);
-    setPrice(uData[0].Price);
+    setPrice(uData[0].price);
     setCategory(uData[0].category);
     setSubmit(1);
     setId(id);
@@ -93,7 +93,7 @@ const Product = ({navigation}) => {
       id: id,
       name,
       details: detais,
-      Price,
+      price,
       category,
       location,
     };
@@ -106,7 +106,10 @@ const Product = ({navigation}) => {
   };
 
   const renderItem = ({ item }) => {
+    console.log('itemmmmmmmmmmmmmmmm', item);
+
     return (
+
       <View
         style={{
           backgroundColor: '#d0c2e8',
@@ -118,7 +121,7 @@ const Product = ({navigation}) => {
           elevation: 5,
           shadowColor: '#52006A',
         }}>
-        <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+        <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
           <TouchableOpacity
             style={styles.OptionsIcon}
             onPress={() => handleEdit(item.id)}>
@@ -155,16 +158,12 @@ const Product = ({navigation}) => {
         text: 'Cancel',
         // style: "cancel"
       },
-      {text: 'OK', onPress: () => dispatch(deleteProduct(id))},
+      { text: 'OK', onPress: () => dispatch(deleteProduct(id)) },
     ]);
   };
-  
-  return (
-    product.isLoading === true ?
-  <View style={{alignItems: 'center',justifyContent: 'center'}}>
 
-  </View>
-  :
+  return (
+
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View
@@ -176,7 +175,7 @@ const Product = ({navigation}) => {
             borderBottomColor: 'gray',
           }}>
           <TouchableOpacity
-            style={{marginLeft: 20, marginBottom: 10, marginTop: 10}}
+            style={{ marginLeft: 20, marginBottom: 10, marginTop: 10 }}
             onPress={() => navigation.openDrawer()}>
             <MaterialIcons name={'menu'} size={25} color={'black'} />
           </TouchableOpacity>
@@ -246,11 +245,11 @@ const Product = ({navigation}) => {
               <Text style={styles.ProductText}>Category</Text>
             </View>
             <View style={styles.ProductTextInput}>
-        
+
               <SelectDropdown
-              // renderDropdownIcon={(selectedItem,index) => )}
-              buttonStyle={styles.buttondropdown}
-              dropdownStyle={styles.dropdown}
+                // renderDropdownIcon={(selectedItem,index) => )}
+                buttonStyle={styles.buttondropdown}
+                dropdownStyle={styles.dropdown}
                 data={countries}
                 dropdownIconPosition={'right'}
                 onSelect={(selectedItem, index) => {
@@ -272,7 +271,7 @@ const Product = ({navigation}) => {
             </View>
             <View style={styles.ProductTextInput}>
               <TextInput
-                value={Price}
+                value={price}
                 style={styles.Searchinput}
                 placeholder="₹ Prize"
                 onChangeText={text => setPrice(text)}
@@ -283,41 +282,49 @@ const Product = ({navigation}) => {
         </View>
 
         {submit ? (
-          <View style={{alignItems: 'center', marginTop: 20, marginBottom: 10}}>
+          <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
             <TouchableOpacity
               style={styles.ContinueBtn}
               onPress={() => updateHandler()}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={styles.ContinueText}>Update</Text>
                 <AntDesign name={'arrowright'} size={20} color={'black'} />
               </View>
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={{alignItems: 'center', marginTop: 20, marginBottom: 10}}>
+          <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
             <TouchableOpacity
               style={styles.ContinueBtn}
               onPress={() => SubmitHandler()}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={styles.ContinueText}>Submit</Text>
                 <AntDesign name={'arrowright'} size={20} color={'black'} />
               </View>
             </TouchableOpacity>
           </View>
         )}
-
-        <View style={{margin: 10, padding: 10, flex: 1}}>
-          <FlatList
-            style={{borderRadius: 10}}
-            data={product.product.map((a) => {
-              return a
-            })}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            columnWrapperStyle={{justifyContent: 'space-between'}}
-            numColumns="2"
-          />
-        </View>
+        {
+          product.isLoading === true ?
+            <SafeAreaView>
+              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
+            </SafeAreaView>
+            :
+            <View style={{ margin: 10, padding: 10, flex: 1 }}>
+              <FlatList
+                style={{ borderRadius: 10 }}
+                data={product.product.map((a) => {
+                  return a
+                })}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                columnWrapperStyle={{ justifyContent: 'space-between' }}
+                numColumns="2"
+              />
+            </View>
+        }
         {/* </ScrollView> */}
       </View>
     </SafeAreaView>
@@ -459,7 +466,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
-  buttondropdown:{
+  buttondropdown: {
     borderRadius: 10,
     backgroundColor: "#f9c2ff",
   }

@@ -37,7 +37,7 @@ export const insertProduct = (product) => (dispatch) => {
       .collection('Product')
       .add({
         name: product.name,
-        price: product.Price,
+        price: product.price,
         details: product.details,
         category: product.category,
         location: product.location
@@ -195,9 +195,7 @@ export const updatedProduct = (data) => (dispatch) => {
 }
 
 export const CloudToGetproduct = () => async (dispatch) => {
-  dispatch(loadingProduct())
-
-  // setInterval( async() => {
+  // dispatch(loadingProduct())
   try {
     let data = [];
     await firestore()
@@ -214,9 +212,8 @@ export const CloudToGetproduct = () => async (dispatch) => {
       }); 
       dispatch({ type: ActionType.RETRIEVE_PRODUCT, payload: data })
   } catch (error) {
-
+console.log(error);
   }
-// },1000);
 
 }
 

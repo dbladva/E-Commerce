@@ -150,7 +150,7 @@ export const SigninWithGoogle = () => async (dispatch) => {
             idToken,
         );
         const result = await auth().signInWithCredential(credential)
-        AsyncStorage.setItem('user', result.user.uid)
+        await AsyncStorage.setItem('user', result.user.uid)
         dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: idToken })
         console.log(result);
     } catch (error) {
