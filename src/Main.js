@@ -112,7 +112,7 @@ export default function Main() {
     let dispatch = useDispatch()
     return (
         
-        uid || auth.user !== null  ?
+         auth.user !== null || uid  ?
             <NavigationContainer>
                 <Drawer.Navigator
                     drawerContent={props => <CustomDrawer {...props} />}

@@ -2,6 +2,7 @@ import { deleteProductDetails, getAllProductsDetails, GetProduct, insertProductD
 import * as ActionType from '../ActionType'
 import firestore from '@react-native-firebase/firestore';
 
+
 // export const insertProduct = (pData) => (dispatch) => {
 //   try {
 //     dispatch(loadingProduct());
@@ -28,29 +29,29 @@ import firestore from '@react-native-firebase/firestore';
 // }
 
 export const insertedProduct = (data) => (dispatch) => {
-  dispatch({type: ActionType.INSERTED_PRODUCT,payload: data})
-  
+  dispatch({ type: ActionType.INSERTED_PRODUCT, payload: data })
 }
 export const insertProduct = (product) => (dispatch) => {
-  firestore()
-  .collection('Product')
-  .add({
-      id: product.id,
-     name: product.name,
-     price : product.Price,
-     details: product.detais,
-     category : product.category,
-     location : product.location
-  })
-  .then(() => {
-     console.log('Product added!');
-  });
-  // dispatch({type: ActionType.INSERT_PRODUCT, payload: product})
+  try {
+    firestore()
+      .collection('Product')
+      .add({
+        name: product.name,
+        price: product.Price,
+        details: product.details,
+        category: product.category,
+        location: product.location
+      })
+      .then((product1) => {
+        dispatch({ type: ActionType.INSERTED_PRODUCT, payload: { id: product1.id, ...product } })
+      })
+  } catch (error) {
+    dispatch({ type: ActionType.ERROR_PRODUCT, payload: error })
+  }
 }
 
-
 export const loadingProduct = () => (dispatch) => {
-  dispatch({ type: ActionType.LOADING_PRODUCT });
+  dispatch({ type: ActionType.LOADING_PRODUCT});
 }
 
 export const errorProduct = (error) => (dispatch) => {
@@ -87,7 +88,7 @@ export const errorProduct = (error) => (dispatch) => {
 //             .catch(error => {
 //               dispatch(errorProduct(error.message))
 //             });
-          
+
 //       // }, 1000)
 //   } catch (error) {
 //     dispatch(errorProduct(error))
@@ -95,11 +96,11 @@ export const errorProduct = (error) => (dispatch) => {
 // };
 
 export const fetchProduct = () => (dispatch) => {
-  dispatch({type: ActionType.GET_PRODUCT})
+  dispatch({ type: ActionType.GET_PRODUCT })
 }
 
 export const getProduct = (product) => (dispatch) => {
-  dispatch({type: ActionType.RETRIEVE_PRODUCT, payload: product})
+  dispatch({ type: ActionType.RETRIEVE_PRODUCT, payload: product })
 }
 
 // export const deleteProduct = (id) => (dispatch) => {
@@ -132,9 +133,22 @@ export const getProduct = (product) => (dispatch) => {
 //   }
 // }
 
-export const deleteProduct = (id) => (dispatch) => {
-  dispatch({ type: ActionType.DELETE_PRODUCT, payload: id })
+export const deleteProduct = (id) => async (dispatch) => {
+  dispatch({ type: ActionType.LOADING_PRODUCT});
+try {
+  firestore()
+  .collection('Product')
+  .doc(id)
+  .delete()
+  .then(() => {
+    dispatch({ type: ActionType.DELETED_PRODUCT, payload:  id})
+    console.log('User deleted!');
+  });
+} catch (error) {
+  dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
 }
+  // dispatch({ type: ActionType.DELETE_PRODUCT, payload: id })
+} 
 
 export const removedProduct = (data) => (dispatch) => {
   dispatch({ type: ActionType.DELETED_PRODUCT, payload: data })
@@ -144,7 +158,7 @@ export const removedProduct = (data) => (dispatch) => {
 // export const updateProduct = (data) => (dispatch) => {
 //   try {
 //     dispatch(loadingProduct());
-   
+
 //     setTimeout(
 //       () => {
 //     // fetch('http://localhost:3004/products/' + data.id, {
@@ -172,22 +186,37 @@ export const removedProduct = (data) => (dispatch) => {
 // }
 
 
-export const updateProduct = (data) => (dispatch) => { 
-  dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data})
+export const updateProduct = (data) => (dispatch) => {
+  dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data })
 }
 
-export const updatedProduct = (data) => (dispatch) => { 
-  dispatch({ type: ActionType.UPDATED_PRODUCT, payload: data})
+export const updatedProduct = (data) => (dispatch) => {
+  dispatch({ type: ActionType.UPDATED_PRODUCT, payload: data })
 }
 
 export const CloudToGetproduct = () => async (dispatch) => {
+  dispatch(loadingProduct())
+
+  // setInterval( async() => {
   try {
-    const users = await firestore().collection('Product').orderBy('name').get();
-    console.log('uesrDOc',users.docs);
-    dispatch({type: ActionType.RETRIEVE_PRODUCT, payload: users.docs})
+    let data = [];
+    await firestore()
+      .collection('Product')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+          let d = {
+            id: documentSnapshot.id,
+            ...documentSnapshot.data()
+          }
+          data.push(d);
+        });
+      }); 
+      dispatch({ type: ActionType.RETRIEVE_PRODUCT, payload: data })
   } catch (error) {
-    console.log(error);
+
   }
- 
+// },1000);
+
 }
 

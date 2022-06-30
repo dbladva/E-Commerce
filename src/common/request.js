@@ -4,7 +4,6 @@ import { LocalHost,Home } from "../Basic";
 const Instance = axios.create({
     // baseURL: LocalHost,
     baseURL: Home,
-    timeout: 3000,
 });
 
 export const SendRequest = (config) => {

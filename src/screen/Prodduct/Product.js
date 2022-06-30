@@ -16,8 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectDropdown from 'react-native-select-dropdown'
-
-const countries = ['wearable', 'laptop', 'phones', 'drones'];
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   CloudToGetproduct,
   deleteProduct,
@@ -27,7 +26,7 @@ import {
   loadingProduct,
   updateProduct,
 } from '../../redux/action/product.action';
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 const Product = ({navigation}) => {
   const [name, setName] = useState('');
@@ -37,32 +36,20 @@ const Product = ({navigation}) => {
   const [submit, setSubmit] = useState(0);
   const [id, setId] = useState(0);
   const [category, setCategory] = useState('');
+  const [loading,setLoading] = useState(false);
+
 
   useEffect(() => {
     dispatch(fetchProduct());
     dispatch(CloudToGetproduct());
   }, []);
 
-  const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }
-
-  // useEffect(() => {
-  //   getMovies()
-  // }, [])
-
-  // const getMovies = async () => {
-  //   const users = await firestore().collection('Product').orderBy('name').get();
-  //   users.docs.map((a) => {
-  //     console.log(a._data.name);
-  //     console.log(a._data.price);
-  //     console.log(a._data.price);
-  //   })
-  // }
-
   const product = useSelector(state => state.product);
   const dispatch = useDispatch();
+  console.log('loadingggggg',product.isLoading);
+  
 
+  const countries = ['wearable', 'laptop', 'phones', 'drones'];
   const SubmitHandler = () => {
     if (
       !(
@@ -74,14 +61,12 @@ const Product = ({navigation}) => {
       )
     ) {
       let pData = {
-        id,
         name,
-        detais,
+        details: detais,
         Price,
         category,
         location,
       };
-
       dispatch(insertProduct(pData));
       setName(''), setDetails('');
       setPrice('');
@@ -107,7 +92,7 @@ const Product = ({navigation}) => {
     let Data = {
       id: id,
       name,
-      detais,
+      details: detais,
       Price,
       category,
       location,
@@ -121,7 +106,6 @@ const Product = ({navigation}) => {
   };
 
   const renderItem = ({ item }) => {
-    console.log('iddddddddddddddddd',item._data.name);
     return (
       <View
         style={{
@@ -137,34 +121,35 @@ const Product = ({navigation}) => {
         <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
           <TouchableOpacity
             style={styles.OptionsIcon}
-            onPress={() => handleEdit(item._data.id)}>
+            onPress={() => handleEdit(item.id)}>
             <MaterialIcons name={'edit'} size={20} color={'blue'} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.OptionsIcon}
-            onPress={() => handleDelete(item._data.id)}>
+            onPress={() => handleDelete(item.id)}>
             <MaterialIcons name={'delete'} size={20} color={'red'} />
           </TouchableOpacity>
         </View>
 
         <Text style={styles.locationView}>
           <Ionicons name={'location'} size={15} color={'black'} />
-          <Text style={styles.DataText}>{item._data.location}</Text>
+          <Text style={styles.DataText}>{item.location}</Text>
         </Text>
 
-        <Text style={styles.ProductText}>{item._data.name}</Text>
+        <Text style={styles.ProductText}>{item.name}</Text>
         <Text style={styles.ProductText}>
-          <Text style={styles.DataText}>{item._data.details}</Text>
+          <Text style={styles.DataText}>{item.details}</Text>
         </Text>
 
         <Text style={styles.PriceView}>
-          ₹ <Text style={styles.PriceText}>{item._data.price}</Text>
+          ₹ <Text style={styles.PriceText}>{item.price}</Text>
         </Text>
       </View>
     );
   };
 
   const handleDelete = id => {
+
     Alert.alert('Delete', 'Are you sure you want to delete this Item', [
       {
         text: 'Cancel',
@@ -173,24 +158,15 @@ const Product = ({navigation}) => {
       {text: 'OK', onPress: () => dispatch(deleteProduct(id))},
     ]);
   };
-
-
-  const [refreshing, setRefreshing] = React.useState(false);
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
-
+  
   return (
+    product.isLoading === true ?
+  <View style={{alignItems: 'center',justifyContent: 'center'}}>
+
+  </View>
+  :
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {/* <ScrollView refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }> */}
         <View
           style={{
             backgroundColor: '#d0c2e8',
@@ -270,13 +246,7 @@ const Product = ({navigation}) => {
               <Text style={styles.ProductText}>Category</Text>
             </View>
             <View style={styles.ProductTextInput}>
-              {/* <TextInput
-                value={category}
-                style={styles.Searchinput}
-                placeholder="Add category..."
-                onChangeText={text => setCategory(text)}
-              /> */}
-
+        
               <SelectDropdown
               // renderDropdownIcon={(selectedItem,index) => )}
               buttonStyle={styles.buttondropdown}
@@ -340,7 +310,7 @@ const Product = ({navigation}) => {
           <FlatList
             style={{borderRadius: 10}}
             data={product.product.map((a) => {
-return a
+              return a
             })}
             renderItem={renderItem}
             keyExtractor={item => item.id}
