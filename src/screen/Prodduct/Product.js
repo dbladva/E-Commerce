@@ -17,6 +17,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectDropdown from 'react-native-select-dropdown'
 import { ScrollView } from 'react-native-gesture-handler';
+
 import {
   CloudToGetproduct,
   deleteProduct,
@@ -80,7 +81,7 @@ const Product = ({ navigation }) => {
   const handleEdit = id => {
     let uData = product.product.filter(p => p.id === id);
     setName(uData[0].name);
-    setDetails(uData[0].detais);
+    setDetails(uData[0].details);
     setLocation(uData[0].location);
     setPrice(uData[0].price);
     setCategory(uData[0].category);
@@ -89,65 +90,81 @@ const Product = ({ navigation }) => {
   };
 
   const updateHandler = () => {
-    let Data = {
-      id: id,
-      name,
-      details: detais,
-      price,
-      category,
-      location,
-    };
-    dispatch(updateProduct(Data));
-    setSubmit(0);
-    setName(''), setDetails('');
-    setPrice('');
-    setLocation('');
-    setCategory('');
+    if (
+      !(
+        name == '' ||
+        detais == '' ||
+        category == '' ||
+        price == '' ||
+        location == ''
+      )
+    ) {
+      let Data = {
+        id: id,
+        name,
+        details: detais,
+        price,
+        category,
+        location,
+      };
+      dispatch(updateProduct(Data));
+      setSubmit(0);
+      setName(''),
+        setDetails('');
+      setPrice('');
+      setLocation('');
+      setCategory('');
+
+    } else {
+      alert('Fillup All Details...');
+    }
+
   };
 
   const renderItem = ({ item }) => {
-    console.log('itemmmmmmmmmmmmmmmm', item);
-
     return (
+      product.isLoading === true ?
+        <ActivityIndicator size="large" color="#000000" />
+        :
+        <View
 
-      <View
-        style={{
-          backgroundColor: '#d0c2e8',
-          margin: 5,
-          padding: 5,
-          width: '46%',
-          borderRadius: 10,
-          justifyContent: 'space-around',
-          elevation: 5,
-          shadowColor: '#52006A',
-        }}>
-        <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-          <TouchableOpacity
-            style={styles.OptionsIcon}
-            onPress={() => handleEdit(item.id)}>
-            <MaterialIcons name={'edit'} size={20} color={'blue'} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.OptionsIcon}
-            onPress={() => handleDelete(item.id)}>
-            <MaterialIcons name={'delete'} size={20} color={'red'} />
-          </TouchableOpacity>
+          style={{
+            backgroundColor: '#d0c2e8',
+            margin: 5,
+            padding: 5,
+            width: '46%',
+            borderRadius: 10,
+            justifyContent: 'space-around',
+            elevation: 5,
+            shadowColor: '#52006A',
+          }}>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+            <TouchableOpacity
+              style={styles.OptionsIcon}
+              onPress={() => handleEdit(item.id)}>
+              <MaterialIcons name={'edit'} size={20} color={'blue'} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.OptionsIcon}
+              onPress={() => handleDelete(item.id)}>
+              <MaterialIcons name={'delete'} size={20} color={'red'} />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.locationView}>
+            <Ionicons name={'location'} size={15} color={'black'} />
+            <Text style={styles.DataText}>{item.location}</Text>
+          </Text>
+
+          <Text style={styles.ProductText}>{item.name}</Text>
+          <Text style={styles.ProductText}>
+            <Text style={styles.DataText}>{item.details}</Text>
+          </Text>
+
+          <Text style={styles.PriceView}>
+            ₹ <Text style={styles.PriceText}>{item.price}</Text>
+          </Text>
         </View>
-
-        <Text style={styles.locationView}>
-          <Ionicons name={'location'} size={15} color={'black'} />
-          <Text style={styles.DataText}>{item.location}</Text>
-        </Text>
-
-        <Text style={styles.ProductText}>{item.name}</Text>
-        <Text style={styles.ProductText}>
-          <Text style={styles.DataText}>{item.details}</Text>
-        </Text>
-
-        <Text style={styles.PriceView}>
-          ₹ <Text style={styles.PriceText}>{item.price}</Text>
-        </Text>
-      </View>
     );
   };
 
@@ -165,8 +182,10 @@ const Product = ({ navigation }) => {
   return (
 
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
+
+      <View style={styles.container} >
         <View
+
           style={{
             backgroundColor: '#d0c2e8',
             flexDirection: 'row',

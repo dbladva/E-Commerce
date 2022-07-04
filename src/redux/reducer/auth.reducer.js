@@ -5,7 +5,8 @@ const initValue = {
     user: null,
     error: '',
     authMsg: '',
-    confirm: null
+    confirm: null,
+    userData: ''
 }
 
 export const authReducer = (state = initValue, action) => {
@@ -63,7 +64,7 @@ export const authReducer = (state = initValue, action) => {
                 authMsg: '',
                 confirm: action.payload 
             }
-            case ActionType.LOADING_PRODUCT:
+            case ActionType.LOADING_AUTH:
                 return {
                     ...state,
                     isLoading: true,
@@ -72,6 +73,16 @@ export const authReducer = (state = initValue, action) => {
                     authMsg: '',
                     confirm:null 
                 }
+                case ActionType.USER_DATA:
+                    return {
+                        ...state,
+                        isLoading: false,
+                        error: '',
+                        user: null,
+                        authMsg: '',
+                        confirm: null,
+                        uData: action.payload,
+                    }
         default:
             return state
 

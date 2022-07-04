@@ -48,6 +48,12 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+
+	<key>NSPhotoLibraryUsageDescription </key>
+	<string>App requires to photo library access.</string>
+	<key>NSCameraUsageDescription </key>
+	<string>Need require access to Take photo.</string>
+	
 	<key>UIAppFonts</key>
 	<array>
 		<string>SimpleLineIcons.ttf</string>

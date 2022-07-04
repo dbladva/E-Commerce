@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Welcome from './screen/Welcome/Welcome';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,9 +23,10 @@ import SplashScreen from 'react-native-splash-screen'
 import AsyncStorage from '@react-native-community/async-storage';
 import ForgotEmail from './screen/Forgot Password/Forgot.Email'
 import Logout from './screen/Login/Logout';
-import { Loading, signoutEmail } from './redux/action/auth.action';
+import { Loading, signoutEmail, userData } from './redux/action/auth.action';
 import SigninWithPhone from './screen/Login/SignInWithPhone';
 import Otp from './screen/Login/Otp';
+import { Dispatch } from 'react-redux';
 // import Promises from './screen/promises';
 
 const Stack = createNativeStackNavigator();
@@ -88,104 +89,119 @@ const HomeScreenHandler = () => {
 };
 
 export default function Main() {
-    const [uid, setUid] = useState('')
-    useEffect(
-        () => {
-            getData();
-        },[])
 
-    const getData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('user');
-            if (value !== null) {
-                setUid(value)
-            }
-        } catch (e) {
-            console.log(e);
-        }
 
-    }
+    const [load, setLoad] = useState(false)
+    // const [uid, setUid] = useState(null)
+    // useEffect(
+    //     () => {
+    //         getData();
+    //     },[])
+
+    // const getData = async () => {
+    //     try {
+    //         dispatch(Loading())
+    //         const value = await AsyncStorage.getItem('user');
+    //         if (value !== null) {
+    //             setUid(value)
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+
+    // }
+    let dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(userData())
+    },[])
 
 
     let auth = useSelector(state => state.auth);
-    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',uid); 
-    let dispatch = useDispatch()
+    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',auth.uData); 
+    console.log('data',auth.uData);
+
+
     return (
-        
-         auth.user !== null || uid ?
-            <NavigationContainer>
-                <Drawer.Navigator
-                    drawerContent={props => <CustomDrawer {...props} />}
-                    screenOptions={{ headerShown: false }}
-                    initialRouteName="Home">
-                    <Drawer.Screen
-                        name="Homee"
-                        options={{
-                            drawerIcon: ({ focused, size }) => (
-                                <Ionicons
-                                    name="home"
-                                    size={size}
-                                    color={focused ? '#7cc' : '#d0c2e8'}
-                                />
-                            ),
-                        }}
-                        component={HomeScreenHandler}
-                    />
-                    <Drawer.Screen
-                        name="Product"
-                        options={{
-                            title: 'Product',
-                            drawerIcon: ({ focused, size }) => (
-                                <MaterialIcons
-                                    name="local-grocery-store"
-                                    size={size}
-                                    color={focused ? '#7cc' : '#d0c2e8'}
-                                />
-                            ),
-                        }}
-                        component={Product}
-                    />
-                    <Drawer.Screen
-                        name="Welcome"
-                        options={{
-                            title: 'Welcome',
-                            drawerIcon: ({ focused, size }) => (
-                                <MaterialIcons
-                                    name="star-border"
-                                    size={size}
-                                    color={focused ? '#7cc' : '#d0c2e8'}
-                                />
-                            ),
-                        }}
-                        component={Welcome}
-                    />
-                    <Drawer.Screen
-                        name="counter"
-                        options={{
-                            title: 'counter',
-                            drawerIcon: ({ focused, size }) => (
-                                <MaterialIcons
-                                    name="star-border"
-                                    size={size}
-                                    color={focused ? '#7cc' : '#d0c2e8'}
-                                    
-                                />
-                            ),
-                        }}
-                        component={Counter}
-                    />
-                 
-                </Drawer.Navigator>
-            </NavigationContainer>
+        auth.isLoading === true ?
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
             :
-            <NavigationContainer>
-                <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Signup" component={Signup} />
-                    <Stack.Screen name="ForgotEmail" component={ForgotEmail} />
-                    <Stack.Screen name="SigninWithPhone" component={SigninWithPhone} />
-                    <Stack.Screen name="Otp" component={Otp} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            auth.user !== null || auth.uData !== null ?
+                <NavigationContainer>
+                    <Drawer.Navigator
+                        drawerContent={props => <CustomDrawer {...props} />}
+                        screenOptions={{ headerShown: false }}
+                        initialRouteName="Home">
+                        <Drawer.Screen
+                            name="Homee"
+                            options={{
+                                drawerIcon: ({ focused, size }) => (
+                                    <Ionicons
+                                        name="home"
+                                        size={size}
+                                        color={focused ? '#7cc' : '#d0c2e8'}
+                                    />
+                                ),
+                            }}
+                            component={HomeScreenHandler}
+                        />
+                        <Drawer.Screen
+                            name="Product"
+                            options={{
+                                title: 'Product',
+                                drawerIcon: ({ focused, size }) => (
+                                    <MaterialIcons
+                                        name="local-grocery-store"
+                                        size={size}
+                                        color={focused ? '#7cc' : '#d0c2e8'}
+                                    />
+                                ),
+                            }}
+                            component={Product}
+                        />
+                        <Drawer.Screen
+                            name="Welcome"
+                            options={{
+                                title: 'Welcome',
+                                drawerIcon: ({ focused, size }) => (
+                                    <MaterialIcons
+                                        name="star-border"
+                                        size={size}
+                                        color={focused ? '#7cc' : '#d0c2e8'}
+                                    />
+                                ),
+                            }}
+                            component={Welcome}
+                        />
+                        <Drawer.Screen
+                            name="counter"
+                            options={{
+                                title: 'counter',
+                                drawerIcon: ({ focused, size }) => (
+                                    <MaterialIcons
+                                        name="star-border"
+                                        size={size}
+                                        color={focused ? '#7cc' : '#d0c2e8'}
+
+                                    />
+                                ),
+                            }}
+                            component={Counter}
+                        />
+
+                    </Drawer.Navigator>
+                </NavigationContainer>
+                :
+                <NavigationContainer>
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="Login" component={Login} />
+                        <Stack.Screen name="Signup" component={Signup} />
+                        <Stack.Screen name="ForgotEmail" component={ForgotEmail} />
+                        <Stack.Screen name="SigninWithPhone" component={SigninWithPhone} />
+                        <Stack.Screen name="Otp" component={Otp} />
+                    </Stack.Navigator>
+                </NavigationContainer>
     )
 }

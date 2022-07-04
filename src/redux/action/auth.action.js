@@ -68,15 +68,16 @@ export const signinUserEmail = (data) => async (dispatch) => {
         })
 }
 
-export const signoutEmail = () => (dispatch) => {
-    dispatch(Loading())
+export const signoutEmail = () => async (dispatch) => {
+    
     try {
+        dispatch(Loading())
         auth()
             .signOut()
             .then(() => {
-                AsyncStorage.clear();
-
+                AsyncStorage.clear()
                 dispatch({ type: ActionType.SIGNOUT_USER, payload: "Signout successfully." })
+                dispatch(userData())
             });
     } catch (e) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
@@ -134,7 +135,7 @@ export const verifyOtp = (otp, confirm) => async (dispatch) => {
 }
 
 export const Loading = () => (dispatch) => {
-    dispatch({ type: ActionType.LOADING_PRODUCT })
+    dispatch({ type: ActionType.LOADING_AUTH })
 }
 
 
@@ -144,17 +145,29 @@ GoogleSignin.configure({
 
 export const SigninWithGoogle = () => async (dispatch) => {
     try {
-
         const { idToken } = await GoogleSignin.signIn();
         const credential = auth.GoogleAuthProvider.credential(
             idToken,
         );
         const result = await auth().signInWithCredential(credential)
-        await AsyncStorage.setItem('user', result.user.uid)
+        // AsyncStorage.setItem('user', result.user.uid)
+        AsyncStorage.setItem('user', result.user.email)
         dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: idToken })
-        console.log(result);
+        // console.log('result',result.user.email);
     } catch (error) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
+
+}
+
+export const userData = () => async (dispatch) => {
+        try {
+            dispatch(Loading())
+            const value = await AsyncStorage.getItem('user');
+                console.log('valueeeeeeeeeeeeee',value);
+                dispatch({ type: ActionType.USER_DATA, payload: value})
+        } catch (e) {
+            dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+        }
 
 }
