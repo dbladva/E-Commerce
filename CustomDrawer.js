@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { DrawerContent, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux'
-import { signoutEmail } from './src/redux/action/auth.action'
+import { getUserProfilePicture, signoutEmail, userProfilePicture } from './src/redux/action/auth.action'
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
@@ -12,12 +12,19 @@ import storage from '@react-native-firebase/storage';
 const CustomDrawer = (props) => {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
+
+  // console.log('picturerrrrr', JSON.stringify(auth.userProfile))
+
+  let profileImage = JSON.stringify(auth.userProfile)
   const LogoutHandler = () => {
     dispatch(signoutEmail())
   }
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [image, setImage] = useState('https://cdn-icons-png.flaticon.com/512/1053/1053244.png?w=360');
+  const [image, setImage] = useState(profileImage);
+
+  // setImage(auth.userProfile)
+  // console.log('imageeeee', profileImage);
 
   const GallaryHandler = async () => {
     ImagePicker.openPicker({
@@ -25,23 +32,9 @@ const CustomDrawer = (props) => {
       height: 400,
       cropping: true
     }).then(async image => {
-      let a = image.path.split("/")
-      let fileName = a[a.length - 1];
-
-      // dispatch(uploadProfilePic(image, uid))
-      const reference = storage().ref('/user/' + fileName);
-      
-      await reference.putFile(image.path);
-
-      const url = await storage().ref('/user/'+ fileName).getDownloadURL();
-
-      // update
-
-      console.log(url);
-
-      setImage(image.path)
+      dispatch(userProfilePicture(image, auth.userData))
       setModalVisible(false)
-    });
+    })
   }
 
   const cameraHandler = () => {
@@ -50,19 +43,22 @@ const CustomDrawer = (props) => {
       height: 400,
       cropping: true,
     }).then(image => {
-      setImage(image.path)
+      // setImage(image.path)
       setModalVisible(false)
     });
   }
 
   const [data, setData] = useState('')
 
-  useEffect(
-    () => {
-      getData();
-    }, [])
+  useEffect(() => {
+    dispatch(getUserProfilePicture())
+    getData()
+  }, [])
+
+
 
   const getData = async () => {
+
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
@@ -72,7 +68,6 @@ const CustomDrawer = (props) => {
       console.log(e);
     }
   }
-
   console.log(data);
   return (
     <View style={{ flex: 1, backgroundColor: '#dbffff' }}>
@@ -80,12 +75,12 @@ const CustomDrawer = (props) => {
         <View style={{ margin: 10, flexDirection: 'row', alignItems: 'center', marginBottom: 30, marginTop: 30 }}>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <Image style={{ height: 80, width: 80, borderRadius: 50 }} source={{
-              uri: image
+              uri: auth.userProfile
             }} />
           </TouchableOpacity>
           <View style={{ marginLeft: 10, }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'black', }}>Dharmesh</Text>
-            <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'black', }}>{data}</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'black', }}>....</Text>
           </View>
         </View>
         <DrawerItemList {...props} />

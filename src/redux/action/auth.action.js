@@ -3,6 +3,7 @@ import auth, { firebase } from '@react-native-firebase/auth';
 import * as ActionType from '../ActionType'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 
 export const createUserWithEmail = (data) => async (dispatch) => {
@@ -69,7 +70,7 @@ export const signinUserEmail = (data) => async (dispatch) => {
 }
 
 export const signoutEmail = () => async (dispatch) => {
-    
+
     try {
         dispatch(Loading())
         auth()
@@ -138,7 +139,6 @@ export const Loading = () => (dispatch) => {
     dispatch({ type: ActionType.LOADING_AUTH })
 }
 
-
 GoogleSignin.configure({
     webClientId: '591138143160-u0s4h0llus88m7se3h9ps2sm6gp754dp.apps.googleusercontent.com',
 });
@@ -150,8 +150,7 @@ export const SigninWithGoogle = () => async (dispatch) => {
             idToken,
         );
         const result = await auth().signInWithCredential(credential)
-        // AsyncStorage.setItem('user', result.user.uid)
-        AsyncStorage.setItem('user', result.user.email)
+        AsyncStorage.setItem('user', result.user.uid)
         dispatch({ type: ActionType.SIGNIN_SUCCESS, payload: idToken })
         // console.log('result',result.user.email);
     } catch (error) {
@@ -161,13 +160,62 @@ export const SigninWithGoogle = () => async (dispatch) => {
 }
 
 export const userData = () => async (dispatch) => {
+    try {
+        dispatch(Loading())
+        const value = await AsyncStorage.getItem('user');
+        // console.log('valueeeeeeeeeeeeee', value);
+        dispatch({ type: ActionType.USER_DATA, payload: value })
+    } catch (e) {
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
+
+}
+
+export const userProfilePicture = (image,uid) => async (dispatch) => {
+    try {
+        let a = image.path.split("/")
+        let fileName = a[a.length - 1];
+        console.log(fileName);
+        const reference = storage().ref('/user/' + fileName);
+        await reference.putFile(image.path);
+        const url = await storage().ref('/user/' + fileName).getDownloadURL();
+        dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: url })
+        console.log(url);
+
+        // dispatch(uploadProfilePic(image, uid))
         try {
-            dispatch(Loading())
-            const value = await AsyncStorage.getItem('user');
-                console.log('valueeeeeeeeeeeeee',value);
-                dispatch({ type: ActionType.USER_DATA, payload: value})
-        } catch (e) {
-            dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+            firestore()
+                .collection('Users')
+                .doc('sOz5LNW1UydKeTJhX6Zs')
+                .update({
+                    picture: url,
+                })
+                .then(() => {
+                    console.log('Profile picture Added !');
+                });
+        } catch (error) {
+            console.log(error);
         }
+
+
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
+
+}
+
+export const getUserProfilePicture = () => async (dispatch) => {
+    console.log('getUserProfilePicture');
+    try {
+        await firestore().collection('Users').doc('sOz5LNW1UydKeTJhX6Zs').get()
+            .then((user) => {
+                console.log(user._data.picture);
+                dispatch({type:ActionType.USER_PROFILE_PICTURE,payload:user._data.picture})
+            })
+
+    } catch (error) {
+        dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    }
 
 }
