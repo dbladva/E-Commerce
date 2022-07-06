@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Pressable, Image, Modal, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DrawerContent, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux'
 import { signoutEmail } from './src/redux/action/auth.action'
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
+
 
 const CustomDrawer = (props) => {
   const dispatch = useDispatch()
@@ -17,13 +19,26 @@ const CustomDrawer = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState('https://cdn-icons-png.flaticon.com/512/1053/1053244.png?w=360');
 
-  const GallaryHandler = () => {
+  const GallaryHandler = async () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
       cropping: true
-    }).then(image => {
-      console.log(image);
+    }).then(async image => {
+      let a = image.path.split("/")
+      let fileName = a[a.length - 1];
+
+      // dispatch(uploadProfilePic(image, uid))
+      const reference = storage().ref('/user/' + fileName);
+      
+      await reference.putFile(image.path);
+
+      const url = await storage().ref('/user/'+ fileName).getDownloadURL();
+
+      // update
+
+      console.log(url);
+
       setImage(image.path)
       setModalVisible(false)
     });
@@ -43,19 +58,19 @@ const CustomDrawer = (props) => {
   const [data, setData] = useState('')
 
   useEffect(
-      () => {
-          getData();
-      },[])
+    () => {
+      getData();
+    }, [])
 
   const getData = async () => {
-      try {
-          const value = await AsyncStorage.getItem('user');
-          if (value !== null) {
-            setData(value)
-          }
-      } catch (e) {
-          console.log(e);
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        setData(value)
       }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   console.log(data);
