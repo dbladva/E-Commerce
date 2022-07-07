@@ -6,7 +6,7 @@ const initValue = {
     error: '',
     authMsg: '',
     confirm: null,
-    userData: '',
+    uData: null,
     userProfile: null
 }
 
@@ -92,7 +92,7 @@ export const authReducer = (state = initValue, action) => {
                 user: null,
                 authMsg: '',
                 confirm: null,
-                uData: '',
+                uData: null,
                 userProfile: action.payload
             }
         default:

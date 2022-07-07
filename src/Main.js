@@ -128,7 +128,7 @@ export default function Main() {
                 <ActivityIndicator size="large" color="#0000ff" />
             </View>
             :
-            auth.user !== null || auth.uData !== null?
+            auth.user !== null || auth.uData !== null ?
                 <NavigationContainer>
                     <Drawer.Navigator
                         drawerContent={props => <CustomDrawer {...props} />}
