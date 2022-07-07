@@ -6,7 +6,9 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView,
+  StatusBar
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -43,75 +45,81 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <View style={styles.ImageView}>
-          <Image
-            style={styles.LoginLogo}
-            source={require('../../images/Login.png')}
-          />
-        </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.ImageView}>
+            <Image
+              style={styles.LoginLogo}
+              source={require('../../images/Login.png')}
+            />
+          </View>
 
-        <View>
-          <Text style={styles.LoginTitle}>Login</Text>
-        </View>
-        <View style={styles.InputView}>
-          <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
-          <TextInput secureTextEntry={false} style={styles.Searchinput} placeholder="Email Id" onChangeText={(a) => setEmail(a)} />
-        </View>
-        <View style={styles.InputView}>
-          <MaterialIcons
-            name={'lock-open'}
-            size={25}
-            color={'black'}
-          />
-          <TextInput style={styles.Searchinput} secureTextEntry={show ? true : false} placeholder="Password" onChangeText={(a) => setPassword(a)} />
-          <TouchableOpacity style={{ right: 30, }} onPress={() => setShow(!show)}>
-            <Ionicons
-              name={show ? 'eye-off' : 'eye'}
+          <View>
+            <Text style={styles.LoginTitle}>Login</Text>
+          </View>
+          <View style={styles.InputView}>
+            <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
+            <TextInput secureTextEntry={false} style={styles.Searchinput} placeholder="Email Id" onChangeText={(a) => setEmail(a)} />
+          </View>
+          <View style={styles.InputView}>
+            <MaterialIcons
+              name={'lock-open'}
               size={25}
               color={'black'}
             />
-          </TouchableOpacity>
-        </View>
+            <TextInput style={styles.Searchinput} secureTextEntry={show ? true : false} placeholder="Password" onChangeText={(a) => setPassword(a)} />
+            <TouchableOpacity style={{ right: 30, }} onPress={() => setShow(!show)}>
+              <Ionicons
+                name={show ? 'eye-off' : 'eye'}
+                size={25}
+                color={'black'}
+              />
+            </TouchableOpacity>
+          </View>
 
 
-        <View style={{ alignItems: 'center', margin: 20 }}>
-          <TouchableOpacity style={styles.ContinueBtn} onPress={() => loginHandler()}>
-            <Text style={styles.ContinueText}>{auth1.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Login'}</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={{ alignItems: 'center', margin: 20 }}>
+            <TouchableOpacity style={styles.ContinueBtn} onPress={() => loginHandler()}>
+              <Text style={styles.ContinueText}>{auth1.isLoading === true ? <ActivityIndicator size="small" color="#0000ff" /> : 'Login'}</Text>
+            </TouchableOpacity>
+          </View>
 
+          <View style={{ justifyContent: 'space-around',height: 200,
+        width: '100%',}}>
+            <View style={styles.Login}>
+              <Text style={{ textAlign: 'center', }}>Forgot Password?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('ForgotEmail')}>
+                <Text style={styles.Loginbtn}>Click</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.Login}>
+              <Text style={{ textAlign: 'center', }}>Signin With Phone Number</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('SigninWithPhone')}>
+                <Text style={styles.Loginbtn}>Click</Text>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.Login}>
-          <Text style={{ textAlign: 'center', }}>Forgot Password?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('ForgotEmail')}>
-            <Text style={styles.Loginbtn}>Click</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Login}>
-          <Text style={{ textAlign: 'center', }}>Signin With Phone Number</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SigninWithPhone')}>
-            <Text style={styles.Loginbtn}>Click</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={styles.Login}>
+              <Text style={{ textAlign: 'center', }}>Signin With Google</Text>
+              <TouchableOpacity onPress={() =>
+                // navigation.navigate('SigninWithPhone')
+                GoogleHandler()
+              } >
+                <Text style={styles.Loginbtn}>Click</Text>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.Login}>
-          <Text style={{ textAlign: 'center', }}>Signin With Google</Text>
-          <TouchableOpacity onPress={() =>
-            // navigation.navigate('SigninWithPhone')
-            GoogleHandler()
-          } >
-            <Text style={styles.Loginbtn}>Click</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={styles.Login}>
+              <Text style={{ textAlign: 'center', }}>You don't have an account ?</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+                <Text style={styles.Loginbtn}>Sign up</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
-        <View style={styles.Login}>
-          <Text style={{ textAlign: 'center', }}>You don't have an account ?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-            <Text style={styles.Loginbtn}>Sign up</Text>
-          </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
+      <StatusBar backgroundColor={'#dbffff'} barStyle={'dark-content'}/>
     </SafeAreaView>
   );
 };

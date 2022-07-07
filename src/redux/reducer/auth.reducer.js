@@ -36,7 +36,7 @@ export const authReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: '',
                 user: null,
-                authMsg: alert(action.payload),
+                authMsg: action.payload,
                 confirm: null
             }
         case ActionType.RESET_PASSWORD:
@@ -53,7 +53,7 @@ export const authReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: alert(action.payload),
                 confirm: null,
-                user: null,
+                // user: null,
                 authMsg: ''
             }
         case ActionType.OTP:
@@ -89,14 +89,13 @@ export const authReducer = (state = initValue, action) => {
                 ...state,
                 isLoading: false,
                 error: '',
-                user: null,
+                // user: null,
                 authMsg: '',
                 confirm: null,
-                uData: null,
                 userProfile: action.payload
             }
+
         default:
             return state
-
     }
 }

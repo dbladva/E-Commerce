@@ -6,7 +6,9 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView,
+  StatusBar
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -28,7 +30,6 @@ const Signup = ({ navigation }) => {
 
   const dispatch = useDispatch();
 const auth = useSelector(state => state.auth)
-
 
   const userHandler = () => {
 
@@ -53,6 +54,7 @@ const auth = useSelector(state => state.auth)
 
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView>
       <View style={styles.container}>
         {/* <View style={{ marginLeft: 20, marginTop: 10, }}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -71,7 +73,7 @@ const auth = useSelector(state => state.auth)
         </View>
 
         <View>
-          <Text style={styles.LoginTitle}> Sign Up</Text>
+          <Text style={styles.LoginTitle}>Sign Up</Text>
         </View>
         <View style={styles.InputView}>
           <Ionicons name={'at-circle-outline'} size={25} color={'black'} />
@@ -120,6 +122,8 @@ const auth = useSelector(state => state.auth)
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
+      <StatusBar backgroundColor={'#dbffff'} barStyle={'dark-content'}/>
     </SafeAreaView>
   );
 };

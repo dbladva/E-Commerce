@@ -18,10 +18,13 @@ export const createUserWithEmail = (data) => async (dispatch) => {
                             console.log(1);
                             firestore()
                                 .collection('Users')
+                                // console.log('uidddddddddddddd', user.uid)
                                 .add({
                                     email: data.email,
                                     name: data.name,
-                                    phone: data.phone
+                                    phone: data.phone,
+                                    picture: ' ',
+                                    uid: user.uid
                                 })
                                 .then(() => {
                                     console.log('User added!');
@@ -156,7 +159,6 @@ export const SigninWithGoogle = () => async (dispatch) => {
     } catch (error) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
-
 }
 
 export const userData = () => async (dispatch) => {
@@ -171,7 +173,7 @@ export const userData = () => async (dispatch) => {
 
 }
 
-export const userProfilePicture = (image,uid) => async (dispatch) => {
+export const userProfilePicture = (image, uid) => async (dispatch) => {
     try {
         let a = image.path.split("/")
         let fileName = a[a.length - 1];
@@ -182,11 +184,10 @@ export const userProfilePicture = (image,uid) => async (dispatch) => {
         dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: url })
         console.log(url);
 
-        // dispatch(uploadProfilePic(image, uid))
         try {
             firestore()
                 .collection('Users')
-                .doc('sOz5LNW1UydKeTJhX6Zs')
+                .doc()
                 .update({
                     picture: url,
                 })
@@ -205,17 +206,40 @@ export const userProfilePicture = (image,uid) => async (dispatch) => {
 
 }
 
-export const getUserProfilePicture = () => async (dispatch) => {
-    console.log('getUserProfilePicture');
+export const getUserProfilePicture = (uid) => async (dispatch) => {
+    console.log('uidddddddddddddd', uid);
     try {
         await firestore().collection('Users').doc('sOz5LNW1UydKeTJhX6Zs').get()
             .then((user) => {
                 console.log(user._data.picture);
-                dispatch({type:ActionType.USER_PROFILE_PICTURE,payload:user._data.picture})
+                if (user === undefined) {
+                    user = ''
+                    dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: user._data.picture })
+                } else {
+                    dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: user._data.picture })
+                }
             })
 
     } catch (error) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
 
+
+
+
+    // try {
+    //     await firestore().collection('Users').get()
+    //         .then((user) => {
+    //             // console.log(user);
+    //             user.docs.map((data) => {
+    //                 console.log(data)
+    //                 if (data._data.uid == uid){
+    //                     dispatch({type:ActionType.USER_PROFILE_PICTURE,payload:data._data.picture})
+    //                 }
+    //             })
+    //         })
+
+    // } catch (error) {
+    //     dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
+    // }
 }

@@ -10,32 +10,27 @@ import {
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Welcome = ({navigation}) => {
+const Welcome = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{marginLeft: 20, marginTop: 10,}}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <MaterialIcons
+      <View style={{ marginLeft: 20, marginTop: 10, }}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <MaterialIcons
             name={'menu'}
             size={25}
             color={'black'}
           />
-            </TouchableOpacity>
-        
-        </View>
-      <View style={styles.container}>
-        {/* <View style={{marginLeft: 20, marginTop: 10, flexDirection: 'row',alignItems: 'center'}}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <MaterialIcons name={'menu'} size={25} color={'black'} />
-          </TouchableOpacity>
-          <Text style={{textAlign: 'center',fontSize: 23,marginLeft: 30,fontWeight: '600'}}>Welcome</Text>
-        </View> */}
-        <View style={styles.AppLogo}>
-<Image style={styles.imagelogo} source={require('../../images/e.png')}/>
-        </View>
-        
+        </TouchableOpacity>
+
       </View>
-      {/* <StatusBar backgroundColor={'#dbffff'} /> */}
+      <View style={styles.container}>
+       
+        <View style={styles.AppLogo}>
+          <Image style={styles.imagelogo} source={require('../../images/e.png')} />
+        </View>
+
+      </View>
+      <StatusBar backgroundColor={'#dbffff'} barStyle={'dark-content'}/>
     </SafeAreaView>
   );
 };
@@ -43,16 +38,16 @@ const Welcome = ({navigation}) => {
 export default Welcome;
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     backgroundColor: '#dbffff',
   },
-  imagelogo:{
-height: 200,
-width: 200
+  imagelogo: {
+    height: 200,
+    width: 200
   },
-  AppLogo:{
+  AppLogo: {
     flex: 1,
-    justifyContent: 'center',alignItems: 'center',
+    justifyContent: 'center', alignItems: 'center',
   }
 });

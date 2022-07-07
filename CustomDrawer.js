@@ -32,7 +32,7 @@ const CustomDrawer = (props) => {
       height: 400,
       cropping: true
     }).then(async image => {
-      dispatch(userProfilePicture(image, auth.userData))
+      dispatch(userProfilePicture(image, auth.uData))
       setModalVisible(false)
     })
   }
@@ -51,7 +51,7 @@ const CustomDrawer = (props) => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-    dispatch(getUserProfilePicture())
+    dispatch(getUserProfilePicture(auth.uData))
     getData()
   }, [])
 

@@ -8,7 +8,8 @@ import {
   TextInput,
   Alert,
   FlatList,
-  RefreshControl
+  RefreshControl,
+  StatusBar
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -344,8 +345,9 @@ const Product = ({ navigation }) => {
               />
             </View>
         }
-        {/* </ScrollView> */}
+    
       </View>
+      <StatusBar backgroundColor={'#d0c2e8'} barStyle={'dark-content'}/>
     </SafeAreaView>
   );
 };
