@@ -9,7 +9,8 @@ import {
   Alert,
   FlatList,
   RefreshControl,
-  StatusBar
+  StatusBar,
+  Image
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -18,6 +19,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectDropdown from 'react-native-select-dropdown'
 import { ScrollView } from 'react-native-gesture-handler';
+import storage from '@react-native-firebase/storage';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import {
   CloudToGetproduct,
@@ -35,6 +38,8 @@ const Product = ({ navigation }) => {
   const [detais, setDetails] = useState('');
   const [price, setPrice] = useState('');
   const [location, setLocation] = useState('');
+  const [url, seturl] = useState('');
+
   const [submit, setSubmit] = useState(0);
   const [id, setId] = useState(0);
   const [category, setCategory] = useState('');
@@ -59,7 +64,8 @@ const Product = ({ navigation }) => {
         detais == '' ||
         category == '' ||
         price == '' ||
-        location == ''
+        location == '' ||
+        url == ''
       )
     ) {
       let pData = {
@@ -68,12 +74,14 @@ const Product = ({ navigation }) => {
         price,
         category,
         location,
+        url
       };
       dispatch(insertProduct(pData));
       setName(''), setDetails('');
       setPrice('');
       setLocation('');
       setCategory('');
+      seturl('')
     } else {
       alert('Fillup All Details...');
     }
@@ -123,12 +131,12 @@ const Product = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => {
+    console.log('llllllll',item.productImage);
     return (
       product.isLoading === true ?
         <ActivityIndicator size="large" color="#000000" />
         :
         <View
-
           style={{
             backgroundColor: '#d0c2e8',
             margin: 5,
@@ -151,6 +159,13 @@ const Product = ({ navigation }) => {
               <MaterialIcons name={'delete'} size={20} color={'red'} />
             </TouchableOpacity>
           </View>
+
+
+<View style={{alignItems: 'center',margin: 5,}}>
+  <Image style={{height: 50,width: 50,borderRadius: 50,}} source={{
+    uri: item.productImage
+  }} />
+</View>
 
           <Text style={styles.locationView}>
             <Ionicons name={'location'} size={15} color={'black'} />
@@ -179,6 +194,25 @@ const Product = ({ navigation }) => {
       { text: 'OK', onPress: () => dispatch(deleteProduct(id)) },
     ]);
   };
+
+  const GallaryHandler = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(async image => {
+      console.log(image);
+      // dispatch(userProfilePicture(image, auth.uData))
+      let a = image.path.split("/")
+      let fileName = a[a.length - 1];
+      console.log(fileName);
+      const reference = storage().ref('/product/' + fileName);
+      await reference.putFile(image.path);
+      const url = await storage().ref('/product/' + fileName).getDownloadURL();
+      console.log(url);
+      seturl(url)
+    })
+  }
 
   return (
 
@@ -299,6 +333,18 @@ const Product = ({ navigation }) => {
               />
             </View>
           </View>
+
+          <View style={styles.ProductData}>
+            <View style={styles.productNameView}>
+              <Text style={styles.ProductText}>Product Image</Text>
+            </View>
+            <View style={styles.ProductTextInput}>
+                <TouchableOpacity onPress={() => GallaryHandler()}>
+                  <Text style={{paddingVertical: 5,paddingHorizontal: 10,backgroundColor: 'blue',borderRadius: 5,}}>Pick Image</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+          
         </View>
 
         {submit ? (

@@ -32,7 +32,6 @@ export const insertedProduct = (data) => (dispatch) => {
   dispatch({ type: ActionType.INSERTED_PRODUCT, payload: data })
 }
 export const insertProduct = (product) => (dispatch) => {
-
   try {
     dispatch(loadingProduct())
     firestore()
@@ -42,7 +41,8 @@ export const insertProduct = (product) => (dispatch) => {
         price: product.price,
         details: product.details,
         category: product.category,
-        location: product.location
+        location: product.location,
+        productImage: product.url
       })
       .then((product1) => {
         dispatch({ type: ActionType.INSERTED_PRODUCT, payload: { id: product1.id, ...product } })

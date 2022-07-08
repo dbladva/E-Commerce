@@ -58,7 +58,6 @@ const CustomDrawer = (props) => {
 
 
   const getData = async () => {
-
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
