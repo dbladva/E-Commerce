@@ -9,10 +9,12 @@ import {
 } from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+  
 
 const Welcome = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={'#dbffff'} barStyle={'dark-content'}/>
       <View style={{ marginLeft: 20, marginTop: 10, }}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <MaterialIcons
@@ -30,7 +32,6 @@ const Welcome = ({ navigation }) => {
         </View>
 
       </View>
-      <StatusBar backgroundColor={'#dbffff'} barStyle={'dark-content'}/>
     </SafeAreaView>
   );
 };

@@ -185,19 +185,40 @@ export const userProfilePicture = (image, uid) => async (dispatch) => {
         console.log(url);
 
         try {
-            firestore()
-                .collection('Users')
-                .doc()
-                .update({
-                    picture: url,
+            await firestore()
+            .collection('Users')
+            .get()
+            .then((data) =>{
+                // console.log('ddddd',data.docs._data);
+                data.docs.map((data) => {
+                    // data._data.map((data) => {
+                        const a = data._data;
+                        
+                      
+                        if(a.uid === uid){
+                            console.log('mathedddddddddddd');
+                            try {
+                                firestore()
+                                    .collection('Users')
+                                    .doc(a.uid)
+                                    .update({
+                                        picture: url,
+                                    })
+                                    .then(() => {
+                                        console.log('Profile picture Added !');
+                                    });
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        }
+                    
                 })
-                .then(() => {
-                    console.log('Profile picture Added !');
-                });
+            })
         } catch (error) {
             console.log(error);
         }
 
+       
 
     } catch (error) {
         console.log(error);

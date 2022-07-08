@@ -340,8 +340,14 @@ const Product = ({ navigation }) => {
             </View>
             <View style={styles.ProductTextInput}>
                 <TouchableOpacity onPress={() => GallaryHandler()}>
-                  <Text style={{paddingVertical: 5,paddingHorizontal: 10,backgroundColor: 'blue',borderRadius: 5,}}>Pick Image</Text>
+                  <Text style={{paddingVertical: 5,paddingHorizontal: 10,backgroundColor: '#f9c2ff',borderRadius: 5,color: 'black'}}>Pick Image</Text>
             </TouchableOpacity>
+            {
+              url !== '' ?
+              <Image style={{height: 30,width: 30}} source={require('../../images/right.png')} />
+              :
+            <View><Text>Image Not Added</Text></View>
+            }
             </View>
           </View>
           
@@ -439,7 +445,9 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   ProductTextInput: {
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   ProductText: {
     marginLeft: 3,
@@ -501,7 +509,7 @@ const styles = StyleSheet.create({
   locationView: {},
 
   dropdown: {
-    height: 200,
+    height: 20,
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,

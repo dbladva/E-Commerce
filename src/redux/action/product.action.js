@@ -217,7 +217,6 @@ export const updatedProduct = (data) => (dispatch) => {
 export const CloudToGetproduct = () => async (dispatch) => {
   try {
   dispatch(loadingProduct())
-
     let data = [];
     await firestore()
       .collection('Product')

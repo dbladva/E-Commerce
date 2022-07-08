@@ -73,7 +73,7 @@ const HomeScreenHandler = () => {
 
                 },
                 tabBarActiveTintColor: 'red',
-
+                tabBarShowLabel: false,
                 tabBarInactiveTintColor: 'blue',
                 headerShown: false,
                 // tabBarActiveBackgroundColor: '#d0c2e8',
@@ -82,8 +82,6 @@ const HomeScreenHandler = () => {
 
             <Tab.Screen name="Welc" component={Welcome} />
             <Tab.Screen name="Home" component={Home} />
-            {/* <Tab.Screen name="Sign" component={Login} /> */}
-            {/* <Tab.Screen name="Forgot" component={ForgotEmail} /> */}
         </Tab.Navigator>
     );
 };
@@ -114,18 +112,18 @@ export default function Main() {
 
     useEffect(() => {
         dispatch(userData())
-    },[])
+    }, [])
 
 
     let auth = useSelector(state => state.auth);
-    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd',auth.uData); 
+    console.log("aaaaaaaaaaaaa", auth.user + '  uidddddd', auth.uData);
     // console.log('data',auth.uData);
 
 
     return (
         auth.isLoading === true ?
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size="large" color="rgba(79, 225, 56, 1)" />
             </View>
             :
             auth.user !== null || auth.uData !== null ?
