@@ -165,7 +165,6 @@ export const userData = () => async (dispatch) => {
     try {
         dispatch(Loading())
         const value = await AsyncStorage.getItem('user');
-        // console.log('valueeeeeeeeeeeeee', value);
         dispatch({ type: ActionType.USER_DATA, payload: value })
     } catch (e) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
@@ -185,22 +184,22 @@ export const userProfilePicture = (image, uid) => async (dispatch) => {
         console.log(url);
 
         try {
+            dispatch(Loading())
             await firestore()
-            .collection('Users')
-            .get()
-            .then((data) =>{
-                // console.log('ddddd',data.docs._data);
-                data.docs.map((data) => {
-                    // data._data.map((data) => {
+                .collection('Users')
+                .get()
+                .then((data) => {
+                    data.docs.map((data) => {
                         const a = data._data;
-                        
-                      
-                        if(a.uid === uid){
-                            console.log('mathedddddddddddd');
+
+
+                        if (a.uid === uid) {
+                            console.log(data.id);
+                            // console.log('mathedddddddddddd');
                             try {
                                 firestore()
                                     .collection('Users')
-                                    .doc(a.uid)
+                                    .doc(data.id)
                                     .update({
                                         picture: url,
                                     })
@@ -211,56 +210,35 @@ export const userProfilePicture = (image, uid) => async (dispatch) => {
                                 console.log(error);
                             }
                         }
-                    
+
+                    })
                 })
-            })
         } catch (error) {
             console.log(error);
         }
-
-       
-
     } catch (error) {
         console.log(error);
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
-
 }
 
 export const getUserProfilePicture = (uid) => async (dispatch) => {
-    console.log('uidddddddddddddd', uid);
+    // dispatch(Loading())
     try {
-        await firestore().collection('Users').doc('sOz5LNW1UydKeTJhX6Zs').get()
+        await firestore()
+            .collection('Users')
+            .get()
             .then((user) => {
-                console.log(user._data.picture);
-                if (user === undefined) {
-                    user = ''
-                    dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: user._data.picture })
-                } else {
-                    dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: user._data.picture })
-                }
+                // console.log(user);
+                user.docs.map((data) => {
+                    const a = data._data
+                    if (a.uid == uid) {
+                        console.log('matheddd');
+                        dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: data._data.picture })
+                    }
+                })
             })
-
     } catch (error) {
         dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
     }
-
-
-
-
-    // try {
-    //     await firestore().collection('Users').get()
-    //         .then((user) => {
-    //             // console.log(user);
-    //             user.docs.map((data) => {
-    //                 console.log(data)
-    //                 if (data._data.uid == uid){
-    //                     dispatch({type:ActionType.USER_PROFILE_PICTURE,payload:data._data.picture})
-    //                 }
-    //             })
-    //         })
-
-    // } catch (error) {
-    //     dispatch({ type: ActionType.AUTH_ERROR, payload: error.code })
-    // }
 }
