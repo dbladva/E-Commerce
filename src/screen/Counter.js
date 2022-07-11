@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { color } from 'react-native-reanimated'
 import { counterDecrement, counterIncrement } from '../redux/action/counter.action'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import PushNotification, {Importance} from 'react-native-push-notification';
 
 const Counter = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -15,6 +16,14 @@ const Counter = ({ navigation }) => {
 
     const handleDecrement = () => {
         dispatch(counterDecrement())
+    }
+
+    const handleNotification = () => {
+        PushNotification.localNotification({
+            channelId: "channel-id",
+            title: 'Notification example',
+            message: 'Hello'
+        })
     }
 
     console.log(count.count1);
@@ -42,6 +51,10 @@ const Counter = ({ navigation }) => {
             </Text>
             <TouchableOpacity onPress={() => handleDecrement()} style={styles.box2}>
                 <Text style={{ fontSize: 25, color: 'white' }}> - </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleNotification()} style={styles.box2}>
+                <Text style={{ fontSize: 25, color: 'white' }}> Notification </Text>
             </TouchableOpacity>
         </View>
         </SafeAreaView>
