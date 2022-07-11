@@ -184,15 +184,13 @@ export const userProfilePicture = (image, uid) => async (dispatch) => {
         console.log(url);
 
         try {
-            dispatch(Loading())
+            // dispatch(Loading())
             await firestore()
                 .collection('Users')
                 .get()
                 .then((data) => {
                     data.docs.map((data) => {
                         const a = data._data;
-
-
                         if (a.uid === uid) {
                             console.log(data.id);
                             // console.log('mathedddddddddddd');
@@ -229,12 +227,11 @@ export const getUserProfilePicture = (uid) => async (dispatch) => {
             .collection('Users')
             .get()
             .then((user) => {
-                // console.log(user);
                 user.docs.map((data) => {
                     const a = data._data
                     if (a.uid == uid) {
                         console.log('matheddd');
-                        dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: data._data.picture })
+                        dispatch({ type: ActionType.USER_PROFILE_PICTURE, payload: data._data.picture})
                     }
                 })
             })

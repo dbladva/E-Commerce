@@ -13,8 +13,6 @@ const CustomDrawer = (props) => {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
 
-  // console.log('picturerrrrr', JSON.stringify(auth.userProfile))
-
   let profileImage = JSON.stringify(auth.userProfile)
   const LogoutHandler = () => {
     dispatch(signoutEmail())
@@ -28,8 +26,8 @@ const CustomDrawer = (props) => {
 
   const GallaryHandler = async () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      width: 150,
+      height: 200,
       cropping: true
     }).then(async image => {
       dispatch(userProfilePicture(image, auth.uData))
@@ -39,8 +37,8 @@ const CustomDrawer = (props) => {
 
   const cameraHandler = () => {
     ImagePicker.openCamera({
-      width: 300,
-      height: 400,
+      width: 150,
+      height: 200,
       cropping: true,
     }).then(image => {
       // setImage(image.path)
