@@ -27,6 +27,7 @@ import { Loading, signoutEmail, userData } from './redux/action/auth.action';
 import SigninWithPhone from './screen/Login/SignInWithPhone';
 import Otp from './screen/Login/Otp';
 import { Dispatch } from 'react-redux';
+import Detail from './screen/Home/Detail';
 // import Promises from './screen/promises';
 
 const Stack = createNativeStackNavigator();
@@ -34,19 +35,7 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const HomeScreenHandler = () => {
-    // const [uid, setUid] = useState('')
-    // const getData = async () => {
-    //     try {
-    //         const value = await AsyncStorage.getItem('user')
-    //         if (value !== null) {
-    //             setUid(value)
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-    // getData()
-    // console.log('uidddddddd', uid);
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -79,35 +68,32 @@ const HomeScreenHandler = () => {
                 // tabBarActiveBackgroundColor: '#d0c2e8',
                 // tabBarInactiveBackgroundColor: '#d0c2e8',
             })}>
-
             <Tab.Screen name="Welc" component={Welcome} />
-            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Home" component={Homestack} />
+            {/* <Tab.Screen name="Home" component={Home} /> */}
         </Tab.Navigator>
     );
 };
+
+
+const Homestack = () => {
+    return (
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Home" component={Home} 
+                 />
+                <Stack.Screen name="Detail" component={Detail} />
+            </Stack.Navigator>
+
+    )
+}
+
+
 
 export default function Main() {
 
 
     const [load, setLoad] = useState(false)
-    // const [uid, setUid] = useState(null)
-    // useEffect(
-    //     () => {
-    //         getData();
-    //     },[])
 
-    // const getData = async () => {
-    //     try {
-    //         dispatch(Loading())
-    //         const value = await AsyncStorage.getItem('user');
-    //         if (value !== null) {
-    //             setUid(value)
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-
-    // }
     let dispatch = useDispatch()
 
     useEffect(() => {

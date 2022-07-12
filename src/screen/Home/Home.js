@@ -24,6 +24,7 @@ const Home = ({ navigation }) => {
   renderItem = ({ item }) => {
     return (
       <View style={{ elevation: 6, shadowColor: 'black', width: '40%', backgroundColor: 'rgba(238, 223, 230, 1)', marginHorizontal: 10, marginVertical: 10, borderRadius: 10, padding: 10, justifyContent: 'space-around' }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, }}>
           <Ionicons style={{ alignSelf: 'center', marginRight: 3, }} name={'location'} size={15} color={'black'} />
           <Text style={{ color: '#666666', fontWeight: '600', }}>{item.location}</Text>
@@ -33,6 +34,7 @@ const Home = ({ navigation }) => {
         <Image style={{ height: 100, width: 100, alignSelf: 'flex-end', borderRadius: 50, marginTop: 10, }} source={{
           uri: item.productImage
         }} />
+        </TouchableOpacity>
       </View>
     )
   }
