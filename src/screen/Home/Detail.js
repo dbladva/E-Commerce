@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const Detail = () => {
   return (
-    <View style={styles.container}>
-      <Text>Detail</Text>
-
-    </View>
+    <SafeAreaView style={styles.container}>
+      
+    </SafeAreaView>
   )
 }
 
