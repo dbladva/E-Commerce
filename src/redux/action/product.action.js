@@ -236,4 +236,14 @@ export const CloudToGetproduct = () => async (dispatch) => {
   }
 
 }
+export const productDetails = (itemId) => async (dispatch) => {
+  await firestore()
+  .collection('Product')
+  .doc(itemId)
+  .get()
+  .then((data) => {
+    // console.log('dddddddddddddddddddd',data._data)
+    dispatch({type: ActionType.PRODUCT_DETAILS,payload: data._data})
+  })
+}
 

@@ -51,6 +51,13 @@ export const productReducer = (state = initValue, action) => {
                 isLoading: false,
                 error: action.payload
             }
+            case ActionType.PRODUCT_DETAILS:
+            return {
+                ...state,
+                product: action.payload,
+                isLoading: false,
+                error: ''
+            }
         default:
             return state
 

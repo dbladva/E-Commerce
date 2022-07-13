@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CloudToGetproduct } from '../../redux/action/product.action';
 
 
-const Home = ({ navigation }) => {
+const Home = ({ route ,navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
   renderItem = ({ item }) => {
     return (
       <View style={{ elevation: 6, shadowColor: 'black', width: '40%', backgroundColor: 'rgba(238, 223, 230, 1)', marginHorizontal: 10, marginVertical: 10, borderRadius: 10, padding: 10, justifyContent: 'space-around' }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Detail',{id:item.id})}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, }}>
           <Ionicons style={{ alignSelf: 'center', marginRight: 3, }} name={'location'} size={15} color={'black'} />
           <Text style={{ color: '#666666', fontWeight: '600', }}>{item.location}</Text>

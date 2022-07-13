@@ -24,5 +24,6 @@ export const OTP = "OTP"
 export const LOADING_AUTH = "LOADING_AUTH"
 export const USER_DATA = "USER_DATA"
 export const USER_PROFILE_PICTURE = "USER_PROFILE_PICTURE"
+export const PRODUCT_DETAILS = "PRODUCT_DETAILS"
 
 //

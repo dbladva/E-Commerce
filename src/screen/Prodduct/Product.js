@@ -131,7 +131,6 @@ const Product = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => {
-    console.log('llllllll',item.productImage);
     return (
       product.isLoading === true ?
         <ActivityIndicator size="large" color="#000000" />
@@ -387,9 +386,10 @@ const Product = ({ navigation }) => {
             <View style={{ margin: 10, padding: 10, flex: 1 }}>
               <FlatList
                 style={{ borderRadius: 10 }}
-                data={product.product.map((a) => {
-                  return a
-                })}
+                // data={product.product.map((a) => {
+                //   return a
+                // })}
+                data={product.product}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
