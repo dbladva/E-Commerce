@@ -21,7 +21,7 @@ const Home = ({ route ,navigation }) => {
   }, [])
 
 
-  renderItem = ({ item }) => {
+  const renderItem = ({ item }) => {
     return (
       <View style={{ elevation: 6, shadowColor: 'black', width: '40%', backgroundColor: 'rgba(238, 223, 230, 1)', marginHorizontal: 10, marginVertical: 10, borderRadius: 10, padding: 10, justifyContent: 'space-around' }}>
         <TouchableOpacity onPress={() => navigation.navigate('Detail',{id:item.id})}>
