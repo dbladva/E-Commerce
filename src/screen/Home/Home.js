@@ -19,6 +19,7 @@ const Home = ({ route,navigation }) => {
     dispatch(CloudToGetproduct())
   }, [])
 
+  
   const refreshHandler = () => {
     dispatch(CloudToGetproduct())
   }
