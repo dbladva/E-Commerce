@@ -8,20 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CloudToGetproduct } from '../../redux/action/product.action';
 
 
-const Home = ({ route ,navigation }) => {
+const Home = ({ route,navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
   const product = useSelector(state => state.product)
-
   const dispatch = useDispatch()
+
 
   useEffect(() => {
     dispatch(CloudToGetproduct())
   }, [])
 
-
-  renderItem = ({ item }) => {
+  const refreshHandler = () => {
+    dispatch(CloudToGetproduct())
+  }
+   const renderItem = ({ item }) => {
     return (
       <View style={{ elevation: 6, shadowColor: 'black', width: '40%', backgroundColor: 'rgba(238, 223, 230, 1)', marginHorizontal: 10, marginVertical: 10, borderRadius: 10, padding: 10, justifyContent: 'space-around' }}>
         <TouchableOpacity onPress={() => navigation.navigate('Detail',{id:item.id})}>
@@ -40,14 +41,15 @@ const Home = ({ route ,navigation }) => {
   }
 
   return (
+   
     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
        <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'} hidden={false} translucent={false}  animated={true}/>
       <View style={{ marginHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
         <TouchableOpacity style={{}} onPress={() =>  navigation.goBack()}>
           <Ionicons style={{ backgroundColor: 'rgba(238, 223, 230, 0.35)', padding: 15, borderRadius: 10, height: 50, width: 50, }} name={'chevron-back'} size={20} color={'black'} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons style={{ padding: 15, borderRadius: 10, height: 50, width: 50, }} name={'menu-outline'} size={20} color={'black'} />
+        <TouchableOpacity onPress={() => refreshHandler()}>
+          <Ionicons style={{ padding: 15, borderRadius: 10, height: 50, width: 50, }} name={'refresh'} size={20} color={'black'} />
         </TouchableOpacity>
       </View>
 
@@ -63,14 +65,22 @@ const Home = ({ route ,navigation }) => {
 
       {/* Itemsssss */}
 
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginTop: 20, flexWrap: 'wrap', width: '100%', marginHorizontal: 20, }}>
-        <FlatList
+        {
+          product.isLoading === true ? 
+           <View >
+             <ActivityIndicator size="large" color="#0000000" />
+           </View>
+           :
+             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginTop: 20, flexWrap: 'wrap', width: '100%', marginHorizontal: 20, }}>
+           <FlatList
           numColumns={'2'}
           data={product.product}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
       </View>
+        }
+        
 
      
     </SafeAreaView>
