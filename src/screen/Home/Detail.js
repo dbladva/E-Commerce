@@ -80,7 +80,7 @@ const Detail = ({ route, navigation }) => {
               urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
               merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
             >
-              <CheckoutScreen />
+              <CheckoutScreen n = {navigation} />
             </StripeProvider>
           </View>
         </View>
@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
   cartBtn: {
     position: 'absolute',
     right: 0,
-    bottom: 100,
+    
+    bottom: 0,
     // height: 50,
     // width: 120,
     backgroundColor: '#rgba(25, 24, 24, 0.88)',

@@ -2,13 +2,15 @@ import { View, Text, Button, SafeAreaView, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useStripe } from '@stripe/stripe-react-native';
 
-export default function CheckoutScreen() {
+export default function CheckoutScreen(props,{navigation}) {
+    navigation = props.n
+    
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [loading, setLoading] = useState(false);
     const [clientSecretKey, setClientSecretKey] = useState('')
 
     const fetchPaymentSheetParams = async () => {
-        const response = await fetch(`http://192.168.2.235:4242/create-payment-intent`, {
+        const response = await fetch(`http://192.168.1.10:4242/create-payment-intent`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,6 +52,7 @@ export default function CheckoutScreen() {
             Alert.alert(`Error code: ${error.code}`, error.message);
         } else {
             Alert.alert('Success', 'Your order is confirmed!');
+            navigation.navigate('Welc')
         }
     };
 
