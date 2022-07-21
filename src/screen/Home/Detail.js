@@ -7,30 +7,35 @@ import { productDetails } from '../../redux/action/product.action'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useState } from 'react'
+import { StripeProvider, useStripe } from '@stripe/stripe-react-native'
+import CheckoutScreen from './CheckoutScreen'
 
 const Detail = ({ route, navigation }) => {
+  const product = useSelector(state => state.product)
+  const [favorite, setFavorite] = useState(0)
   const { id } = route.params;
 
 
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // initializePaymentSheet();
     dispatch(productDetails(id))
   }, [])
 
-  const product = useSelector(state => state.product)
-
-  const [favorite,setFavorite] = useState(0)
 
   return (
     <SafeAreaView style={styles.container}>
+
+
       <View style={styles.mainView}>
         <TouchableOpacity style={styles.backArrow} onPress={() => navigation.navigate('Home')}>
           <AntDesign size={30} color='#000000' name='arrowleft' />
         </TouchableOpacity>
         <View style={styles.imageBox}>
           <Image style={styles.itemImage} source={{
-              uri: product.product.productImage}} />
+            uri: product.product.productImage
+          }} />
         </View>
 
         <View style={styles.itemName}>
@@ -44,7 +49,7 @@ const Detail = ({ route, navigation }) => {
             <AntDesign size={30} color='#000000' name='minus' />
           </View>
           <Text style={styles.descriptionData}>
-           {product.product.details}
+            {product.product.details}
           </Text>
         </View>
 
@@ -58,27 +63,31 @@ const Detail = ({ route, navigation }) => {
             </Text>
           </View>
 
-{
-  favorite === 0 ? 
-  <TouchableOpacity style={styles.addToFavorite} onPress={() => setFavorite(1)}>
-  <AntDesign size={15} color='#656565' name='heart' />
-</TouchableOpacity>
-: 
-<TouchableOpacity style={styles.addToFavorite} onPress={() => setFavorite(0)}>
-<AntDesign size={15} color='red' name='heart' />
-</TouchableOpacity>
-}
-          
+          {
+            favorite === 0 ?
+              <TouchableOpacity style={styles.addToFavorite} onPress={() => setFavorite(1)}>
+                <AntDesign size={15} color='#656565' name='heart' />
+              </TouchableOpacity>
+              :
+              <TouchableOpacity style={styles.addToFavorite} onPress={() => setFavorite(0)}>
+                <AntDesign size={15} color='red' name='heart' />
+              </TouchableOpacity>
+          }
 
           <View style={styles.cartBtn}>
-            <TouchableOpacity>
-              <Text style={styles.cartAddBtnText}>ADD TO CART</Text>
-            </TouchableOpacity>
+            <StripeProvider
+              publishableKey="pk_test_51LNYxZSDfkRpEt9y8Qnga24uWhgyLC6ONu3eMLnzuIvbpaVwDQTJd7wPTefythkquVUnyIIfCM8h1S7iP3s6yK4m00mbWVxSXi"
+              urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+              merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+            >
+              <CheckoutScreen />
+            </StripeProvider>
           </View>
         </View>
 
       </View>
       <StatusBar backgroundColor={'#DBDBDB'} barStyle={'dark-content'} />
+
     </SafeAreaView>
   )
 }
@@ -180,10 +189,12 @@ const styles = StyleSheet.create({
   cartBtn: {
     position: 'absolute',
     right: 0,
+    bottom: 100,
     // height: 50,
     // width: 120,
     backgroundColor: '#rgba(25, 24, 24, 0.88)',
     borderRadius: 100,
+    marginBottom: 100
   },
   cartAddBtnText: {
     fontWeight: '600',

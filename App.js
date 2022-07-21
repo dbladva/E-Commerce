@@ -7,10 +7,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 import SplashScreen from 'react-native-splash-screen'
 import Main from './src/Main';
 import PushNotification, {Importance} from 'react-native-push-notification';
+import { StripeProvider } from '@stripe/stripe-react-native'; 
+import Detail from './src/screen/Home/Detail';
 
 const App = () => {
   
-
   useEffect(() => {
     SplashScreen.hide();
     PushNotification.createChannel(
@@ -29,8 +30,10 @@ const App = () => {
     
   const { store, persistor } = configStore();
   return (
+    
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+      
         <Main />
       </PersistGate>
     </Provider>
